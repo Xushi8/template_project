@@ -1,25 +1,26 @@
 #include <fmt/core.h>
-#include <boost/asio.hpp>
+#include <asio/asio.hpp>
 using fmt::print;
 
-boost::asio::awaitable<void> listener()
+asio::awaitable<void> listener()
 {
-	auto executor = co_await boost::asio::this_coro::executor;
-	boost::asio::ip::tcp::acceptor acceptor(executor, {boost::asio::ip::tcp::v6(), 10086});
+	auto executor = co_await asio::this_coro::executor;
+	asio::ip::tcp::acceptor acceptor(executor, {asio::ip::tcp::v6(), 10086});
 }
 
 int main()
 {
 	try
 	{
-		boost::asio::io_context ctx;
-		boost::asio::signal_set signals(ctx, SIGINT, SIGTERM);
+		asio::io_context ctx;
+		asio::signal_set signals(ctx, SIGINT, SIGTERM);
 		signals.async_wait([&](auto, auto)
 			{
 				ctx.stop();
 			});
 
-		co_spawn(ctx, listener(), boost::asio::detached);
+		co_spawn(ctx, listener(), asio::detached);
+		ctx.run();
 	}
 	catch (std::exception const& e)
 	{

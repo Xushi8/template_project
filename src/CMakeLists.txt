@@ -11,11 +11,10 @@ PUBLIC
     Threads::Threads
     OpenMP::OpenMP_CXX
     TBB::tbb
-    fmt::fmt
-    Boost::system
+    # Boost::system
 
-    ${GMP_LIBRARIES}
-    ${GMPXX_LIBRARIES}
+    # ${GMP_LIBRARIES}
+    # ${GMPXX_LIBRARIES}
     # ${MARIADB_LIBRARIES}
 
     # external
@@ -23,5 +22,5 @@ PUBLIC
 
 target_include_directories (${PROJECT_NAME}
 PUBLIC
-    ${GMP_INCLUDE_DIR}
+    # ${GMP_INCLUDE_DIR}
 )

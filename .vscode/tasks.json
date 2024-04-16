@@ -16,7 +16,7 @@
                 // "-DCMAKE_BUILD_TYPE=Debug",
                 // "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
-                "-DCMAKE_VERBOSE_MAKEFILE=ON", // 打印详细信息
+                // "-DCMAKE_VERBOSE_MAKEFILE=ON", // 打印详细信息
                 "-DCMAKE_EXPORT_COMPILE_COMMANDS=True" // 让cmake生成compile_commands.json
             ]
         },
