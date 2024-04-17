@@ -432,6 +432,6 @@ namespace idgen
         static IdGenerator *instance;
     };
 
-    IdGenerator *IdGenerator::instance = nullptr;
+    inline IdGenerator *IdGenerator::instance = nullptr;
 
 } // namespace idgen
