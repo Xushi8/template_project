@@ -5,6 +5,12 @@
  */
 
 #pragma once
+
+#ifdef __GNUC__
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wsequence-point"
+#endif
+
 #include <assert.h>
 #include <cstdint>
 #include <chrono>
