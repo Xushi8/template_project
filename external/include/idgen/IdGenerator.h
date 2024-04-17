@@ -9,6 +9,9 @@
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wsequence-point"
+#elif defined __clang__
+#pragma clang diagnostic ignored "-Wunused-parameter"
+#pragma clang diagnostic ignored "-Wsequence-point"
 #endif
 
 #include <assert.h>
