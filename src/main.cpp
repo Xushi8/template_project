@@ -1,3 +1,4 @@
+#include <mimalloc-new-delete.h>
 #include <fmt/core.h>
 #include <asio/asio.hpp>
 using fmt::print;

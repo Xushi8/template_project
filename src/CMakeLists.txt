@@ -11,6 +11,7 @@ PUBLIC
     Threads::Threads
     OpenMP::OpenMP_CXX
     TBB::tbb
+    mimalloc
     # Boost::system
 
     # ${GMP_LIBRARIES}
