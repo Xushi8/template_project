@@ -1,8 +1,8 @@
-add_executable (${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
-add_subdirectory (my_basic_library)
+add_subdirectory(my_basic_library)
 
-target_link_libraries (${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
 PUBLIC
     # src
     my_basic_library
@@ -20,7 +20,7 @@ PUBLIC
     # external
 )
 
-target_include_directories (${PROJECT_NAME}
+target_include_directories(${PROJECT_NAME}
 PUBLIC
     # ${GMP_INCLUDE_DIR}
 )
