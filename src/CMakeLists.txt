@@ -1,27 +1,33 @@
-add_executable(${PROJECT_NAME} main.cpp)
-
 add_subdirectory(my_basic_library)
 
-target_link_libraries(${PROJECT_NAME}
-PUBLIC
-    # src
-    my_basic_library
-    
-    # package
-    Threads::Threads
-    OpenMP::OpenMP_CXX
-    TBB::tbb
-    mimalloc
-    # Boost::system
-
-    # ${GMP_LIBRARIES}
-    # ${GMPXX_LIBRARIES}
-    # ${MARIADB_LIBRARIES}
-
-    # external
+set(TARGETS
+    template_project
 )
 
-target_include_directories(${PROJECT_NAME}
-PUBLIC
-    # ${GMP_INCLUDE_DIR}
-)
+foreach(name ${TARGETS})
+    add_executable(${name} ${name}.cpp)
+    target_link_libraries(${name}
+    PUBLIC
+        # src
+        my_basic_library
+        
+        # package
+        Threads::Threads
+        OpenMP::OpenMP_CXX
+        TBB::tbb
+        mimalloc
+        # Boost::system
+
+        # ${GMP_LIBRARIES}
+        # ${GMPXX_LIBRARIES}
+        # ${MARIADB_LIBRARIES}
+
+        # external
+    )
+
+    target_include_directories(${name}
+    PUBLIC
+        # ${GMP_INCLUDE_DIR}
+    )
+endforeach(name ${TARGETS})
+
