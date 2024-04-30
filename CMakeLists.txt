@@ -20,6 +20,8 @@ endif()
 
 # set(BUILD_SHARED_LIBS ON)
 
+set(CMAKE_UNITY_BUILD ON)
+
 include(./cmake/options.cmake)
 include(./cmake/compiler_options.cmake)
 include(./cmake/compiler_definitions.cmake)
