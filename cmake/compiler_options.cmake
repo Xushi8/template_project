@@ -1,4 +1,4 @@
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # add_compile_options(-march=native)
 
     # add_compile_options(-mavx)
@@ -12,8 +12,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 
     # optimize
     add_compile_options(-ffast-math -fno-semantic-interposition)
-    add_compile_options(-flto=auto -fuse-linker-plugin -pipe)
-    add_compile_options(-fuse-ld=mold)
+    add_compile_options(-flto=auto -pipe)
     
     # PGO
     # add_compile_options(-fprofile-generate=pgo_files)
@@ -32,12 +31,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    # add_compile_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta)
+    # add_compile_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
     # add_compile_options(-floop-nest-optimize)
 endif()
 
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # add_link_options(-march=native)
 
     # add_link_options(-mavx)
@@ -51,7 +50,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 
     # optimize
     add_link_options(-ffast-math -fno-semantic-interposition)
-    add_link_options(-flto=auto -fuse-linker-plugin -pipe)
+    add_link_options(-flto=auto -pipe)
     add_link_options(-fuse-ld=mold)
     
     # PGO
@@ -71,6 +70,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    # add_link_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta)
+    # add_link_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
     # add_link_options(-floop-nest-optimize)
 endif()
