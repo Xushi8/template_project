@@ -20,3 +20,7 @@ endif()
 # set(CMAKE_UNITY_BUILD ON)
 
 option(USE_MOLD "Use mold linker" OFF)
+
+if(NOT CMAKE_COLOR_DIAGNOSTICS)
+    set(CMAKE_COLOR_DIAGNOSTICS ON)
+endif()

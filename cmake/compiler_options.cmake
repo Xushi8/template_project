@@ -8,8 +8,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     add_compile_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith)
     # add_compile_options(-Wsign-conversion)
 
-    add_compile_options(-fdiagnostics-color=always)
-
     # optimize
     add_compile_options(-ffast-math -fno-semantic-interposition)
     add_compile_options(-flto=auto -pipe)
@@ -45,8 +43,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     # warnings
     add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith)
     # add_link_options(-Wsign-conversion)
-
-    add_link_options(-fdiagnostics-color=always)
 
     # optimize
     add_link_options(-ffast-math -fno-semantic-interposition)
