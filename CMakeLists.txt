@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.24)
 
 project(more_thread LANGUAGES C CXX VERSION 0.0.0)
 
