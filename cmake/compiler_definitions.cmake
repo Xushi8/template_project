@@ -9,5 +9,3 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 add_definitions(-DFMT_HEADER_ONLY)
-
-add_definitions(-DSPDLOG_HEADER_ONLY)

@@ -2,3 +2,4 @@
 /build/
 /.cache/
 /pgo_files/
+/logs/
