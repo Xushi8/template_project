@@ -69,12 +69,15 @@ int main()
 	rotating_sink->set_level(spdlog::level::trace);
 	std::vector<spdlog::sink_ptr> sinks{stdout_sink, rotating_sink};
 	auto logger = std::make_shared<spdlog::async_logger>("loggername", sinks.begin(), sinks.end(), spdlog::thread_pool());
-	logger->set_level(spdlog::level::debug);
+	logger->set_level(spdlog::level::trace);
 	spdlog::set_default_logger(logger);
 
-	spdlog::default_logger()->warn("this should appear in both console and file");
-	spdlog::default_logger()->info("this should only appear in file");
-	spdlog::default_logger()->trace("this should not appear");
+	using namespace std::chrono_literals;
+	spdlog::flush_every(3s);
+	spdlog::flush_on(spdlog::level::warn);
+
+	spdlog::warn("this should appear in both console and file");
+	spdlog::info("this should only appear in file");
 
 	return 0;
 }
