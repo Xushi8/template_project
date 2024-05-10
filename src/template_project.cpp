@@ -37,6 +37,18 @@
 #include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/async.h>
 
+#include <vector>
+#include <thread>
+using namespace std;
+
+void func(size_t id, size_t n)
+{
+	for (size_t i = 0; i < n; i++)
+	{
+		spdlog::info("thread {}, submit {}", id, i);
+	}
+}
+
 int main()
 {
 	// spdlog::info("Welcome to spdlog!");
@@ -64,7 +76,7 @@ int main()
 
 	spdlog::init_thread_pool(8192, 1);
 	auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-	auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logs/mylog.txt", 1024 * 1024 * 10, 3);
+	auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logs/mylog.txt", size_t(1024) * 1024 * 10, 3);
 	stdout_sink->set_level(spdlog::level::warn);
 	rotating_sink->set_level(spdlog::level::trace);
 	std::vector<spdlog::sink_ptr> sinks{stdout_sink, rotating_sink};
@@ -78,6 +90,14 @@ int main()
 
 	spdlog::warn("this should appear in both console and file");
 	spdlog::info("this should only appear in file");
+
+
+	// vector<jthread> t;
+	// for (size_t i = 0; i < 6; i++)
+	// {
+	// 	t.emplace_back(func, i, static_cast<size_t>(1e6));
+	// }
+	// t.emplace_back(func, 0, static_cast<size_t>(6e6));
 
 	return 0;
 }
