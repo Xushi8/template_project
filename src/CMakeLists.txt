@@ -1,4 +1,4 @@
-add_subdirectory(my_basic_library)
+add_subdirectory(common)
 
 set(TARGETS
     template_project
@@ -9,7 +9,7 @@ foreach(name ${TARGETS})
     target_link_libraries(${name}
     PUBLIC
         # src
-        my_basic_library
+        common
         
         # package
         Threads::Threads
