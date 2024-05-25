@@ -1,4 +1,5 @@
 add_subdirectory(common)
+add_subdirectory(util)
 
 set(TARGETS
     template_project
@@ -10,6 +11,7 @@ foreach(name ${TARGETS})
     PUBLIC
         # src
         common
+        util
         
         # package
         Threads::Threads
