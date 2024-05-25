@@ -38,7 +38,6 @@
 #include <spdlog/async.h>
 
 #include <vector>
-#include <thread>
 using namespace std;
 
 void func(size_t id, size_t n)
@@ -47,6 +46,23 @@ void func(size_t id, size_t n)
 	{
 		spdlog::info("thread {}, submit {}", id, i);
 	}
+}
+
+void set_default_log(string_view log_name, spdlog::level::level_enum level, string_view log_path)
+{
+	spdlog::init_thread_pool(8192, 1);
+	auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+	auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(string(log_path), size_t(1024) * 1024 * 10, 3);
+	stdout_sink->set_level(level);
+	rotating_sink->set_level(level);
+	std::vector<spdlog::sink_ptr> sinks{stdout_sink, rotating_sink};
+	auto logger = std::make_shared<spdlog::async_logger>(string(log_name), sinks.begin(), sinks.end(), spdlog::thread_pool());
+	logger->set_level(level);
+	spdlog::set_default_logger(logger);
+
+	using namespace std::chrono_literals;
+	spdlog::flush_every(3s);
+	spdlog::flush_on(level);
 }
 
 int main()
@@ -74,22 +90,10 @@ int main()
 	// spdlog::default_logger()->warn("this should appear in both console and file");
 	// spdlog::default_logger()->info("this should only appear in file");
 
-	spdlog::init_thread_pool(8192, 1);
-	auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-	auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("logs/mylog.txt", size_t(1024) * 1024 * 10, 3);
-	stdout_sink->set_level(spdlog::level::warn);
-	rotating_sink->set_level(spdlog::level::trace);
-	std::vector<spdlog::sink_ptr> sinks{stdout_sink, rotating_sink};
-	auto logger = std::make_shared<spdlog::async_logger>("loggername", sinks.begin(), sinks.end(), spdlog::thread_pool());
-	logger->set_level(spdlog::level::trace);
-	spdlog::set_default_logger(logger);
+	set_default_log("template_project", spdlog::level::info, "logs/mylog.txt");
 
-	using namespace std::chrono_literals;
-	spdlog::flush_every(3s);
-	spdlog::flush_on(spdlog::level::warn);
-
-	spdlog::warn("this should appear in both console and file");
-	spdlog::info("this should only appear in file");
+	spdlog::warn("warn log");
+	spdlog::info("info log");
 
 
 	// vector<jthread> t;
