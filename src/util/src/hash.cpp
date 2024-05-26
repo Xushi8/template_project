@@ -6,7 +6,8 @@
 
 namespace basic_namespace
 {
-static constexpr size_t hash_buffer_size = 32 * 1024;
+using u64 = uint64_t;
+static constexpr size_t hash_buffer_size = 64 * 1024;
 
 /**
  * @brief
@@ -26,14 +27,14 @@ u64 hash_from_file(std::string_view file_name)
 	ifs.seekg(0, std::ios::end);
 	const size_t n = ifs.tellg() / sizeof(char);
 	ifs.seekg(0);
-	size_t now_siz = 0;
+	size_t now_size = 0;
 	std::array<char, hash_buffer_size> buf;
-	while (now_siz < n)
+	while (now_size < n)
 	{
-		size_t adds = std::min(n - now_siz, size_t(32) * 1024);
-		now_siz += adds;
+		size_t adds = std::min(n - now_size, hash_buffer_size);
+		now_size += adds;
 		ifs.read(buf.data(), adds);
-		hash_stream.update(buf);
+		hash_stream.update(buf.data(), adds);
 	}
 	return hash_stream.digest();
 }
@@ -67,14 +68,14 @@ xxh::hash_t<128> hash_from_file128(std::string_view file_name)
 	ifs.seekg(0, std::ios::end);
 	const size_t n = ifs.tellg() / sizeof(char);
 	ifs.seekg(0);
-	size_t now_siz = 0;
+	size_t now_size = 0;
 	std::array<char, hash_buffer_size> buf;
-	while (now_siz < n)
+	while (now_size < n)
 	{
-		size_t adds = std::min(n - now_siz, size_t(32) * 1024);
-		now_siz += adds;
+		size_t adds = std::min(n - now_size, hash_buffer_size);
+		now_size += adds;
 		ifs.read(buf.data(), adds);
-		hash_stream.update(buf);
+		hash_stream.update(buf.data(), adds);
 	}
 	return hash_stream.digest();
 }
