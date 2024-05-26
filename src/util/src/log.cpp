@@ -9,6 +9,13 @@ namespace basic_namespace
 using std::string_view;
 using std::string;
 
+/**
+ * @brief Set the default log object, this should be called during initialization.
+ *
+ * @param log_name
+ * @param level
+ * @param log_path
+ */
 void set_default_log(string_view log_name, spdlog::level::level_enum level, string_view log_path)
 {
 	spdlog::init_thread_pool(8192, 1);
