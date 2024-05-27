@@ -38,25 +38,25 @@ void test_xxhash()
 	print("{}\n", hash_val);
 }
 
-void test_xxhash_std()
+void use(std::unordered_set<int, std::hash<int>> const& st)
 {
-	std::unordered_set<int, hash<int>> st;
-
-	std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<int> uni(1, 1000000);
-	for (size_t i = 0; i < 1000; i++)
+	int cnt = 0;
+	for (auto x : st)
 	{
-		st.emplace(uni(rng));
+		if (++cnt == 10)
+			break;
+		print("{}\n", x);
 	}
 }
-
 } // namespace basic_namespace
 
 int main()
 {
 	basic_namespace::set_default_log("template_project", spdlog::level::info, "logs/mylog.txt");
 
-	basic_namespace::test_xxhash();
+	// basic_namespace::test_xxhash();
+
+	basic_namespace::test_xxhash_std();
 
 	return 0;
 }
