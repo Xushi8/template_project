@@ -3,8 +3,7 @@
 #include <array>
 #include <vector>
 #include <fmt/core.h>
-#include <unordered_set>
-#include <random>
+#include <cstdint>
 
 namespace basic_namespace
 {
@@ -38,16 +37,6 @@ void test_xxhash()
 	print("{}\n", hash_val);
 }
 
-void use(std::unordered_set<int, std::hash<int>> const& st)
-{
-	int cnt = 0;
-	for (auto x : st)
-	{
-		if (++cnt == 10)
-			break;
-		print("{}\n", x);
-	}
-}
 } // namespace basic_namespace
 
 int main()
