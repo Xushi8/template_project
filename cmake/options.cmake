@@ -19,7 +19,11 @@ endif()
 
 # set(CMAKE_UNITY_BUILD ON)
 
-option(USE_MOLD "Use mold linker" OFF)
+option(BASIC_USE_MOLD "Use mold linker" OFF)
+
+option(BASIC_USE_SYSTEM_FMT OFF)
+
+option(BASIC_USE_SYSTEM_SPDLOG OFF)
 
 if(NOT CMAKE_COLOR_DIAGNOSTICS)
     set(CMAKE_COLOR_DIAGNOSTICS ON)

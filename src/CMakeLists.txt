@@ -27,6 +27,14 @@ foreach(name ${TARGETS})
         # external
     )
 
+    if(BASIC_USE_SYSTEM_FMT)
+        target_link_libraries(${name} PUBLIC fmt::fmt)
+    endif()
+
+    if(BASIC_USE_SYSTEM_SPDLOG)
+        target_link_libraries(${name} PUBLIC spdlog::spdlog)
+    endif()
+
     target_include_directories(${name}
     PUBLIC
         # ${GMP_INCLUDE_DIR}

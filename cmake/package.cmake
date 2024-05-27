@@ -4,6 +4,14 @@ find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
 # find_package(Boost 1.81.0 REQUIRED COMPONENTS system date_time)
 
+if(BASIC_USE_SYSTEM_FMT)
+    find_package(fmt CONFIG REQUIRED)
+endif()
+
+if(BASIC_USE_SYSTEM_SPDLOG)
+    find_package(spdlog CONFIG REQUIRED)
+endif()
+
 # find_path(GMP_INCLUDE_DIR NAMES gmp.h)
 # find_library(GMP_LIBRARIES NAMES gmp libgmp)
 # find_library(GMPXX_LIBRARIES NAMES gmpxx libgmpxx)

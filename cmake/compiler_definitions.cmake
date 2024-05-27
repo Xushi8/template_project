@@ -9,4 +9,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-add_definitions(-DFMT_HEADER_ONLY)
+if(!BASIC_USE_SYSTEM_FMT)
+    add_definitions(-DFMT_HEADER_ONLY)
+endif()
