@@ -2,7 +2,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     # add_compile_options(-march=native)
 
     # add_compile_options(-mavx)
-    # add_compile_options(-mavx2)
+    add_compile_options(-mavx2)
 
     # warnings
     add_compile_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith)

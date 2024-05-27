@@ -10,7 +10,7 @@ using u64 = uint64_t;
 static constexpr size_t hash_buffer_size = 64 * 1024;
 
 /**
- * @brief
+ * @brief using xxhash3
  *
  * @param file_name
  * @return u64
@@ -40,7 +40,7 @@ u64 hash_from_file(std::string_view file_name)
 }
 
 /**
- * @brief
+ * @brief using xxhash3
  *
  * @param file_name
  * @return u64
@@ -51,7 +51,7 @@ u64 hash_from_file64(std::string_view file_name)
 }
 
 /**
- * @brief
+ * @brief using xxhash3
  *
  * @param file_name
  * @return xxh::hash_t<128> which equals xxh::uint128_t

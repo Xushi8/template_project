@@ -17,8 +17,11 @@ void test_spdlog()
 
 void test_xxhash()
 {
-	u64 hash_val = hash_from_file("test.txt");
-	print("{}\n", hash_val);
+	u64 hash_val = hash_from_file("/media/tom/Data/test.txt");
+	print("{:x}\n", hash_val);
+	constexpr uint64_t x = 0xf74f53b60490421c;
+	constexpr uint64_t y = 0x1c429004b6534ff7;
+	print("{}\n{}\n", x, y);
 
 	std::array<int, 4> arr = {0, 0, 0, 0};
 	hash_val = xxh::xxhash3<64>(arr);
