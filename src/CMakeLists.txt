@@ -18,22 +18,18 @@ foreach(name ${TARGETS})
         OpenMP::OpenMP_CXX
         TBB::tbb
         mimalloc
+        
         # Boost::system
 
         # ${GMP_LIBRARIES}
         # ${GMPXX_LIBRARIES}
         # ${MARIADB_LIBRARIES}
 
+        ${PQ_LIB}
+        ${PQXX_LIB}
+
         # external
     )
-
-    if(BASIC_USE_SYSTEM_FMT)
-        target_link_libraries(${name} PUBLIC fmt::fmt)
-    endif()
-
-    if(BASIC_USE_SYSTEM_SPDLOG)
-        target_link_libraries(${name} PUBLIC spdlog::spdlog)
-    endif()
 
     target_include_directories(${name}
     PUBLIC

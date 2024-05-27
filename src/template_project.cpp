@@ -4,6 +4,7 @@
 #include <vector>
 #include <fmt/core.h>
 #include <cstdint>
+#include <pqxx/pqxx>
 
 namespace basic_namespace
 {
@@ -45,6 +46,7 @@ int main()
 
 	basic_namespace::test_xxhash();
 
+	// pqxx::connection C;
 
 	return 0;
 }
