@@ -3,6 +3,8 @@
 #include <array>
 #include <vector>
 #include <fmt/core.h>
+#include <unordered_set>
+#include <random>
 
 namespace basic_namespace
 {
@@ -34,6 +36,18 @@ void test_xxhash()
 	std::vector<char> vec1(16, 'a');
 	hash_val = xxh::xxhash3<64>(vec1);
 	print("{}\n", hash_val);
+}
+
+void test_xxhash_std()
+{
+	std::unordered_set<int, hash<int>> st;
+
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<int> uni(1, 1000000);
+	for (size_t i = 0; i < 1000; i++)
+	{
+		st.emplace(uni(rng));
+	}
 }
 
 } // namespace basic_namespace
