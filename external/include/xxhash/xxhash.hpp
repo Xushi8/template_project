@@ -821,7 +821,7 @@ constexpr int cpp_version_release = 1;
 	*  Canonical represenation
 	***************************************/
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	struct canonical_t
 	{
 		std::array<uint8_t, bit_mode / 8> digest{ 0 };
@@ -867,7 +867,7 @@ constexpr int cpp_version_release = 1;
 	using canonical64_t = canonical_t<64>;
 	using canonical128_t = canonical_t<128>;
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	inline hash_t<bit_mode> to_canonical(hash_t<bit_mode> hash)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64 && bit_mode != 32), "Canonical form can only be obtained from 32, 64 and 128 bit hashes.");
@@ -1656,21 +1656,21 @@ constexpr int cpp_version_release = 1;
 	*  Public Access Point - xxhash
 	***************************************/
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	inline hash_t<bit_mode> xxhash(const void* input, size_t len, uint_t<bit_mode> seed = 0)
 	{
 		static_assert(!(bit_mode != 32 && bit_mode != 64), "xxhash can only be used in 32 and 64 bit modes.");
 		return detail::endian_align<bit_mode>(input, len, seed);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash(const std::basic_string<T>& input, uint_t<bit_mode> seed = 0)
 	{
 		static_assert(!(bit_mode != 32 && bit_mode != 64), "xxhash can only be used in 32 and 64 bit modes.");
 		return detail::endian_align<bit_mode>(static_cast<const void*>(input.data()), input.length() * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename ContiguousIterator>
+	template <size_t bit_mode = 64, typename ContiguousIterator>
 	inline hash_t<bit_mode> xxhash(ContiguousIterator begin, ContiguousIterator end, uint_t<bit_mode> seed = 0)
 	{
 		static_assert(!(bit_mode != 32 && bit_mode != 64), "xxhash can only be used in 32 and 64 bit modes.");
@@ -1678,21 +1678,21 @@ constexpr int cpp_version_release = 1;
 		return detail::endian_align<bit_mode>(static_cast<const void*>(&*begin), (end - begin) * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash(const std::vector<T>& input, uint_t<bit_mode> seed = 0)
 	{
 		static_assert(!(bit_mode != 32 && bit_mode != 64), "xxhash can only be used in 32 and 64 bit modes.");
 		return detail::endian_align<bit_mode>(static_cast<const void*>(input.data()), input.size() * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T, size_t AN>
+	template <size_t bit_mode = 64, typename T, size_t AN>
 	inline hash_t<bit_mode> xxhash(const std::array<T, AN>& input, uint_t<bit_mode> seed = 0)
 	{
 		static_assert(!(bit_mode != 32 && bit_mode != 64), "xxhash can only be used in 32 and 64 bit modes.");
 		return detail::endian_align<bit_mode>(static_cast<const void*>(input.data()), AN * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash(const std::initializer_list<T>& input, uint_t<bit_mode> seed = 0)
 	{
 		static_assert(!(bit_mode != 32 && bit_mode != 64), "xxhash can only be used in 32 and 64 bit modes.");
@@ -1704,35 +1704,35 @@ constexpr int cpp_version_release = 1;
 	*  Public Access Point - xxhash3
 	***************************************/
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	inline hash_t<bit_mode> xxhash3(const void* input, size_t len, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(input, len, seed);
 	}
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	inline hash_t<bit_mode> xxhash3(const void* input, size_t len, const void* secret, size_t secretSize, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(input, len, seed, secret, secretSize);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash3(const std::basic_string<T>& input, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.data()), input.length() * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash3(const std::basic_string<T>& input, const void* secret, size_t secretSize, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.data()), input.length() * sizeof(T), seed, secret, secretSize);
 	}
 
-	template <size_t bit_mode, typename ContiguousIterator>
+	template <size_t bit_mode = 64, typename ContiguousIterator>
 	inline hash_t<bit_mode> xxhash3(ContiguousIterator begin, ContiguousIterator end, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
@@ -1740,7 +1740,7 @@ constexpr int cpp_version_release = 1;
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(&*begin), (end - begin) * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename ContiguousIterator>
+	template <size_t bit_mode = 64, typename ContiguousIterator>
 	inline hash_t<bit_mode> xxhash3(ContiguousIterator begin, ContiguousIterator end, const void* secret, size_t secretSize, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
@@ -1748,42 +1748,42 @@ constexpr int cpp_version_release = 1;
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(&*begin), (end - begin) * sizeof(T), seed, secret, secretSize);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash3(const std::vector<T>& input, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.data()), input.size() * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash3(const std::vector<T>& input, const void* secret, size_t secretSize, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.data()), input.size() * sizeof(T), seed, secret, secretSize);
 	}
 
-	template <size_t bit_mode, typename T, size_t AN>
+	template <size_t bit_mode = 64, typename T, size_t AN>
 	inline hash_t<bit_mode> xxhash3(const std::array<T, AN>& input, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.data()), AN * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T, size_t AN>
+	template <size_t bit_mode = 64, typename T, size_t AN>
 	inline hash_t<bit_mode> xxhash3(const std::array<T, AN>& input, const void* secret, size_t secretSize, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.data()), AN * sizeof(T), seed, secret, secretSize);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash3(const std::initializer_list<T>& input, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
 		return detail3::xxhash3_impl<bit_mode>(static_cast<const void*>(input.begin()), input.size() * sizeof(T), seed);
 	}
 
-	template <size_t bit_mode, typename T>
+	template <size_t bit_mode = 64, typename T>
 	inline hash_t<bit_mode> xxhash3(const std::initializer_list<T>& input, const void* secret, size_t secretSize, uint64_t seed = 0)
 	{
 		static_assert(!(bit_mode != 128 && bit_mode != 64), "xxhash3 can only be used in 64 and 128 bit modes.");
@@ -1843,7 +1843,7 @@ constexpr int cpp_version_release = 1;
 	*  Hash streaming - xxhash
 	***************************************/
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	class hash_state_t 
 	{
 		uint64_t total_len = 0;
@@ -2008,7 +2008,7 @@ constexpr int cpp_version_release = 1;
 	*  Hash streaming - xxhash3
 	***************************************/
 
-	template <size_t bit_mode>
+	template <size_t bit_mode = 64>
 	class alignas(64) hash3_state_t 
 	{   
 		constexpr static int internal_buffer_size = 256;

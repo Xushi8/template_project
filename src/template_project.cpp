@@ -26,15 +26,15 @@ void test_xxhash()
 	print("{}\n{}\n", x, y);
 
 	std::array<int, 4> arr = {0, 0, 0, 0};
-	hash_val = xxh::xxhash3<64>(arr);
+	hash_val = xxh::xxhash3(arr);
 	print("{}\n", hash_val);
 
 	std::vector<int> vec = {0, 0, 0, 0};
-	hash_val = xxh::xxhash3<64>(vec);
+	hash_val = xxh::xxhash3(vec);
 	print("{}\n", hash_val);
 
 	std::vector<char> vec1(16, 'a');
-	hash_val = xxh::xxhash3<64>(vec1);
+	hash_val = xxh::xxhash3(vec1);
 	print("{}\n", hash_val);
 }
 
@@ -54,9 +54,8 @@ int main()
 {
 	basic_namespace::set_default_log("template_project", spdlog::level::info, "logs/mylog.txt");
 
-	// basic_namespace::test_xxhash();
+	basic_namespace::test_xxhash();
 
-	basic_namespace::test_xxhash_std();
 
 	return 0;
 }

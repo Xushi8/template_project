@@ -17,7 +17,7 @@ static constexpr size_t hash_buffer_size = 64 * 1024;
  */
 u64 hash_from_file(std::string_view file_name)
 {
-	xxh::hash3_state_t<64> hash_stream;
+	xxh::hash3_state_t hash_stream;
 	std::ifstream ifs(file_name.data());
 	if (ifs.fail()) [[unlikely]]
 	{

@@ -1,8 +1,8 @@
+#pragma once
+
 #include <xxhash/xxhash.hpp>
 #include <string_view>
 #include <cstdint>
-#include <utility>
-#include <functional>
 
 namespace basic_namespace
 {
