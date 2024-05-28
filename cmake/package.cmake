@@ -6,7 +6,7 @@ find_package(mimalloc CONFIG REQUIRED)
 find_library(PQXX_LIB NAMES pqxx)
 find_library(PQ_LIB NAMES pq)
 
-# find_package(Boost 1.81.0 REQUIRED COMPONENTS system date_time)
+find_package(Boost 1.81.0 REQUIRED COMPONENTS system)
 
 # find_path(GMP_INCLUDE_DIR NAMES gmp.h)
 # find_library(GMP_LIBRARIES NAMES gmp libgmp)

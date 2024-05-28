@@ -5,6 +5,10 @@
 #include <fmt/core.h>
 #include <cstdint>
 #include <pqxx/pqxx>
+#include <string_view>
+#include <string>
+#include <util/base64.h>
+
 
 namespace basic_namespace
 {
@@ -47,6 +51,12 @@ int main()
 	basic_namespace::test_xxhash();
 
 	// pqxx::connection C;
+
+	std::string s = "hello world";
+	s = basic_namespace::base64_encode(s.data(), s.size());
+	fmt::print("{}\n", s);
+	s = basic_namespace::base64_decode(s.data(), s.size());
+	fmt::print("{}\n", s);
 
 	return 0;
 }
