@@ -13,4 +13,5 @@ PUBLIC
 target_include_directories(util 
 PUBLIC
 ./include
+${PROJECT_SOURCE_DIR}/src/common/include
 )
