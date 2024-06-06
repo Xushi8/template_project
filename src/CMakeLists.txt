@@ -31,6 +31,13 @@ foreach(name ${TARGETS})
         # external
     )
 
+    if(BASIC_USE_GUI)
+        target_link_libraries(${name} 
+        PUBLIC
+            Qt6::Widgets
+        )
+    endif()
+
     target_include_directories(${name}
     PUBLIC
         # ${GMP_INCLUDE_DIR}

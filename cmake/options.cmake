@@ -21,6 +21,8 @@ endif()
 
 option(BASIC_USE_MOLD "Use mold linker" OFF)
 
+option(BASIC_USE_GUI "Use qt for gui" OFF)
+
 if(NOT CMAKE_COLOR_DIAGNOSTICS)
     set(CMAKE_COLOR_DIAGNOSTICS ON)
 endif()
