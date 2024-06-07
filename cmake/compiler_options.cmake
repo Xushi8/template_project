@@ -3,14 +3,15 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
 
     # add_compile_options(-mavx)
     add_compile_options(-mavx2)
+    # add_compile_options(-march=skylake)
 
     # warnings
     add_compile_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type)
-    # add_compile_options(-Wsign-conversion)
+    add_compile_options(-Wconversion -Wsign-conversion)
 
     # optimize
     add_compile_options(-ffast-math -fno-semantic-interposition)
-    add_compile_options(-flto=auto -pipe)
+    add_compile_options(-flto=auto)
     add_compile_options(-fno-rtti)
     
     # PGO
@@ -18,7 +19,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     
     # add_compile_options(-fprofile-use=pgo_files)
     
-    # add_compile_options(-fno-omit-frame-pointer -fsanitize=undefined)
+    # add_compile_options(-fsanitize=undefined)
     # add_compile_options(-fsanitize=address)
     # add_compile_options(-fsanitize=thread)
     
@@ -36,40 +37,16 @@ endif()
 
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    # add_link_options(-march=native)
-
-    # add_link_options(-mavx)
-    # add_link_options(-mavx2)
-
-    # warnings
-    add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith)
-    # add_link_options(-Wsign-conversion)
-
-    # optimize
-    add_link_options(-ffast-math -fno-semantic-interposition)
-    add_link_options(-flto=auto -pipe)
-
-    if(USE_MOLD)
+    if(BASIC_USE_MOLD)
         add_link_options(-fuse-ld=mold)
     endif()
     
-    # PGO
-    # add_link_options(-fprofile-generate=pgo_files)
-    
-    # add_link_options(-fprofile-use=pgo_files)
-    
-    # add_link_options(-fno-omit-frame-pointer -fsanitize=undefined)
+    # add_link_options(-fsanitize=undefined)
     # add_link_options(-fsanitize=address)
     # add_link_options(-fsanitize=thread)
     
-    # add_link_options(-fopt-info)
-
-    # add_link_options(-save-temps=obj)
-    # add_link_options(-masm=intel)
-    # add_link_options(-fverbose-asm)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    # add_link_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
-    # add_link_options(-floop-nest-optimize)
+
 endif()
