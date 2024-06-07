@@ -40,6 +40,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     if(BASIC_USE_MOLD)
         add_link_options(-fuse-ld=mold)
     endif()
+
+    # add_link_options(-static-libstdc++)
     
     # add_link_options(-fsanitize=undefined)
     # add_link_options(-fsanitize=address)
