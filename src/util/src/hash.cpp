@@ -25,7 +25,7 @@ u64 hash_from_file(std::string_view file_name)
 		return {};
 	}
 	ifs.seekg(0, std::ios::end);
-	const size_t n = ifs.tellg() / sizeof(char);
+	const size_t n = static_cast<size_t>(ifs.tellg()) / sizeof(char);
 	ifs.seekg(0);
 	size_t now_size = 0;
 	std::array<char, hash_buffer_size> buf;
@@ -33,7 +33,7 @@ u64 hash_from_file(std::string_view file_name)
 	{
 		size_t adds = std::min(n - now_size, hash_buffer_size);
 		now_size += adds;
-		ifs.read(buf.data(), adds);
+		ifs.read(buf.data(), static_cast<std::streamsize>(adds));
 		hash_stream.update(buf.data(), adds);
 	}
 	return hash_stream.digest();
@@ -66,7 +66,7 @@ xxh::hash_t<128> hash_from_file128(std::string_view file_name)
 		return {};
 	}
 	ifs.seekg(0, std::ios::end);
-	const size_t n = ifs.tellg() / sizeof(char);
+	const size_t n = static_cast<size_t>(ifs.tellg()) / sizeof(char);
 	ifs.seekg(0);
 	size_t now_size = 0;
 	std::array<char, hash_buffer_size> buf;
@@ -74,7 +74,7 @@ xxh::hash_t<128> hash_from_file128(std::string_view file_name)
 	{
 		size_t adds = std::min(n - now_size, hash_buffer_size);
 		now_size += adds;
-		ifs.read(buf.data(), adds);
+		ifs.read(buf.data(), static_cast<std::streamsize>(adds));
 		hash_stream.update(buf.data(), adds);
 	}
 	return hash_stream.digest();
