@@ -12,7 +12,6 @@ static constexpr size_t hash_buffer_size = 64 * 1024;
 template <size_t N = 128>
 xxh::hash_t<N> hash_from_file(std::string_view file_name)
 {
-	xxh::hash3_state_t<N> hash_stream;
 	std::ifstream ifs(file_name.data());
 	if (ifs.fail()) [[unlikely]]
 	{
@@ -22,6 +21,7 @@ xxh::hash_t<N> hash_from_file(std::string_view file_name)
 	ifs.seekg(0, std::ios::end);
 	const size_t n = static_cast<size_t>(ifs.tellg()) / sizeof(char);
 	ifs.seekg(0);
+	xxh::hash3_state_t<N> hash_stream;
 	size_t now_size = 0;
 	std::array<char, hash_buffer_size> buf;
 	while (now_size < n)
