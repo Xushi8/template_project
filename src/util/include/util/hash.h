@@ -15,7 +15,7 @@ xxh::hash_t<N> hash_from_file(std::string_view file_name)
 	std::ifstream ifs(file_name.data());
 	if (ifs.fail()) [[unlikely]]
 	{
-		perror("hash_from_file128");
+		perror("hash_from_file");
 		return {};
 	}
 	ifs.seekg(0, std::ios::end);
