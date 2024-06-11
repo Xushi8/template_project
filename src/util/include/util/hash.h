@@ -2,6 +2,7 @@
 
 #include <xxhash/xxhash.hpp>
 #include <string_view>
+#include <string>
 #include <fstream>
 #include <array>
 
@@ -12,7 +13,7 @@ static constexpr size_t hash_buffer_size = 64 * 1024;
 template <size_t N = 64>
 xxh::hash_t<N> hash_from_file(std::string_view file_name)
 {
-	std::ifstream ifs(file_name.data());
+	std::ifstream ifs((std::string(file_name)));
 	if (ifs.fail()) [[unlikely]]
 	{
 		perror("hash_from_file");
