@@ -9,7 +9,6 @@
 #include <string>
 #include <util/base64.h>
 
-
 namespace basic_namespace
 {
 using u64 = uint64_t;
@@ -46,7 +45,7 @@ void test_xxhash()
 
 int main()
 {
-	basic_namespace::set_default_log("template_project", spdlog::level::info, "logs/mylog.txt");
+	basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
 
 	basic_namespace::test_xxhash();
 
