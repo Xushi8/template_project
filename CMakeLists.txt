@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.25)
 
 project(more_thread LANGUAGES C CXX VERSION 0.0.0)
 
@@ -18,6 +18,7 @@ include(./cmake/package.cmake)
 include(./cmake/print_info.cmake)
 
 include_directories(./external/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/common/include)
 
 add_subdirectory(src)
 add_subdirectory(external)
