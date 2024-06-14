@@ -6,6 +6,17 @@
     "tasks": [
         {
             "type": "shell",
+            "label": "flatbuf",
+            "command": "flatc",
+            "args": [
+                "--cpp",
+                "-o",
+                "${workspaceFolder}/src/flatbuff/include/flatbuff",
+                "${workspaceFolder}/src/flatbuff/*.fbs"
+            ]
+        },
+        {
+            "type": "shell",
             "label": "cmake_pre",
             "command": "cmake",
             "args": [
@@ -13,8 +24,8 @@
                 "-G Ninja",
                 // "-DCMAKE_C_COMPILER=/usr/bin/clang",
                 // "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
-                // "-DCMAKE_BUILD_TYPE=Debug",
-                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                // "-DCMAKE_BUILD_TYPE=Release",
                 // "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DBASIC_USE_MOLD=ON",
                 // "-DBASIC_USE_GUI=ON",
@@ -39,6 +50,7 @@
             "label": "build",
             "dependsOrder": "sequence", // 按列出的顺序执行任务依赖项
             "dependsOn": [
+                "flatbuf",
                 "cmake_pre", 
                 "cmake_next",
             ]

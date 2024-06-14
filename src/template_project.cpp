@@ -8,6 +8,7 @@
 #include <string_view>
 #include <string>
 #include <util/base64.h>
+#include <util/flatbuffers.h>
 
 namespace basic_namespace
 {
@@ -56,6 +57,8 @@ int main()
 	fmt::print("{}\n", s);
 	s = basic_namespace::base64_decode(s.data(), s.size());
 	fmt::print("{}\n", s);
+
+	basic_namespace::test_flatbuffers();
 
 	return 0;
 }
