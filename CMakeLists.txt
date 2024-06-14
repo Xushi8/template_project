@@ -19,7 +19,7 @@ include(./cmake/print_info.cmake)
 
 include_directories(./external/include)
 include_directories(${PROJECT_SOURCE_DIR}/src/common/include)
-include_directories(${PROJECT_SOURCE_DIR}/src/flatbuff/include)
+include_directories(${PROJECT_SOURCE_DIR}/src/flatbuffers/include)
 
 add_subdirectory(src)
 add_subdirectory(external)

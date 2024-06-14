@@ -1,5 +1,5 @@
 #include <util/flatbuffers.h>
-#include <flatbuff/monster_generated.h>
+#include <flatbuffers/monster_generated.h>
 
 namespace basic_namespace
 {

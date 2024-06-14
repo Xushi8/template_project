@@ -11,8 +11,8 @@
             "args": [
                 "--cpp",
                 "-o",
-                "${workspaceFolder}/src/flatbuff/include/flatbuff",
-                "${workspaceFolder}/src/flatbuff/*.fbs"
+                "${workspaceFolder}/src/flatbuffers/include/flatbuffers",
+                "${workspaceFolder}/src/flatbuffers/*.fbs"
             ]
         },
         {
