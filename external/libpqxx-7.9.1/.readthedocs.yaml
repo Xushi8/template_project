@@ -1,0 +1,29 @@
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+version: 2
+
+# Set the version of Python and other tools you might need
+# XXX: Upgrade to 24.04 soon.
+build:
+  os: "ubuntu-22.04"
+  tools:
+    python: "3.12"
+  jobs:
+    pre_build:
+      - "./configure --disable-shared CXXFLAGS='-O0 -std=c++23'"
+      - "mkdir -p doc/doxygen-html"
+      - "cd doc && doxygen"
+      - "mkdir -p -- $READTHEDOCS_OUTPUT/html"
+    post_build:
+      - "mv -- $READTHEDOCS_OUTPUT/html $READTHEDOCS_OUTPUT/sphinx-html"
+      - "mv -- doc/doxygen-html $READTHEDOCS_OUTPUT/html"
+
+
+python:
+  install:
+    - requirements: doc/requirements.txt
+
+sphinx:
+  configuration: doc/source/conf.py
+  fail_on_warning: true

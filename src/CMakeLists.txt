@@ -22,12 +22,14 @@ foreach(name ${TARGETS})
         
         # Boost::system
 
+        pqxx
+
         # ${GMP_LIBRARIES}
         # ${GMPXX_LIBRARIES}
         # ${MARIADB_LIBRARIES}
 
-        ${PQ_LIB}
-        ${PQXX_LIB}
+        # ${PQ_LIB}
+        # ${PQXX_LIB}
 
         # external
     )
