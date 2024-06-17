@@ -3,6 +3,7 @@ add_subdirectory(util)
 
 set(TARGETS
     template_project
+    test
 )
 
 foreach(name ${TARGETS})
