@@ -50,7 +50,7 @@ int main()
 
 	basic_namespace::test_xxhash();
 
-	// pqxx::connection C;
+	pqxx::connection C;
 
 	std::string s = "hello world";
 	s = basic_namespace::base64_encode(s.data(), s.size());

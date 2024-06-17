@@ -3,8 +3,8 @@ find_package(OpenMP REQUIRED)
 find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
 
-# find_library(PQXX_LIB NAMES pqxx)
-# find_library(PQ_LIB NAMES pq)
+find_library(PQXX_LIB NAMES pqxx)
+find_library(PQ_LIB NAMES pq)
 
 if(BASIC_USE_GUI)
     find_package(Qt6 CONFIG REQUIRED COMPONENTS Widgets)
