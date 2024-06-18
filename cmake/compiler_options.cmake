@@ -3,6 +3,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
 
     # add_compile_options(-mavx)
     add_compile_options(-mavx2)
+    add_compile_options(-mfma)
     # add_compile_options(-march=skylake)
 
     # warnings
