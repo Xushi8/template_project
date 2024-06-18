@@ -50,15 +50,15 @@ int main()
 
 	basic_namespace::test_xxhash();
 
-	pqxx::connection C;
+	// pqxx::connection C;
 
-	std::string s = "hello world";
-	s = basic_namespace::base64_encode(s.data(), s.size());
-	fmt::print("{}\n", s);
-	s = basic_namespace::base64_decode(s.data(), s.size());
-	fmt::print("{}\n", s);
+	// std::string s = "hello world";
+	// s = basic_namespace::base64_encode(s.data(), s.size());
+	// fmt::print("{}\n", s);
+	// s = basic_namespace::base64_decode(s.data(), s.size());
+	// fmt::print("{}\n", s);
 
-	basic_namespace::test_flatbuffers();
+	// basic_namespace::test_flatbuffers();
 
 	return 0;
 }
