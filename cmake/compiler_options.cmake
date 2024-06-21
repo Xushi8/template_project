@@ -20,9 +20,11 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     
     # add_compile_options(-fprofile-use=pgo_files)
     
-    # add_compile_options(-fsanitize=undefined)
-    # add_compile_options(-fsanitize=address)
-    # add_compile_options(-fsanitize=thread)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        add_compile_options(-fsanitize=undefined)
+        add_compile_options(-fsanitize=address)
+        add_compile_options(-fsanitize=thread)
+    endif()
     
     # add_compile_options(-fopt-info)
 
@@ -44,9 +46,11 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
 
     # add_link_options(-static-libstdc++)
     
-    # add_link_options(-fsanitize=undefined)
-    # add_link_options(-fsanitize=address)
-    # add_link_options(-fsanitize=thread)
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        add_link_options(-fsanitize=undefined)
+        add_link_options(-fsanitize=address)
+        add_link_options(-fsanitize=thread)
+    endif()
     
 endif()
 
