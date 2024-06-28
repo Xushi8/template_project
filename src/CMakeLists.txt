@@ -26,8 +26,8 @@ foreach(name ${TARGETS})
         # ${GMPXX_LIBRARIES}
         # ${MARIADB_LIBRARIES}
 
-        ${PQ_LIB}
-        ${PQXX_LIB}
+        # ${PQ_LIB}
+        # ${PQXX_LIB}
 
         # external
     )
