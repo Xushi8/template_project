@@ -17,8 +17,8 @@ using fmt::print;
 
 void test_spdlog()
 {
-	spdlog::warn("warn log");
 	spdlog::info("info log");
+	spdlog::warn("warn log");
 }
 
 void test_xxhash()

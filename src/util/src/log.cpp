@@ -29,8 +29,8 @@ void set_default_log(string_view log_name, string_view log_path, spdlog::level::
 	spdlog::set_default_logger(logger);
 
 	using namespace std::chrono_literals;
-	spdlog::flush_every(3s);
-	spdlog::flush_on(level);
+	spdlog::flush_every(1s);
+	spdlog::flush_on(spdlog::level::warn);
 }
 
 void change_default_log_level(spdlog::level::level_enum level)
