@@ -48,6 +48,8 @@ int main()
 {
 	basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
 
+	basic_namespace::test_spdlog();
+
 	basic_namespace::test_xxhash();
 
 	// pqxx::connection C;

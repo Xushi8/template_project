@@ -10,7 +10,7 @@ using std::string_view;
 using std::string;
 
 /**
- * @brief Set the default log object, this should be called during initialization.
+ * @brief Set the default log object, this should be called during initialization(the first line of main).
  *
  * @param log_name
  * @param level
