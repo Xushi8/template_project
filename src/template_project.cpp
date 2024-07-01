@@ -9,6 +9,7 @@
 #include <string>
 #include <util/base64.h>
 #include <util/flatbuffers.h>
+#include <common/error_code.h>
 
 namespace basic_namespace
 {
@@ -59,6 +60,8 @@ int main()
 	fmt::print("{}\n", s);
 	s = basic_namespace::base64_decode(s.data(), s.size());
 	fmt::print("{}\n", s);
+
+	basic_namespace::test_error_code();
 
 	// basic_namespace::test_flatbuffers();
 
