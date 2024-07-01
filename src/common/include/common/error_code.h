@@ -51,10 +51,7 @@ void test_error_code();
 
 } // namespace basic_namespace
 
-namespace std
-{
 template <>
-struct is_error_code_enum<basic_namespace::error_code> : public std::true_type
+struct std::is_error_code_enum<basic_namespace::error_code> : public std::true_type
 {
 };
-} // namespace std
