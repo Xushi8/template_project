@@ -10,7 +10,8 @@ if(BASIC_USE_GUI)
     find_package(Qt6 CONFIG REQUIRED COMPONENTS Widgets)
 endif()
 
-# find_package(Boost 1.81.0 REQUIRED COMPONENTS system)
+# set(Boost_USE_STATIC_LIBS ON)
+# find_package(Boost 1.81.0 REQUIRED COMPONENTS system filesystem)
 
 # find_path(GMP_INCLUDE_DIR NAMES gmp.h)
 # find_library(GMP_LIBRARIES NAMES gmp libgmp)
