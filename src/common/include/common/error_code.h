@@ -36,10 +36,11 @@ struct error_category : public std::error_category
 	}
 };
 
-inline const std::error_category& get_error_category() noexcept
+inline const error_category error_category_instance;
+
+inline error_category const& get_error_category() noexcept
 {
-	static error_category instance;
-	return instance;
+	return error_category_instance;
 }
 
 inline std::error_code make_error_code(error_code ec) noexcept
