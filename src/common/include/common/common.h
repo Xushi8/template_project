@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef BASIC_COMMON_H
+#define BASIC_COMMON_H
+
 #include <memory>
 
 namespace basic_namespace
@@ -43,3 +47,5 @@ public:
 };
 
 } // namespace basic_namespace
+
+#endif

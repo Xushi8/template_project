@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef BASIC_UTIL_H_
+#define BASIC_UTIL_H_
+
 #include <xxhash/xxhash.hpp>
 #include <string_view>
 #include <string>
@@ -36,3 +39,5 @@ xxh::hash_t<N> hash_from_file(std::string_view file_name)
 }
 
 } // namespace basic_namespace
+
+#endif

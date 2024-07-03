@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef BASIC_LOG_H_
+#define BASIC_LOG_H_
+
 #include <string_view>
 #include <spdlog/spdlog.h>
 
@@ -9,3 +12,5 @@ void set_default_log(std::string_view log_name, std::string_view log_path, spdlo
 
 void change_default_log_level(spdlog::level::level_enum level);
 } // namespace basic_namespace
+
+#endif
