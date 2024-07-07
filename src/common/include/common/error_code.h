@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef BASIC_ERROR_CODE_H_
-#define BASIC_ERROR_CODE_H_
-
 #include <system_error>
 
 namespace basic_namespace
@@ -61,5 +58,3 @@ template <>
 struct std::is_error_code_enum<basic_namespace::error_code> : public std::true_type
 {
 };
-
-#endif
