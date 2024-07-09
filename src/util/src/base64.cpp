@@ -1,5 +1,5 @@
-#include <util/base64.h>
-#include <common/common.h>
+#include <util/base64.hpp>
+#include <common/common.hpp>
 #include <boost/beast/core/detail/base64.hpp>
 #include <boost/container/string.hpp>
 

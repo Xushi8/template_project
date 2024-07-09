@@ -1,5 +1,5 @@
-#include <util/log.h>
-#include <util/hash.h>
+#include <util/log.hpp>
+#include <util/hash.hpp>
 #include <array>
 #include <vector>
 #include <fmt/core.h>
@@ -7,9 +7,9 @@
 // #include <pqxx/pqxx>
 #include <string_view>
 #include <string>
-#include <util/base64.h>
-#include <util/flatbuffers.h>
-#include <common/error_code.h>
+#include <util/base64.hpp>
+#include <util/flatbuffers.hpp>
+#include <common/error_code.hpp>
 
 namespace basic_namespace
 {

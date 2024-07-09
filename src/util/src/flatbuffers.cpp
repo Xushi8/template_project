@@ -1,4 +1,4 @@
-#include <util/flatbuffers.h>
+#include <util/flatbuffers.hpp>
 #include <flatbuffers/monster_generated.h>
 
 namespace basic_namespace

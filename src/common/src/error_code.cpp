@@ -1,4 +1,4 @@
-#include <common/error_code.h>
+#include <common/error_code.hpp>
 
 #include <fmt/core.h>
 using fmt::print;
