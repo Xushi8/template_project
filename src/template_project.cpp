@@ -4,7 +4,7 @@
 #include <vector>
 #include <fmt/core.h>
 #include <cstdint>
-// #include <pqxx/pqxx>
+#include <pqxx/pqxx>
 #include <string_view>
 #include <string>
 #include <util/base64.hpp>
@@ -47,21 +47,33 @@ void test_xxhash()
 
 int main()
 {
-	basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
+	// basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
 
-	basic_namespace::test_spdlog();
+	// basic_namespace::test_spdlog();
 
-	basic_namespace::test_xxhash();
+	// basic_namespace::test_xxhash();
 
-	// pqxx::connection C;
+	// // pqxx::connection C;
 
-	std::string s = "hello world";
-	s = basic_namespace::base64_encode(s.data(), s.size());
-	fmt::print("{}\n", s);
-	s = basic_namespace::base64_decode(s.data(), s.size());
-	fmt::print("{}\n", s);
+	// std::string s = "hello world";
+	// s = basic_namespace::base64_encode(s.data(), s.size());
+	// fmt::print("{}\n", s);
+	// s = basic_namespace::base64_decode(s.data(), s.size());
+	// fmt::print("{}\n", s);
 
-	basic_namespace::test_error_code();
+	// basic_namespace::test_error_code();
+
+	pqxx::connection C("dbname=test_db user=tom password=tom hostaddr=::1 port=5432");
+	if (C.is_open())
+	{
+		pqxx::work W(C);
+		fmt::print("db connect true\n");
+	}
+	else
+	{
+		fmt::print("db connect false\n");
+	}
+
 
 	// basic_namespace::test_flatbuffers();
 
