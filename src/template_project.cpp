@@ -10,6 +10,7 @@
 #include <util/base64.hpp>
 #include <util/flatbuffers.hpp>
 #include <common/error_code.hpp>
+#include <boost/regex.hpp>
 
 namespace basic_namespace
 {
@@ -63,17 +64,37 @@ int main()
 
 	// basic_namespace::test_error_code();
 
-	pqxx::connection C("dbname=test_db user=tom password=tom hostaddr=::1 port=5432");
-	if (C.is_open())
-	{
-		pqxx::work W(C);
-		fmt::print("db connect true\n");
-	}
-	else
-	{
-		fmt::print("db connect false\n");
-	}
+	// pqxx::connection C("dbname=test_db user=tom password=tom hostaddr=::1 port=5432");
+	// if (C.is_open())
+	// {
+	// 	pqxx::work W(C);
+	// 	fmt::print("db connect true\n");
+	// }
+	// else
+	// {
+	// 	fmt::print("db connect false\n");
+	// }
 
+	// boost::regex pat3(R"((\d{4})-(\d{4})-(\d{4})-(\d{4}))");
+	boost::regex pat3(R"(\d{4})", boost::regex_constants::egrep);
+	std::string card_str3("1234-5678-4321-8765");
+	// boost::smatch mat3;
+	// fmt::print("{}\n", boost::regex_search(card_str3, mat3, pat3));
+	// fmt::print("{}\n", mat3.size());
+	// for (size_t i = 0; i < mat3.size(); i++)
+	// {
+	// 	fmt::print("Match {}: {}\n", i, mat3[i].str());
+	// }
+
+	// std::string result = boost::regex_replace(card_str3, pat3, "111");
+	// fmt::print("{}\n", result);
+
+	auto it_begin = boost::sregex_iterator(card_str3.begin(), card_str3.end(), pat3);
+	auto it_end = boost::sregex_iterator{};
+	for (; it_begin != it_end; ++it_begin)
+	{
+		fmt::print("{}\n", it_begin->str());
+	}
 
 	// basic_namespace::test_flatbuffers();
 
