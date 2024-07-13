@@ -5,6 +5,13 @@ using fmt::print;
 
 namespace basic_namespace
 {
+
+error_category const& get_error_category() noexcept
+{
+	static error_category error_category_instance;
+	return error_category_instance;
+}
+
 void test_error_code()
 {
 	std::error_code ec = basic_namespace::error_code::file_error;

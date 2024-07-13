@@ -62,7 +62,7 @@ int main()
 	// s = basic_namespace::base64_decode(s.data(), s.size());
 	// fmt::print("{}\n", s);
 
-	// basic_namespace::test_error_code();
+	basic_namespace::test_error_code();
 
 	// pqxx::connection C("dbname=test_db user=tom password=tom hostaddr=::1 port=5432");
 	// if (C.is_open())
