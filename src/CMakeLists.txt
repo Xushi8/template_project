@@ -23,12 +23,13 @@ foreach(name ${TARGETS})
         # Boost::system
         # Boost::filesystem
 
-        # ${GMP_LIBRARIES}
-        # ${GMPXX_LIBRARIES}
-        # ${MARIADB_LIBRARIES}
+        ${GMP_LIBRARIES}
+        ${MPFR_LIBRARIES}        
 
         ${PQ_LIB}
         ${PQXX_LIB}
+
+        OpenCL::OpenCL
 
         # external
     )
@@ -40,9 +41,5 @@ foreach(name ${TARGETS})
         )
     endif()
 
-    target_include_directories(${name}
-    PUBLIC
-        # ${GMP_INCLUDE_DIR}
-    )
 endforeach(name ${TARGETS})
 

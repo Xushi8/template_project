@@ -13,9 +13,12 @@ endif()
 # set(Boost_USE_STATIC_LIBS ON)
 # find_package(Boost 1.81.0 REQUIRED COMPONENTS system filesystem)
 
-# find_path(GMP_INCLUDE_DIR NAMES gmp.h)
-# find_library(GMP_LIBRARIES NAMES gmp libgmp)
-# find_library(GMPXX_LIBRARIES NAMES gmpxx libgmpxx)
+find_path(GMP_INCLUDE_DIR NAMES gmp.h)
+find_library(GMP_LIBRARIES NAMES gmp libgmp)
+include_directories(${GMP_INCLUDE_DIR})
 
-# find_path(MARIADB_INCLUDE_DIR NAMES mariadb)
-# find_library(MARIADB_LIBRARIES NAMES mariadb libmariadb)
+find_path(MPFR_INCLUDE_DIR NAMES mpfr.h)
+find_library(MPFR_LIBRARIES NAMES mpfr libmpfr)
+include_directories(${MPFR_INCLUDE_DIR})
+
+find_package(OpenCL REQUIRED)
