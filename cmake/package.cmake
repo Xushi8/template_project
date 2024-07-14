@@ -20,5 +20,3 @@ include_directories(${GMP_INCLUDE_DIR})
 find_path(MPFR_INCLUDE_DIR NAMES mpfr.h)
 find_library(MPFR_LIBRARIES NAMES mpfr libmpfr)
 include_directories(${MPFR_INCLUDE_DIR})
-
-find_package(OpenCL REQUIRED)

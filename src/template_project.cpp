@@ -11,6 +11,7 @@
 #include <util/flatbuffers.hpp>
 #include <common/error_code.hpp>
 #include <boost/regex.hpp>
+#include <test_lib/multiprecision.hpp>
 
 namespace basic_namespace
 {
@@ -95,6 +96,8 @@ int main()
 	{
 		fmt::print("{}\n", it_begin->str());
 	}
+
+	basic_namespace::test_multiprecision();
 
 	// basic_namespace::test_flatbuffers();
 

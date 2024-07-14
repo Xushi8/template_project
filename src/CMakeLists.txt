@@ -1,5 +1,6 @@
 add_subdirectory(common)
 add_subdirectory(util)
+add_subdirectory(test_lib)
 
 set(TARGETS
     template_project
@@ -13,6 +14,7 @@ foreach(name ${TARGETS})
         # src
         common
         util
+        test_lib
         
         # package
         Threads::Threads
@@ -28,8 +30,6 @@ foreach(name ${TARGETS})
 
         ${PQ_LIB}
         ${PQXX_LIB}
-
-        OpenCL::OpenCL
 
         # external
     )
