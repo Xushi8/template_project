@@ -13,7 +13,6 @@
 #include <boost/regex.hpp>
 #include <test_lib/multiprecision.hpp>
 
-
 namespace basic_namespace
 {
 using u64 = uint64_t;
@@ -48,7 +47,7 @@ void test_xxhash()
 
 } // namespace basic_namespace
 
-int main(int argc, char* argv[])
+int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
 	// basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
 
