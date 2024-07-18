@@ -34,12 +34,5 @@ foreach(name ${TARGETS})
         # external
     )
 
-    if(BASIC_USE_GUI)
-        target_link_libraries(${name} 
-        PUBLIC
-            Qt6::Widgets
-        )
-    endif()
-
 endforeach(name ${TARGETS})
 
