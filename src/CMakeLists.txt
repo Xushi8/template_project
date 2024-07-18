@@ -15,18 +15,18 @@ foreach(name ${TARGETS})
         common
         util
         test_lib
-        
+
         # package
         Threads::Threads
         OpenMP::OpenMP_CXX
         TBB::tbb
         mimalloc
-        
+
         # Boost::system
         # Boost::filesystem
 
         ${GMP_LIBRARIES}
-        ${MPFR_LIBRARIES}        
+        ${MPFR_LIBRARIES}
 
         ${PQ_LIB}
         ${PQXX_LIB}

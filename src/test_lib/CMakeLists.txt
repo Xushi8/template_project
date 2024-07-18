@@ -10,7 +10,7 @@ PUBLIC
     ${header}
 )
 
-target_include_directories(test_lib 
+target_include_directories(test_lib
 PUBLIC
 ./include
 )

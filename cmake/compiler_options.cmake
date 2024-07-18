@@ -14,18 +14,18 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     add_compile_options(-ffast-math -fno-semantic-interposition)
     add_compile_options(-flto=auto)
     # add_compile_options(-fno-rtti)
-    
+
     # PGO
     # add_compile_options(-fprofile-generate=pgo_files)
-    
+
     # add_compile_options(-fprofile-use=pgo_files)
-    
+
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         # add_compile_options(-fsanitize=undefined)
         # add_compile_options(-fsanitize=address)
         # add_compile_options(-fsanitize=thread)
     endif()
-    
+
     # add_compile_options(-fopt-info)
 
     # add_compile_options(-save-temps=obj)
@@ -45,13 +45,13 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     endif()
 
     # add_link_options(-static-libstdc++)
-    
+
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         # add_link_options(-fsanitize=undefined)
         # add_link_options(-fsanitize=address)
         # add_link_options(-fsanitize=thread)
     endif()
-    
+
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")

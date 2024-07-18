@@ -10,7 +10,7 @@ PUBLIC
     ${header}
 )
 
-target_include_directories(util 
+target_include_directories(util
 PUBLIC
 ./include
 )
