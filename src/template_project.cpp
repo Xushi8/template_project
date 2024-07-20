@@ -10,8 +10,8 @@
 #include <util/base64.hpp>
 #include <util/flatbuffers.hpp>
 #include <common/error_code.hpp>
-#include <boost/regex.hpp>
 #include <test_lib/multiprecision.hpp>
+#include <re2/re2.h>
 
 namespace basic_namespace
 {
@@ -76,25 +76,17 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 	// 	fmt::print("db connect false\n");
 	// }
 
-	// boost::regex pat3(R"((\d{4})-(\d{4})-(\d{4})-(\d{4}))");
-	boost::regex pat3(R"(\d{4})", boost::regex_constants::egrep);
-	std::string card_str3("1234-5678-4321-8765");
-	// boost::smatch mat3;
-	// fmt::print("{}\n", boost::regex_search(card_str3, mat3, pat3));
-	// fmt::print("{}\n", mat3.size());
-	// for (size_t i = 0; i < mat3.size(); i++)
-	// {
-	// 	fmt::print("Match {}: {}\n", i, mat3[i].str());
-	// }
+	std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
+	std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式
+	RE2 re(pattern);
 
-	// std::string result = boost::regex_replace(card_str3, pat3, "111");
-	// fmt::print("{}\n", result);
+	re2::StringPiece input(text);
+	std::string email;
 
-	auto it_begin = boost::sregex_iterator(card_str3.begin(), card_str3.end(), pat3);
-	auto it_end = boost::sregex_iterator{};
-	for (; it_begin != it_end; ++it_begin)
+	while (RE2::FindAndConsume(&input, re, &email))
 	{
-		fmt::print("{}\n", it_begin->str());
+		// std::cout << "Found email: " << email << std::endl;
+		fmt::print("Found email: {}\n", email);
 	}
 
 	basic_namespace::test_multiprecision();

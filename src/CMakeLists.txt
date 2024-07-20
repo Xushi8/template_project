@@ -22,8 +22,11 @@ foreach(name ${TARGETS})
         TBB::tbb
         mimalloc
 
+
         # Boost::system
         # Boost::filesystem
+
+        ${RE2_LIBRARIES}
 
         ${GMP_LIBRARIES}
         ${MPFR_LIBRARIES}
