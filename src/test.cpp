@@ -5,6 +5,10 @@
 #include <chrono>
 #include <fmt/format.h>
 #include <unordered_set>
+#include <boost/asio.hpp>
+#include <chrono>
+using namespace std::chrono_literals;
+namespace asio = boost::asio;
 using fmt::print;
 
 template <typename F>
@@ -18,47 +22,87 @@ std::chrono::duration<double, std::milli> time_test(F&& f)
 
 int main()
 {
-	std::chrono::duration<double, std::milli> tim;
-	constexpr size_t n = 100000;
-	tim = time_test([]()
+	// std::chrono::duration<double, std::milli> tim;
+	// constexpr size_t n = 100000;
+	// tim = time_test([]()
+	// 	{
+	// 		boost::unordered_flat_set<boost::uuids::uuid> st(n);
+	// 		// std::unordered_set<boost::uuids::uuid> st;
+	// 		boost::uuids::random_generator ge;
+	// 		for (size_t i = 0; i < n; i++)
+	// 		{
+	// 			st.emplace(ge());
+	// 		}
+	// 	});
+
+	// print("{:.3f}ms\n", tim.count());
+
+	// tim = time_test([]()
+	// 	{
+	// 		boost::unordered_flat_set<boost::uuids::uuid> st(n);
+	// 		// std::unordered_set<boost::uuids::uuid> st;
+	// 		// boost::uuids::random_generator ge;
+	// 		boost::uuids::random_generator_pure ge;
+	// 		for (size_t i = 0; i < n; i++)
+	// 		{
+	// 			st.emplace(ge());
+	// 		}
+	// 	});
+
+	// print("{:.3f}ms\n", tim.count());
+
+	// tim = time_test([]()
+	// 	{
+	// 		boost::unordered_flat_set<boost::uuids::uuid> st(n);
+	// 		// std::unordered_set<boost::uuids::uuid> st;
+	// 		// boost::uuids::random_generator ge;
+	// 		// boost::uuids::random_generator_pure ge;
+	// 		boost::uuids::random_generator_mt19937 ge;
+	// 		for (size_t i = 0; i < n; i++)
+	// 		{
+	// 			st.emplace(ge());
+	// 		}
+	// 	});
+
+	// print("{:.3f}ms\n", tim.count());
+
+	asio::io_context ctx;
+	asio::steady_timer timer{ctx, 500ms};
+	timer.async_wait([](std::error_code ec)
 		{
-			boost::unordered_flat_set<boost::uuids::uuid> st(n);
-			// std::unordered_set<boost::uuids::uuid> st;
-			boost::uuids::random_generator ge;
-			for (size_t i = 0; i < n; i++)
+			if (!ec)
 			{
-				st.emplace(ge());
+				print("timer 1\n");
 			}
 		});
-
-	print("{:.3f}ms\n", tim.count());
-
-	tim = time_test([]()
+	timer.async_wait([](std::error_code ec)
 		{
-			boost::unordered_flat_set<boost::uuids::uuid> st(n);
-			// std::unordered_set<boost::uuids::uuid> st;
-			// boost::uuids::random_generator ge;
-			boost::uuids::random_generator_pure ge;
-			for (size_t i = 0; i < n; i++)
+			if (!ec)
 			{
-				st.emplace(ge());
+				print("timer 2\n");
 			}
 		});
-
-	print("{:.3f}ms\n", tim.count());
-
-	tim = time_test([]()
+	timer.async_wait([](std::error_code ec)
 		{
-			boost::unordered_flat_set<boost::uuids::uuid> st(n);
-			// std::unordered_set<boost::uuids::uuid> st;
-			// boost::uuids::random_generator ge;
-			// boost::uuids::random_generator_pure ge;
-			boost::uuids::random_generator_mt19937 ge;
-			for (size_t i = 0; i < n; i++)
+			if (!ec)
 			{
-				st.emplace(ge());
+				print("timer 3\n");
 			}
 		});
-
-	print("{:.3f}ms\n", tim.count());
+	timer.async_wait([](std::error_code ec)
+		{
+			if (!ec)
+			{
+				print("timer 4\n");
+			}
+		});
+	timer.async_wait([](std::error_code ec)
+		{
+			if (!ec)
+			{
+				print("timer 5\n");
+			}
+		});
+	timer.cancel();
+	ctx.run();
 }
