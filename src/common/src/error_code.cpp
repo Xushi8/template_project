@@ -6,7 +6,7 @@ using fmt::print;
 namespace basic_namespace
 {
 
-error_category const& get_error_category() noexcept
+[[nodiscard]] error_category const& get_error_category() noexcept
 {
 	static error_category error_category_instance;
 	return error_category_instance;
