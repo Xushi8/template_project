@@ -1,5 +1,4 @@
-#include <QApplication>
-#include <QPushButton>
+#include <gui/gui.hpp>
 
 int main(int argc, char* argv[])
 {

@@ -39,6 +39,8 @@ foreach(name ${TARGETS})
 endforeach(name ${TARGETS})
 
 if(BASIC_USE_GUI)
+    add_subdirectory(gui)
+
     add_executable(template_project_gui template_project_gui.cpp)
     target_link_libraries(template_project_gui
     PUBLIC
@@ -46,6 +48,7 @@ if(BASIC_USE_GUI)
         common
         util
         test_lib
+        gui
 
         # package
         Threads::Threads
