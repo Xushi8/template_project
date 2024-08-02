@@ -30,6 +30,7 @@
                 "-DCMAKE_BUILD_TYPE=Release",
                 // "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DBASIC_USE_MOLD=ON",
+                "-DBASIC_USE_GUI=ON",
                 // "-DCMAKE_VERBOSE_MAKEFILE=ON", // 打印详细信息
             ]
         },
