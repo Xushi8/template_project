@@ -1,5 +1,4 @@
 add_subdirectory(common)
-add_subdirectory(util)
 add_subdirectory(test_lib)
 
 set(TARGETS
@@ -13,7 +12,6 @@ foreach(name ${TARGETS})
     PUBLIC
         # src
         common
-        util
         test_lib
 
         # package
@@ -46,7 +44,6 @@ if(BASIC_USE_GUI)
     PUBLIC
         # src
         common
-        util
         test_lib
         gui
 
