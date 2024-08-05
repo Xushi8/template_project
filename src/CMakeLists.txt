@@ -23,10 +23,10 @@ foreach(name ${TARGETS})
 
         # Boost::filesystem
 
-        ${RE2_LIBRARIES}
+        ${RE2_LIBRARIE}
 
-        ${GMP_LIBRARIES}
-        ${MPFR_LIBRARIES}
+        ${GMP_LIBRARIE}
+        ${MPFR_LIBRARIE}
 
         ${PQ_LIB}
         ${PQXX_LIB}
@@ -57,10 +57,10 @@ if(BASIC_USE_GUI)
 
         # Boost::filesystem
 
-        ${RE2_LIBRARIES}
+        ${RE2_LIBRARIE}
 
-        ${GMP_LIBRARIES}
-        ${MPFR_LIBRARIES}
+        ${GMP_LIBRARIE}
+        ${MPFR_LIBRARIE}
 
         ${PQ_LIB}
         ${PQXX_LIB}
