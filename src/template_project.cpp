@@ -1,5 +1,5 @@
-#include <util/log.hpp>
-#include <util/hash.hpp>
+#include <template_project/log.hpp>
+#include <template_project/hash.hpp>
 #include <array>
 #include <vector>
 #include <fmt/core.h>
@@ -7,10 +7,10 @@
 #include <pqxx/pqxx>
 #include <string_view>
 #include <string>
-#include <util/base64.hpp>
-#include <util/flatbuffers.hpp>
-#include <common/error_code.hpp>
-#include <test_lib/multiprecision.hpp>
+#include <template_project/base64.hpp>
+#include <template_project/flatbuffers.hpp>
+#include <template_project/error_code.hpp>
+#include <template_project/multiprecision.hpp>
 #include <re2/re2.h>
 
 namespace basic_namespace

@@ -1,4 +1,4 @@
-#include <test_lib/multiprecision.hpp>
+#include <template_project/multiprecision.hpp>
 #include <fmt/format.h>
 
 namespace basic_namespace

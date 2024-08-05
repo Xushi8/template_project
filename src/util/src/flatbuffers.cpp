@@ -1,5 +1,5 @@
-#include <util/flatbuffers.hpp>
-#include <flatbuffers/monster_generated.h>
+#include <template_project/flatbuffers.hpp>
+#include <template_project/monster_generated.h>
 
 namespace basic_namespace
 {
