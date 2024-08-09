@@ -10,6 +10,12 @@ message( STATUS "CMake C++ Standard =    ${CMAKE_CXX_STANDARD}")
 message( STATUS "CMAKE_INSTALL_PREFIX =  ${CMAKE_INSTALL_PREFIX}" )
 
 
+
+if (PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
+    message(WARNING "The binary directory of CMake cannot be the same as source directory!")
+endif()
+
+
 # message(STATUS)
 # message(STATUS "C flags, Debug configuration: ${CMAKE_C_FLAGS_DEBUG}")
 # message(STATUS "C flags, Release configuration: ${CMAKE_C_FLAGS_RELEASE}")
