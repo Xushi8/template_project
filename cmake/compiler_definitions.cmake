@@ -5,3 +5,4 @@ endif()
 
 add_definitions(-DFMT_HEADER_ONLY)
 add_definitions(-DSPDLOG_FMT_EXTERNAL)
+add_definitions(-DVCL_NAMESPACE=vectorclass)
