@@ -109,6 +109,7 @@
 
 #include <vectorclass/vectorclass.h>
 #include <iostream>
+#include <template_project/common.hpp>
 using namespace std;
 
 int main()
@@ -116,6 +117,7 @@ int main()
 	vectorclass::Vec8d v8;
 	double arr[8];
 	v8.store(arr);
+	BASIC_UNROLL_LOOP(8)
 	for (int i = 0; i < 8; i++)
 	{
 		cout << arr[i] << ' ';
