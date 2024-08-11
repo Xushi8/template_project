@@ -107,19 +107,44 @@
 // 	ctx.run();
 // }
 
-#include <vectorclass/vectorclass.h>
+// #include <vectorclass/vectorclass.h>
+// #include <iostream>
+// #include <template_project/common.hpp>
+// using namespace std;
+
+// int main()
+// {
+// 	vectorclass::Vec8d v8;
+// 	double arr[8];
+// 	v8.store(arr);
+// 	BASIC_UNROLL_LOOP(8)
+// 	for (int i = 0; i < 8; i++)
+// 	{
+// 		cout << arr[i] << ' ';
+// 	}
+// }
+
 #include <iostream>
-#include <template_project/common.hpp>
-using namespace std;
+#include <boost/multiprecision/gmp.hpp>
 
 int main()
 {
-	vectorclass::Vec8d v8;
-	double arr[8];
-	v8.store(arr);
-	BASIC_UNROLL_LOOP(8)
-	for (int i = 0; i < 8; i++)
-	{
-		cout << arr[i] << ' ';
-	}
+	// 创建 gmp_int 类型的变量
+	boost::multiprecision::mpz_int a, b, c;
+
+	// 从用户输入初始化变量
+	std::cout << "Enter the first number: ";
+	std::cin >> a;
+	std::cout << "Enter the second number: ";
+	std::cin >> b;
+
+	// 执行一些操作
+	c = a * b;
+
+	// 输出结果
+	std::cout << "a: " << a << std::endl;
+	std::cout << "b: " << b << std::endl;
+	std::cout << "c = a * b: " << c << std::endl;
+
+	return 0;
 }
