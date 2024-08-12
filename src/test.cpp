@@ -124,27 +124,37 @@
 // 	}
 // }
 
-#include <iostream>
-#include <boost/multiprecision/gmp.hpp>
+// #include <iostream>
+// #include <boost/multiprecision/gmp.hpp>
+
+// int main()
+// {
+// 	// 创建 gmp_int 类型的变量
+// 	boost::multiprecision::mpz_int a, b, c;
+
+// 	// 从用户输入初始化变量
+// 	std::cout << "Enter the first number: ";
+// 	std::cin >> a;
+// 	std::cout << "Enter the second number: ";
+// 	std::cin >> b;
+
+// 	// 执行一些操作
+// 	c = a * b;
+
+// 	// 输出结果
+// 	std::cout << "a: " << a << std::endl;
+// 	std::cout << "b: " << b << std::endl;
+// 	std::cout << "c = a * b: " << c << std::endl;
+
+// 	return 0;
+// }
+
+#include <algorithm>
+using namespace std;
 
 int main()
 {
-	// 创建 gmp_int 类型的变量
-	boost::multiprecision::mpz_int a, b, c;
-
-	// 从用户输入初始化变量
-	std::cout << "Enter the first number: ";
-	std::cin >> a;
-	std::cout << "Enter the second number: ";
-	std::cin >> b;
-
-	// 执行一些操作
-	c = a * b;
-
-	// 输出结果
-	std::cout << "a: " << a << std::endl;
-	std::cout << "b: " << b << std::endl;
-	std::cout << "c = a * b: " << c << std::endl;
-
-	return 0;
+	int a[10] = {};
+	sort(a, a + 10, [](int lhs, int rhs)
+		{ return lhs < rhs; });
 }
