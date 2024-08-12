@@ -163,6 +163,8 @@
 #include <boost/unordered/unordered_flat_set.hpp>
 #include <boost/container/set.hpp>
 #include <vector>
+#include <fmt/format.h>
+using fmt::print;
 using namespace std;
 
 int main()
@@ -172,4 +174,7 @@ int main()
 	// boost::unordered_flat_set<xxh::hash_t<128>> st;
 	boost::container::set<xxh::hash_t<128>> st;
 	st.emplace(val);
+
+	__int128_t x;
+	print("{}\n", x);
 }
