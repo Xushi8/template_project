@@ -35,6 +35,16 @@ void test_xxhash()
 	{
 		print("{:x}\n", *hash_val);
 	}
+
+	auto val1 = hash_from_file_both("./.gitignore");
+	if (!val1.has_value())
+	{
+		print("./.gitignore error: {}\n", strerror(errno));
+	}
+	else
+	{
+		print("{}\n", val1->first);
+	}
 	constexpr uint64_t x = 0xf74f53b60490421c;
 	constexpr uint64_t y = 0x1c429004b6534ff7;
 	print("{}\n{}\n", x, y);
