@@ -149,12 +149,27 @@
 // 	return 0;
 // }
 
-#include <algorithm>
+// #include <algorithm>
+// using namespace std;
+
+// int main()
+// {
+// 	int a[10] = {};
+// 	sort(a, a + 10, [](int lhs, int rhs)
+// 		{ return lhs < rhs; });
+// }
+
+#include <xxhash/xxhash.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
+#include <boost/container/set.hpp>
+#include <vector>
 using namespace std;
 
 int main()
 {
-	int a[10] = {};
-	sort(a, a + 10, [](int lhs, int rhs)
-		{ return lhs < rhs; });
+	vector<int> a(10);
+	xxh::hash_t<128> val = xxh::xxhash3<128>(a);
+	// boost::unordered_flat_set<xxh::hash_t<128>> st;
+	boost::container::set<xxh::hash_t<128>> st;
+	st.emplace(val);
 }

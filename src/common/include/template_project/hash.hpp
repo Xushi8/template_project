@@ -17,7 +17,7 @@ std::optional<xxh::hash_t<N>> hash_from_file(std::string_view file_name)
 	std::ifstream ifs((std::string(file_name)));
 	if (ifs.fail()) [[unlikely]]
 	{
-		perror("hash_from_file");
+		// perror("hash_from_file");
 		return std::nullopt;
 	}
 	ifs.seekg(0, std::ios::end);
