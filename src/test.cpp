@@ -159,22 +159,45 @@
 // 		{ return lhs < rhs; });
 // }
 
-#include <xxhash/xxhash.hpp>
-#include <boost/unordered/unordered_flat_set.hpp>
-#include <boost/container/set.hpp>
-#include <vector>
-#include <fmt/format.h>
-using fmt::print;
-using namespace std;
+// #include <xxhash/xxhash.hpp>
+// #include <boost/unordered/unordered_flat_set.hpp>
+// #include <boost/container/set.hpp>
+// #include <vector>
+// #include <fmt/format.h>
+// using fmt::print;
+// using namespace std;
+
+// int main()
+// {
+// 	vector<int> a(10);
+// 	xxh::hash_t<128> val = xxh::xxhash3<128>(a);
+// 	// boost::unordered_flat_set<xxh::hash_t<128>> st;
+// 	boost::container::set<xxh::hash_t<128>> st;
+// 	st.emplace(val);
+
+// 	__int128_t x;
+// 	print("{}\n", x);
+// }
+
+// #include <boost/math/special_functions/prime.hpp>
+
+// int main()
+// {
+// 	boost::math::prime(0x7fffffff);
+// }
+
+#include <gcem_incl/gcem.hpp>
+#include <cstdint>
+using i128 = __int128_t;
+using u128 = __uint128_t;
+using i64 = int64_t;
+
 
 int main()
 {
-	vector<int> a(10);
-	xxh::hash_t<128> val = xxh::xxhash3<128>(a);
-	// boost::unordered_flat_set<xxh::hash_t<128>> st;
-	boost::container::set<xxh::hash_t<128>> st;
-	st.emplace(val);
+	// constexpr int x = __builtin_sqrt(23);
 
-	__int128_t x;
-	print("{}\n", x);
+	constexpr int x = gcem::sqrt(23);
+	// constexpr int y = gcem::sqrt(i128(16));
+	constexpr int z = gcem::sqrt(i64(16));
 }
