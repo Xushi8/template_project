@@ -36,7 +36,7 @@ AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: Empty
 
 # 允许短的lambda放在同一行
-AllowShortLambdasOnASingleLine: true
+AllowShortLambdasOnASingleLine: None
 
 # 允许短的if语句保持在同一行
 AllowShortIfStatementsOnASingleLine: false
