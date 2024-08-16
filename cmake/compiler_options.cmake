@@ -29,7 +29,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         add_compile_options(-fsanitize=undefined)
-        add_compile_options(-fsanitize=address)
+        # add_compile_options(-fsanitize=address)
         # add_compile_options(-fsanitize=thread)
     endif()
 
@@ -48,7 +48,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
 
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         add_link_options(-fsanitize=undefined)
-        add_link_options(-fsanitize=address)
+        # add_link_options(-fsanitize=address)
         # add_link_options(-fsanitize=thread)
     endif()
 
