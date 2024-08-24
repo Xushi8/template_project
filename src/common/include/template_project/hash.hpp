@@ -11,6 +11,8 @@
 
 namespace basic_namespace
 {
+inline namespace v0
+{
 static constexpr size_t hash_buffer_size = 64 * 1024;
 
 template <size_t N = 64>
@@ -65,5 +67,5 @@ inline std::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_co
 	}
 	return std::make_pair(hash_stream1.digest(), hash_stream2.digest());
 }
-
+} // namespace v0
 } // namespace basic_namespace

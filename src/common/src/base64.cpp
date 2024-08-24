@@ -5,7 +5,8 @@
 
 namespace basic_namespace
 {
-
+inline namespace v0
+{
 std::string base64_encode(std::string_view input)
 {
 	const std::size_t len = input.size();
@@ -37,5 +38,5 @@ std::string base64_decode(const char* input, const size_t len)
 	output.resize(result.first, boost::container::default_init);
 	return static_cast<std::string>(output);
 }
-
+} // namespace v0
 } // namespace basic_namespace

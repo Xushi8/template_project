@@ -4,7 +4,8 @@
 
 namespace basic_namespace
 {
-
+inline namespace v0
+{
 void test_multiprecision();
-
 }
+} // namespace basic_namespace

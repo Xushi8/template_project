@@ -4,6 +4,9 @@
 
 namespace basic_namespace
 {
+
+inline namespace v0
+{
 enum class error_code
 {
 	success = 0,
@@ -46,6 +49,7 @@ inline std::error_code make_error_code(error_code ec) noexcept
 }
 
 void test_error_code();
+} // namespace v0
 
 } // namespace basic_namespace
 

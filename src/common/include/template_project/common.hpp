@@ -21,8 +21,10 @@
 
 namespace basic_namespace
 {
-
-[[noreturn]] inline void unreachable()
+inline namespace v0
+{
+[[noreturn]] inline void
+unreachable()
 {
 #if defined(_MSC_VER) && !defined(__clang__) // MSVC
 	__assume(false);
@@ -59,5 +61,5 @@ public:
 			ptr, std::forward<Args>(args)...);
 	}
 };
-
+} // namespace v0
 } // namespace basic_namespace

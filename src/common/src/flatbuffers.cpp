@@ -3,6 +3,8 @@
 
 namespace basic_namespace
 {
+inline namespace v0
+{
 void test_flatbuffers()
 {
 	// 建立一个串行缓冲区算法
@@ -116,4 +118,5 @@ void test_flatbuffers()
 
 	printf("The FlatBuffer was successfully created and verified!\n");
 }
+} // namespace v0
 } // namespace basic_namespace
