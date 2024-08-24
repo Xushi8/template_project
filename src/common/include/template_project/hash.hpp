@@ -7,19 +7,21 @@
 #include <array>
 #include <optional>
 #include <utility>
+#include <expected>
 
 namespace basic_namespace
 {
 static constexpr size_t hash_buffer_size = 64 * 1024;
 
 template <size_t N = 64>
-inline std::optional<xxh::hash_t<N>> hash_from_file(std::string_view file_name)
+inline std::expected<xxh::hash_t<N>, std::error_code> hash_from_file(std::string file_name)
 {
-	std::ifstream ifs((std::string(file_name)));
+	std::ifstream ifs(file_name);
 	if (ifs.fail()) [[unlikely]]
 	{
 		// perror("hash_from_file");
-		return std::nullopt;
+		// return std::nullopt;
+		std::unexpected{std::make_error_code(static_cast<std::errc>(errno))};
 	}
 	ifs.seekg(0, std::ios::end);
 	const size_t n = static_cast<size_t>(ifs.tellg()) / sizeof(char);
@@ -37,13 +39,14 @@ inline std::optional<xxh::hash_t<N>> hash_from_file(std::string_view file_name)
 	return hash_stream.digest();
 }
 
-inline std::optional<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>> hash_from_file_both(std::string_view file_name)
+inline std::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_code> hash_from_file_both(std::string file_name)
 {
-	std::ifstream ifs((std::string(file_name)));
+	std::ifstream ifs(file_name);
 	if (ifs.fail()) [[unlikely]]
 	{
 		// perror("hash_from_file");
-		return std::nullopt;
+		// return std::nullopt;
+		std::unexpected{std::make_error_code(static_cast<std::errc>(errno))};
 	}
 	ifs.seekg(0, std::ios::end);
 	const size_t n = static_cast<size_t>(ifs.tellg()) / sizeof(char);

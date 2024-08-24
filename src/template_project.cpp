@@ -26,10 +26,10 @@ void test_spdlog()
 
 void test_xxhash()
 {
-	std::optional<xxh::hash_t<64>> hash_val = hash_from_file("/media/tom/Data/test.txt");
+	auto hash_val = hash_from_file("/media/tom/Data/test.txt");
 	if (!hash_val.has_value())
 	{
-		print("/media/tom/Data/test.txt error: {}\n", strerror(errno));
+		print("/media/tom/Data/test.txt error: {}\n", hash_val.error().message());
 	}
 	else
 	{
@@ -39,7 +39,7 @@ void test_xxhash()
 	auto val1 = hash_from_file_both("./.gitignore");
 	if (!val1.has_value())
 	{
-		print("./.gitignore error: {}\n", strerror(errno));
+		print("./.gitignore error: {}\n", val1.error().message());
 	}
 	else
 	{

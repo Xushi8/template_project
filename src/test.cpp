@@ -142,14 +142,34 @@
 // 	}
 // }
 
-
-
-#include <boost/multiprecision/mpfr.hpp>
+#include <expected>
+#include <system_error>
+#include <xxhash/xxhash.hpp>
 #include <fmt/format.h>
+#include <fstream>
 using fmt::print;
-using boost::multiprecision::mpfr_float;
+
+std::expected<int, std::error_code> sqrfloor(int x)
+{
+	if (x < 1)
+	{
+		std::ifstream ifs("a.txt");
+		return std::unexpected{std::make_error_code(static_cast<std::errc>(errno))};
+	}
+	return 1;
+}
 
 int main()
 {
-	
+	auto x = sqrfloor(0);
+	if (x.has_value())
+	{
+		print("great\n");
+	}
+	else
+	{
+		print("bad\n{}\n", x.error().message());
+	}
+
+	print("{}\n", __cpp_concepts);
 }
