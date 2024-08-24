@@ -18,9 +18,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     # add_compile_options(-Wconversion -Wsign-conversion)
 
     # optimize
-    add_compile_options(-ffast-math -fno-semantic-interposition)
     add_compile_options(-flto=auto)
+    # add_compile_options(-fno-semantic-interposition)
     # add_compile_options(-fno-rtti)
+    # add_compile_options(-ffast-math)
 
     # PGO
     # add_compile_options(-fprofile-generate=pgo_files)
