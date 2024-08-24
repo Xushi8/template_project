@@ -169,6 +169,7 @@ int main()
 	else
 	{
 		print("bad\n{}\n", x.error().message());
+		throw std::system_error(x.error(), "main");
 	}
 
 	print("{}\n", __cpp_concepts);
