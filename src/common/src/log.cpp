@@ -4,10 +4,9 @@
 #include <spdlog/async.h>
 #include <string>
 
-namespace basic_namespace
-{
-inline namespace v0
-{
+#include <template_project/common.hpp>
+
+BASIC_BEGIN_NAMESPACE
 using std::string_view;
 using std::string;
 
@@ -39,5 +38,4 @@ void change_default_log_level(spdlog::level::level_enum level)
 {
 	spdlog::default_logger()->set_level(level);
 }
-} // namespace v0
-} // namespace basic_namespace
+BASIC_END_NAMESPACE

@@ -2,11 +2,9 @@
 
 #include <system_error>
 
-namespace basic_namespace
-{
+#include <template_project/common.hpp>
 
-inline namespace v0
-{
+BASIC_BEGIN_NAMESPACE
 enum class error_code
 {
 	success = 0,
@@ -49,9 +47,7 @@ inline std::error_code make_error_code(error_code ec) noexcept
 }
 
 void test_error_code();
-} // namespace v0
-
-} // namespace basic_namespace
+BASIC_END_NAMESPACE
 
 template <>
 struct std::is_error_code_enum<basic_namespace::error_code> : public std::true_type

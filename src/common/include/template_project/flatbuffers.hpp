@@ -1,9 +1,7 @@
 #pragma once
 
-namespace basic_namespace
-{
-inline namespace v0
-{
+#include <template_project/common.hpp>
+
+BASIC_BEGIN_NAMESPACE
 void test_flatbuffers();
-}
-} // namespace basic_namespace
+BASIC_END_NAMESPACE

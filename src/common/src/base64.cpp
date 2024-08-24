@@ -3,10 +3,9 @@
 #include <boost/beast/core/detail/base64.hpp>
 #include <boost/container/string.hpp>
 
-namespace basic_namespace
-{
-inline namespace v0
-{
+#include <template_project/common.hpp>
+
+BASIC_BEGIN_NAMESPACE
 std::string base64_encode(std::string_view input)
 {
 	const std::size_t len = input.size();
@@ -38,5 +37,4 @@ std::string base64_decode(const char* input, const size_t len)
 	output.resize(result.first, boost::container::default_init);
 	return static_cast<std::string>(output);
 }
-} // namespace v0
-} // namespace basic_namespace
+BASIC_END_NAMESPACE

@@ -1,10 +1,9 @@
 #include <template_project/flatbuffers.hpp>
 #include <template_project/monster_generated.h>
 
-namespace basic_namespace
-{
-inline namespace v0
-{
+#include <template_project/common.hpp>
+
+BASIC_BEGIN_NAMESPACE
 void test_flatbuffers()
 {
 	// 建立一个串行缓冲区算法
@@ -118,5 +117,4 @@ void test_flatbuffers()
 
 	printf("The FlatBuffer was successfully created and verified!\n");
 }
-} // namespace v0
-} // namespace basic_namespace
+BASIC_END_NAMESPACE

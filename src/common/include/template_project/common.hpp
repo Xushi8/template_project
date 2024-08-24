@@ -19,10 +19,18 @@
 #endif
 #endif
 
-namespace basic_namespace
-{
-inline namespace v0
-{
+#ifndef BASIC_BEGIN_NAMESPACE
+#define BASIC_BEGIN_NAMESPACE \
+	namespace basic_namespace \
+	{                         \
+	inline namespace v0      \
+	{
+#define BASIC_END_NAMESPACE   \
+	}                         \
+	}
+#endif
+
+BASIC_BEGIN_NAMESPACE
 [[noreturn]] inline void
 unreachable()
 {
@@ -61,5 +69,4 @@ public:
 			ptr, std::forward<Args>(args)...);
 	}
 };
-} // namespace v0
-} // namespace basic_namespace
+BASIC_END_NAMESPACE

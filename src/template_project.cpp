@@ -13,8 +13,9 @@
 #include <template_project/multiprecision.hpp>
 #include <re2/re2.h>
 
-namespace basic_namespace
-{
+#include <template_project/common.hpp>
+
+BASIC_BEGIN_NAMESPACE
 using u64 = uint64_t;
 using fmt::print;
 
@@ -61,8 +62,7 @@ void test_xxhash()
 	hash_val = xxh::xxhash3<64>(vec1);
 	print("{}\n", *hash_val);
 }
-
-} // namespace basic_namespace
+BASIC_END_NAMESPACE
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
