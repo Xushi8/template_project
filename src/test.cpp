@@ -179,12 +179,26 @@
 #include <system_error>
 #include <string_view>
 #include <fmt/format.h>
+#include <template_project/hash.hpp>
 using fmt::print;
 
 int main()
 {
 	std::error_code ec;
-	mio::mmap_source mmap = mio::make_mmap_source("./.gitignore", ec);
-	std::string_view s(mmap.begin(), mmap.end());
-	print("{}\n", s);
+	std::string_view path = "./a.txt";
+	mio::mmap_source mmap = mio::make_mmap_source(path, ec);
+	// std::string_view s(mmap.begin(), mmap.end());
+	// print("{}\n", s);
+
+	auto res = basic_namespace::hash_from_file_both(path);
+	if (res.has_value())
+	{
+		auto x = res->second;
+		__uint128_t val = (__uint128_t(x.high64) << 64) | x.low64;
+		print("{:x}\n", val);
+	}
+	else
+	{
+		print("{}\n", res.error().message());
+	}
 }

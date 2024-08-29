@@ -4,6 +4,7 @@ add_subdirectory(test_lib)
 set(TARGETS
     template_project
     test
+    gen
 )
 
 foreach(name ${TARGETS})
