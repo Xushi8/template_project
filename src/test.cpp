@@ -142,35 +142,49 @@
 // 	}
 // }
 
-#include <expected>
-#include <system_error>
-#include <xxhash/xxhash.hpp>
-#include <fmt/format.h>
-#include <fstream>
-using fmt::print;
+// #include <expected>
+// #include <system_error>
+// #include <xxhash/xxhash.hpp>
+// #include <fmt/format.h>
+// #include <fstream>
+// using fmt::print;
 
-std::expected<int, std::error_code> sqrfloor(int x)
-{
-	if (x < 1)
-	{
-		std::ifstream ifs("a.txt");
-		return std::unexpected{std::make_error_code(static_cast<std::errc>(errno))};
-	}
-	return 1;
-}
+// std::expected<int, std::error_code> sqrfloor(int x)
+// {
+// 	if (x < 1)
+// 	{
+// 		std::ifstream ifs("a.txt");
+// 		return std::unexpected{std::make_error_code(static_cast<std::errc>(errno))};
+// 	}
+// 	return 1;
+// }
+
+// int main()
+// {
+// 	auto x = sqrfloor(0);
+// 	if (x.has_value())
+// 	{
+// 		print("great\n");
+// 	}
+// 	else
+// 	{
+// 		print("bad\n{}\n", x.error().message());
+// 		throw std::system_error(x.error(), "main");
+// 	}
+
+// 	print("{}\n", __cpp_concepts);
+// }
+
+#include <mio/mio.hpp>
+#include <system_error>
+#include <string_view>
+#include <fmt/format.h>
+using fmt::print;
 
 int main()
 {
-	auto x = sqrfloor(0);
-	if (x.has_value())
-	{
-		print("great\n");
-	}
-	else
-	{
-		print("bad\n{}\n", x.error().message());
-		throw std::system_error(x.error(), "main");
-	}
-
-	print("{}\n", __cpp_concepts);
+	std::error_code ec;
+	mio::mmap_source mmap = mio::make_mmap_source("./.gitignore", ec);
+	std::string_view s(mmap.begin(), mmap.end());
+	print("{}\n", s);
 }
