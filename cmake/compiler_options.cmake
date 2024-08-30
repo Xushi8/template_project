@@ -53,6 +53,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
         # add_link_options(-fsanitize=thread)
     endif()
 
+    add_link_options(-static-libstdc++)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
