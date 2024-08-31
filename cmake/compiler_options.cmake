@@ -3,6 +3,7 @@ if (MSVC)
 else()
     if (WIN32)
         add_compile_options(-finput-charset=utf-8 -fexec-charset=utf-8)
+        add_link_options(-finput-charset=utf-8 -fexec-charset=utf-8)
     endif()
 endif()
 
@@ -23,10 +24,13 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     # optimize
     add_compile_options(-flto=auto)
     add_link_options(-flto=auto)
+
+    add_compile_options(-fno-rtti)
+    add_link_options(-fno-rtti)
+
     # add_compile_options(-fno-semantic-interposition)
     # add_link_options(-fno-semantic-interposition)
-    # add_compile_options(-fno-rtti)
-    # add_link_options(-fno-rtti)
+
     # add_compile_options(-ffast-math)
     # add_link_options(-ffast-math)
 
@@ -43,6 +47,9 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
         # add_link_options(-fsanitize=address)
         # add_compile_options(-fsanitize=thread)
         # add_link_options(-fsanitize=thread)
+
+        add_compile_options(-ggdb3 -fno-omit-frame-pointer)
+        add_link_options(-ggdb3 -fno-omit-frame-pointer)
     endif()
 
     if(BASIC_USE_MOLD)
