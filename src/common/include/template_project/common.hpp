@@ -21,7 +21,7 @@
 #define BASIC_BEGIN_NAMESPACE \
 	namespace basic_namespace \
 	{                         \
-	inline namespace v0      \
+	inline namespace v0       \
 	{
 #define BASIC_END_NAMESPACE   \
 	}                         \
