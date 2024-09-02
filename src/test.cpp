@@ -252,6 +252,7 @@
 // 	return 0;
 // }
 
+#include <cmath>
 #include <template_project/common.hpp>
 #include <iostream>
 #include <boost/smart_ptr.hpp>
@@ -319,10 +320,17 @@ __attribute__((noinline)) intrusive_ptr<Test> func()
 
 BASIC_END_NAMESPACE
 
+#include <numbers>
+#include <fmt/format.h>
+using fmt::print;
 int main()
 {
 	intrusive_ptr<basic_namespace::Test> ret = basic_namespace::func();
 	cout << "main over\n";
+
+	constexpr double pi = M_PI; // 正常使用 M_PI
+	constexpr long double pi1 = std::numbers::pi_v<long double>;
+	print("{:.30f}\n{:.30f}\n", pi, pi1);
 
 	return 0;
 }
