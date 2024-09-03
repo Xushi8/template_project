@@ -22,8 +22,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     # add_link_options(-Wconversion -Wsign-conversion)
 
     # optimize
-    add_compile_options(-flto=auto)
-    add_link_options(-flto=auto)
 
     add_compile_options(-fno-rtti)
     add_link_options(-fno-rtti)
