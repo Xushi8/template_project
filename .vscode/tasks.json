@@ -39,10 +39,8 @@
             "label": "cmake_next",
             "command": "time",
             "args": [
-                "cmake",
-                "--build",
-                "build",
-                "-j$(nproc)",
+                "ninja",
+                "-Cbuild",
                 // "1>./build/info.log",
                 // "2>./build/warning.log",
             ]
