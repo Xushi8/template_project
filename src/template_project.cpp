@@ -4,7 +4,7 @@
 #include <vector>
 #include <fmt/core.h>
 #include <cstdint>
-#include <pqxx/pqxx>
+// #include <pqxx/pqxx>
 #include <string_view>
 #include <string>
 #include <template_project/base64.hpp>
@@ -82,16 +82,16 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 
 	basic_namespace::test_error_code();
 
-	pqxx::connection C("dbname=test_db user=tom password=tom hostaddr=::1 port=5432");
-	if (C.is_open())
-	{
-		pqxx::work W(C);
-		fmt::print("db connect true\n");
-	}
-	else
-	{
-		fmt::print("db connect false\n");
-	}
+	// pqxx::connection C("dbname=test_db user=tom password=tom hostaddr=::1 port=5432");
+	// if (C.is_open())
+	// {
+	// 	pqxx::work W(C);
+	// 	fmt::print("db connect true\n");
+	// }
+	// else
+	// {
+	// 	fmt::print("db connect false\n");
+	// }
 
 	std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
 	std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式
