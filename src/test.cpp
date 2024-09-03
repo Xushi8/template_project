@@ -117,13 +117,21 @@
 // 	return 0;
 // }
 
-
-#include <compare>
+#include <fmt/format.h>
+using fmt::print;
 struct A
 {
-	int m_data;
+	int m_data{};
 
 	friend constexpr bool operator==(A const& lhs, A const& rhs) noexcept = default;
 
 	friend constexpr auto operator<=>(A const& lhs, A const& rhs) noexcept = default;
 };
+
+int main()
+{
+	A x, y;
+	print("{}\n", x < y);
+	print("{}\n", x == y);
+	print("{}\n", x > y);
+}
