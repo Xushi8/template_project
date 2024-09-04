@@ -128,10 +128,27 @@ struct A
 	friend constexpr auto operator<=>(A const& lhs, A const& rhs) noexcept = default;
 };
 
+template <typename T>
+T add(T lhs, T rhs)
+{
+	return lhs + rhs;
+}
+
+/**
+在头文件里声明
+extern template int add<int>(int, int);
+
+在cpp里定义
+template int add<int>(int, int);
+
+*/
+
 int main()
 {
 	A x, y;
 	print("{}\n", x < y);
 	print("{}\n", x == y);
 	print("{}\n", x > y);
+
+	return add(1, 2);
 }
