@@ -23,6 +23,8 @@ endif()
 
 # set(CMAKE_UNITY_BUILD ON)
 
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+
 option(BASIC_USE_MOLD "Use mold linker" OFF)
 
 option(BASIC_USE_GUI "Use qt for gui" OFF)

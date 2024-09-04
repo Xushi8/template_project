@@ -1,20 +1,14 @@
 #pragma once
 
+// clang-format off
 #ifndef BASIC_UNROLL_LOOP
-#if defined(__GNUC__) || defined(__clang__)
-// GCC or Clang
-#define BASIC_STRINGIFY(X) #X
-#define BASIC_TOSTRING(X) BASIC_STRINGIFY(X)
-#define BASIC_UNROLL_LOOP(N) _Pragma(BASIC_TOSTRING(GCC unroll N))
-// #undef TOSTRING
-// #undef STRINGIFY
-#elif defined(_MSC_VER)
-// MSVC
-#define BASIC_UNROLL_LOOP(N) __pragma(loop(unroll, N))
-#else
-// Other compilers
-#define BASIC_UNROLL_LOOP(N)
-#endif
+#	if defined(_MSC_VER) && !defined(__clang__)
+#		define BASIC_UNROLL_LOOP(N) __pragma(loop(unroll, N))
+#	else
+#		define BASIC_STRINGIFY(X)	 #X
+#		define BASIC_TOSTRING(X)	 BASIC_STRINGIFY(X)
+#		define BASIC_UNROLL_LOOP(N) _Pragma(BASIC_TOSTRING(GCC unroll N))
+#	endif
 #endif
 
 #ifndef BASIC_BEGIN_NAMESPACE
@@ -23,13 +17,27 @@
 	{                         \
 	inline namespace v0       \
 	{
-#define BASIC_END_NAMESPACE   \
-	}                         \
+
+#define BASIC_END_NAMESPACE  \
+	}                        \
 	}
 #endif
 
-BASIC_BEGIN_NAMESPACE
-
-
-
-BASIC_END_NAMESPACE
+#ifndef BASIC_EXPORT
+#	if  defined(BASIC_LIBRARY_STATIC)
+#		define BASIC_EXPORT
+#	elif defined(BASIC_LIBRARY_SHARED)
+#		if defined(_WIN32)
+#			define BASIC_EXPORT __declspec(dllexport)
+#		else
+#			define BASIC_EXPORT __attribute__((visibility("default")))
+#		endif
+#	else // import
+#		if defined(_WIN32)
+#			define BASIC_EXPORT __declspec(dllexport)
+#		else
+#			define BASIC_EXPORT
+#		endif
+#	endif
+#endif
+// clang-format on
