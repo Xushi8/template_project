@@ -20,3 +20,8 @@ if(BUILD_SHARED_LIBS)
 else()
     target_compile_definitions(common PUBLIC -DBASIC_LIBRARY_STATIC)
 endif()
+
+install(TARGETS common)
+
+install(DIRECTORY ./include/
+        DESTINATION include)

@@ -16,3 +16,8 @@ target_include_directories(gui
 PUBLIC
 ./include
 )
+
+install(TARGETS gui)
+
+install(DIRECTORY ./include/
+        DESTINATION include)

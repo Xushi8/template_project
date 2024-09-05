@@ -14,3 +14,8 @@ target_include_directories(test_lib
 PUBLIC
 ./include
 )
+
+install(TARGETS test_lib)
+
+install(DIRECTORY ./include/
+        DESTINATION include)
