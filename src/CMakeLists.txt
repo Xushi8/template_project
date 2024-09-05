@@ -4,19 +4,19 @@ add_subdirectory(test_lib)
 # target_link_libraries(common PUBLIC test_lib)
 
 
-set(MY_TARGETS
+set(BASIC_TARGETS
     template_project
     test
     gen
 )
 
-foreach(name ${MY_TARGETS})
+foreach(name ${BASIC_TARGETS})
     add_executable(${name} ${name}.cpp)
     target_link_libraries(${name}
     PUBLIC
         # src
-        common
-        test_lib
+        template_project_common
+        template_project_test_lib
 
         # package
         Threads::Threads
@@ -38,9 +38,9 @@ foreach(name ${MY_TARGETS})
         # external
     )
 
-endforeach(name ${MY_TARGETS})
+endforeach(name ${BASIC_TARGETS})
 
-install(TARGETS ${MY_TARGETS})
+install(TARGETS ${BASIC_TARGETS})
 
 if(BASIC_USE_GUI)
     add_subdirectory(gui)
@@ -49,9 +49,9 @@ if(BASIC_USE_GUI)
     target_link_libraries(template_project_gui
     PUBLIC
         # src
-        common
-        test_lib
-        gui
+        template_project_common
+        template_project_test_lib
+        template_project_gui_lib
 
         # package
         Threads::Threads
