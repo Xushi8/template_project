@@ -15,13 +15,9 @@ PUBLIC
 ./include
 )
 
-if(BUILD_SHARED_LIBS)
-    target_compile_definitions(common PUBLIC -DBASIC_LIBRARY_SHARED)
-else()
-    target_compile_definitions(common PUBLIC -DBASIC_LIBRARY_STATIC)
+if(BUILD_SHARED_LIBS OR BASIC_INSTALL_STATIC_LIB)
+    install(TARGETS common)
 endif()
-
-install(TARGETS common)
 
 install(DIRECTORY ./include/
         DESTINATION include)

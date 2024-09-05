@@ -51,12 +51,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     endif()
 
     if(BASIC_USE_MOLD)
-        add_compile_options(-fuse-ld=mold)
         add_link_options(-fuse-ld=mold)
     endif()
 
-    add_compile_options(-static-libstdc++)
-    add_link_options(-static-libstdc++)
+    if(BASIC_STATIS_LIBCXX)
+        add_link_options(-static-libstdc++)
+    endif()
 
 endif()
 

@@ -5,14 +5,14 @@
 #include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
-enum class error_code
+enum class BASIC_EXPORT error_code
 {
 	success = 0,
 	network_error,
 	file_error,
 };
 
-struct error_category : public std::error_category
+struct BASIC_EXPORT error_category : public std::error_category
 {
 	const char* name() const noexcept override
 	{
@@ -39,13 +39,14 @@ struct error_category : public std::error_category
 	}
 };
 
-[[nodiscard]] error_category const& get_error_category() noexcept;
+[[nodiscard]] BASIC_EXPORT error_category const& get_error_category() noexcept;
 
 inline std::error_code make_error_code(error_code ec) noexcept
 {
 	return {static_cast<int>(ec), get_error_category()};
 }
 
+BASIC_EXPORT
 void test_error_code();
 BASIC_END_NAMESPACE
 

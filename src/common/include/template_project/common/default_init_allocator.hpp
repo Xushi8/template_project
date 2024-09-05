@@ -4,7 +4,7 @@
 BASIC_BEGIN_NAMESPACE
 
 template <typename T, typename A = std::allocator<T>>
-class default_init_allocator : public A
+class BASIC_EXPORT default_init_allocator : public A
 {
 	typedef std::allocator_traits<A> a_t;
 

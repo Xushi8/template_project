@@ -15,7 +15,9 @@ PUBLIC
 ./include
 )
 
-install(TARGETS test_lib)
+if(BUILD_SHARED_LIBS OR BASIC_INSTALL_STATIC_LIB)
+    install(TARGETS test_lib)
+endif()
 
 install(DIRECTORY ./include/
         DESTINATION include)

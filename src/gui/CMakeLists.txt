@@ -17,7 +17,9 @@ PUBLIC
 ./include
 )
 
-install(TARGETS gui)
+if(BUILD_SHARED_LIBS OR BASIC_INSTALL_STATIC_LIB)
+    install(TARGETS gui)
+endif()
 
 install(DIRECTORY ./include/
         DESTINATION include)
