@@ -1,5 +1,5 @@
-#include <template_project/log.hpp>
-#include <template_project/hash.hpp>
+#include <template_project/common/log.hpp>
+#include <template_project/common/hash.hpp>
 #include <array>
 #include <vector>
 #include <fmt/core.h>
@@ -7,13 +7,13 @@
 // #include <pqxx/pqxx>
 #include <string_view>
 #include <string>
-#include <template_project/base64.hpp>
-#include <template_project/flatbuffers.hpp>
-#include <template_project/error_code.hpp>
-#include <template_project/multiprecision.hpp>
+#include <template_project/common/base64.hpp>
+#include <template_project/common/flatbuffers.hpp>
+#include <template_project/common/error_code.hpp>
+#include <template_project/test_lib/multiprecision.hpp>
 #include <re2/re2.h>
 
-#include <template_project/common.hpp>
+#include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
 using u64 = uint64_t;

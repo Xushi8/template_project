@@ -1,4 +1,4 @@
-#include <template_project/gui.hpp>
+#include <template_project/gui/gui.hpp>
 
 int main(int argc, char* argv[])
 {

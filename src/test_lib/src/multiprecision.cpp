@@ -1,7 +1,7 @@
-#include <template_project/multiprecision.hpp>
+#include <template_project/test_lib/multiprecision.hpp>
 #include <fmt/format.h>
 
-#include <template_project/common.hpp>
+#include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
 using fmt::print;

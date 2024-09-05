@@ -4,7 +4,7 @@
 #include <string>
 #include <cstddef>
 
-#include <template_project/common.hpp>
+#include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
 std::string base64_encode(std::string_view input);

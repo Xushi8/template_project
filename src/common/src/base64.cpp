@@ -1,9 +1,7 @@
-#include <template_project/base64.hpp>
-#include <template_project/common.hpp>
+#include <template_project/common/base64.hpp>
+#include <template_project/common/common.hpp>
 #include <boost/beast/core/detail/base64.hpp>
 #include <boost/container/string.hpp>
-
-#include <template_project/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
 std::string base64_encode(std::string_view input)

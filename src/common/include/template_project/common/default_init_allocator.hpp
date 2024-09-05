@@ -1,4 +1,4 @@
-#include <template_project/common.hpp>
+#include <template_project/common/common.hpp>
 #include <memory>
 
 BASIC_BEGIN_NAMESPACE

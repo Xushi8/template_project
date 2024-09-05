@@ -1,7 +1,7 @@
-#include <template_project/flatbuffers.hpp>
-#include <template_project/monster_generated.h>
+#include <template_project/common/flatbuffers.hpp>
+#include <template_project/flatbuffers/monster_generated.h>
 
-#include <template_project/common.hpp>
+#include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
 void test_flatbuffers()

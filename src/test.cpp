@@ -48,7 +48,7 @@
 // }
 
 // #include <cmath>
-// #include <template_project/common.hpp>
+// #include <template_project/common/common.hpp>
 // #include <iostream>
 // #include <boost/smart_ptr.hpp>
 // #include <boost/smart_ptr/intrusive_ref_counter.hpp>

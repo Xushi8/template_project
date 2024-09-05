@@ -1,10 +1,10 @@
-#include <template_project/log.hpp>
+#include <template_project/common/log.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/async.h>
 #include <string>
 
-#include <template_project/common.hpp>
+#include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
 using std::string_view;
