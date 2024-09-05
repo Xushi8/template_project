@@ -14,3 +14,9 @@ target_include_directories(common
 PUBLIC
 ./include
 )
+
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(common PUBLIC -DBASIC_LIBRARY_SHARED)
+else()
+    target_compile_definitions(common PUBLIC -DBASIC_LIBRARY_STATIC)
+endif()

@@ -18,8 +18,8 @@ include(./cmake/package.cmake)
 include(./cmake/print_info.cmake)
 
 include_directories(./external/include)
-include_directories(${PROJECT_SOURCE_DIR}/src/common/include)
-include_directories(${PROJECT_SOURCE_DIR}/src/flatbuffers/include)
+include_directories(./src/common/include)
+include_directories(./src/flatbuffers/include)
 
 add_subdirectory(src)
 add_subdirectory(external)

@@ -1,6 +1,9 @@
 add_subdirectory(common)
 add_subdirectory(test_lib)
 
+# target_link_libraries(common PUBLIC test_lib)
+
+
 set(TARGETS
     template_project
     test

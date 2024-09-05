@@ -21,6 +21,12 @@ endif()
 
 # set(BUILD_SHARED_LIBS ON)
 
+if(BUILD_SHARED_LIBS)
+    message(STATUS "Building shared libraries")
+else()
+    message(STATUS "Building static libraries")
+endif()
+
 # set(CMAKE_UNITY_BUILD ON)
 
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
@@ -41,5 +47,5 @@ endif()
 
 # lto
 if(NOT CMAKE_INTERPROCEDURAL_OPTIMIZATION)
-    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 endif()
