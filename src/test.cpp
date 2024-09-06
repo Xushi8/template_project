@@ -117,38 +117,63 @@
 // 	return 0;
 // }
 
-#include <fmt/format.h>
-using fmt::print;
-struct A
+// #include <fmt/format.h>
+// using fmt::print;
+// struct A
+// {
+// 	int m_data{};
+
+// 	friend constexpr bool operator==(A const& lhs, A const& rhs) noexcept = default;
+
+// 	friend constexpr auto operator<=>(A const& lhs, A const& rhs) noexcept = default;
+// };
+
+// template <typename T>
+// T add(T lhs, T rhs)
+// {
+// 	return lhs + rhs;
+// }
+
+// /**
+// 在头文件里声明
+// extern template int add<int>(int, int);
+
+// 在cpp里定义
+// template int add<int>(int, int);
+
+// */
+
+// int main()
+// {
+// 	A x, y;
+// 	print("{}\n", x < y);
+// 	print("{}\n", x == y);
+// 	print("{}\n", x > y);
+
+// 	return add(1, 2);
+// }
+
+#include <fstream>
+using namespace std;
+
+std::error_code create_reserve_file(string const& file_name, size_t len)
 {
-	int m_data{};
-
-	friend constexpr bool operator==(A const& lhs, A const& rhs) noexcept = default;
-
-	friend constexpr auto operator<=>(A const& lhs, A const& rhs) noexcept = default;
-};
-
-template <typename T>
-T add(T lhs, T rhs)
-{
-	return lhs + rhs;
+	std::ofstream ofs(file_name);
+	if (!ofs)
+	{
+		return std::make_error_code(static_cast<std::errc>(errno));
+	}
+	ofs.seekp(len);
+	ofs.write("", 1);
+	return {};
 }
-
-/**
-在头文件里声明
-extern template int add<int>(int, int);
-
-在cpp里定义
-template int add<int>(int, int);
-
-*/
 
 int main()
 {
-	A x, y;
-	print("{}\n", x < y);
-	print("{}\n", x == y);
-	print("{}\n", x > y);
-
-	return add(1, 2);
+	ofstream ofs("a.txt");
+	if (ofs)
+	{
+		ofs.seekp(static_cast<std::size_t>(20e9));
+		ofs.write("", 1);
+	}
 }
