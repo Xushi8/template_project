@@ -18,8 +18,8 @@
 	inline namespace v0       \
 	{
 
-#define BASIC_END_NAMESPACE  \
-	}                        \
+#define BASIC_END_NAMESPACE   \
+	}                         \
 	}
 #endif
 
