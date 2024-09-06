@@ -5,7 +5,6 @@ add_subdirectory(test_lib)
 
 
 set(BASIC_TARGETS
-    template_project
     test
     gen
 )
@@ -41,38 +40,3 @@ foreach(name ${BASIC_TARGETS})
 endforeach(name ${BASIC_TARGETS})
 
 install(TARGETS ${BASIC_TARGETS})
-
-if(BASIC_USE_GUI)
-    add_subdirectory(gui)
-
-    add_executable(template_project_gui template_project_gui.cpp)
-    target_link_libraries(template_project_gui
-    PUBLIC
-        # src
-        template_project_common
-        template_project_test_lib
-        template_project_gui_lib
-
-        # package
-        Threads::Threads
-        OpenMP::OpenMP_CXX
-        TBB::tbb
-        mimalloc
-
-        Qt6::Widgets
-
-        # Boost::filesystem
-
-        ${RE2_LIB}
-
-        ${GMP_LIB}
-        ${MPFR_LIB}
-
-        ${PQ_LIB}
-        ${PQXX_LIB}
-
-        # external
-    )
-
-    install(TARGETS template_project_gui)
-endif()

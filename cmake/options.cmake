@@ -47,14 +47,6 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 option(BASIC_USE_MOLD "Use mold linker" OFF)
 
-option(BASIC_USE_GUI "Use qt for gui" OFF)
-if(BASIC_USE_GUI)
-    # Turn on automatic invocation of the MOC, UIC & RCC
-    set(CMAKE_AUTOMOC ON)
-    set(CMAKE_AUTOUIC ON)
-    set(CMAKE_AUTORCC ON)
-endif()
-
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 
 # lto

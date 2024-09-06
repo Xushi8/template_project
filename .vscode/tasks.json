@@ -31,7 +31,6 @@
                 "-DCMAKE_BUILD_TYPE=Release",
                 // "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DBASIC_USE_MOLD=ON",
-                // "-DBASIC_USE_GUI=ON",
                 // "-DBUILD_SHARED_LIBS=ON",
                 "-DBASIC_STATIS_LIBCXX=ON",
                 // "-DBASIC_STATIC_EXTERNAL_LIB=OFF"

@@ -1,1 +1,0 @@
-#include <template_project/gui/gui.hpp>
