@@ -34,7 +34,7 @@
 #		endif
 #	else // import
 #		if defined(_WIN32)
-#			define BASIC_EXPORT __declspec(dllexport)
+#			define BASIC_EXPORT __declspec(dllimport)
 #		else
 #			define BASIC_EXPORT
 #		endif
