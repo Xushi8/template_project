@@ -175,7 +175,7 @@ std::error_code create_reserve_file(string const& file_name, size_t len)
 
 int main()
 {
-	auto ec = create_reserve_file("a.txt", 10);
+	auto ec = create_reserve_file("a.txt", 0);
 	print("{} {}\n", ec.value(), ec.message());
 	return ec.value();
 }
