@@ -154,6 +154,9 @@
 // }
 
 #include <fstream>
+#include <cassert>
+#include <fmt/format.h>
+using fmt::print;
 using namespace std;
 
 std::error_code create_reserve_file(string const& file_name, size_t len)
@@ -163,17 +166,16 @@ std::error_code create_reserve_file(string const& file_name, size_t len)
 	{
 		return std::make_error_code(static_cast<std::errc>(errno));
 	}
-	ofs.seekp(len);
+	if (len == 0) [[unlikely]]
+		return {};
+	ofs.seekp(len - 1);
 	ofs.write("", 1);
-	return {};
+	return (ofs ? std::error_code{} : std::make_error_code(static_cast<std::errc>(errno)));
 }
 
 int main()
 {
-	ofstream ofs("a.txt");
-	if (ofs)
-	{
-		ofs.seekp(static_cast<std::size_t>(20e9));
-		ofs.write("", 1);
-	}
+	auto ec = create_reserve_file("a.txt", 10);
+	print("{} {}\n", ec.value(), ec.message());
+	return ec.value();
 }
