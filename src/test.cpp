@@ -162,7 +162,7 @@ using namespace std;
 std::error_code create_reserve_file(string const& file_name, size_t len)
 {
 	std::ofstream ofs(file_name);
-	if (!ofs)
+	if (!ofs) [[unlikely]]
 	{
 		return std::make_error_code(static_cast<std::errc>(errno));
 	}
