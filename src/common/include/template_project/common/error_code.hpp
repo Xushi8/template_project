@@ -5,7 +5,7 @@
 #include <template_project/common/common.hpp>
 
 BASIC_BEGIN_NAMESPACE
-enum class BASIC_EXPORT error_code
+enum class error_code
 {
 	success = 0,
 	network_error,
@@ -14,12 +14,12 @@ enum class BASIC_EXPORT error_code
 
 struct BASIC_EXPORT error_category : public std::error_category
 {
-	BASIC_EXPORT const char* name() const noexcept override
+	const char* name() const noexcept override
 	{
 		return "basic_namespace::error_category";
 	}
 
-	BASIC_EXPORT std::string message(int ev) const noexcept override
+	std::string message(int ev) const noexcept override
 	{
 		switch (static_cast<error_code>(ev))
 		{
