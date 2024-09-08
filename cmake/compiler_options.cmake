@@ -15,6 +15,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     add_compile_options(-mfma)
     add_link_options(-mfma)
 
+    add_compile_options(-fdiagnostics-color=always)
+    add_link_options(-fdiagnostics-color=always)
+
+
     # warnings
     add_compile_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type -Wimplicit-fallthrough)
     add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type -Wimplicit-fallthrough)
@@ -57,6 +61,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     if(BASIC_STATIS_LIBCXX)
         add_link_options(-static-libstdc++)
     endif()
+
 
 endif()
 
