@@ -153,21 +153,35 @@
 // 	return add(1, 2);
 // }
 
+// #include <fmt/format.h>
+// using fmt::print;
+// #include <template_project/common/file.hpp>
+// #include <template_project/common/error_code.hpp>
+// #include <template_project/common/hash.hpp>
+
+// int main()
+// {
+// 	auto ec = basic_namespace::create_reserve_file("a.txt", 0);
+// 	print("{} {}\n", ec.value(), ec.message());
+// 	ec = basic_namespace::error_code::file_error;
+// 	print("value: {}, message: {}.\n", ec.value(), ec.message());
+// 	// print("hash val: {}\n", *basic_namespace::hash_from_file("a.txt"));
+
+
+
+// 	return ec.value();
+// }
+
+#include <vectorclass/vectorclass.h>
+#include <array>
 #include <fmt/format.h>
+#include <fmt/ranges.h>
 using fmt::print;
-#include <template_project/common/file.hpp>
-#include <template_project/common/error_code.hpp>
-#include <template_project/common/hash.hpp>
 
 int main()
 {
-	auto ec = basic_namespace::create_reserve_file("a.txt", 0);
-	print("{} {}\n", ec.value(), ec.message());
-	ec = basic_namespace::error_code::file_error;
-	print("value: {}, message: {}.\n", ec.value(), ec.message());
-	// print("hash val: {}\n", *basic_namespace::hash_from_file("a.txt"));
-	
-
-
-	return ec.value();
+	vectorclass::Vec8uq vec;
+	std::array<uint64_t, 8> arr;
+	vec.store(arr.data());
+	print("{}\n", arr);
 }
