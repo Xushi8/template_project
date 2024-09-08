@@ -6,5 +6,6 @@
 #include <cstddef>
 
 BASIC_BEGIN_NAMESPACE
+BASIC_EXPORT
 std::error_code create_reserve_file(std::string const& file_name, size_t len);
 BASIC_END_NAMESPACE

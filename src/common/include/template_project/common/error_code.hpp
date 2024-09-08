@@ -14,12 +14,12 @@ enum class BASIC_EXPORT error_code
 
 struct BASIC_EXPORT error_category : public std::error_category
 {
-	const char* name() const noexcept override
+	BASIC_EXPORT const char* name() const noexcept override
 	{
 		return "basic_namespace::error_category";
 	}
 
-	std::string message(int ev) const noexcept override
+	BASIC_EXPORT std::string message(int ev) const noexcept override
 	{
 		switch (static_cast<error_code>(ev))
 		{
