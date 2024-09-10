@@ -177,6 +177,7 @@
 #include <vector>
 #include <boost/container/vector.hpp>
 #include <random>
+#include <algorithm>
 using fmt::print;
 
 template <typename T>
@@ -200,6 +201,49 @@ std::vector<T> gen_vec(const size_t n)
 	{
 		static_assert(false, "gen_vec only support integral or floating_point");
 	}
+}
+
+template <typename T, typename A = std::allocator<T>>
+class default_init_allocator : public A
+{
+	typedef std::allocator_traits<A> a_t;
+
+public:
+	template <typename U>
+	struct rebind
+	{
+		using other =
+			default_init_allocator<
+				U, typename a_t::template rebind_alloc<U>>;
+	};
+
+	using A::A;
+
+	template <typename U>
+	void construct(U* ptr) noexcept(std::is_nothrow_default_constructible<U>::value)
+	{
+		::new (static_cast<void*>(ptr)) U;
+	}
+	template <typename U, typename... Args>
+	void construct(U* ptr, Args&&... args)
+	{
+		a_t::construct(static_cast<A&>(*this),
+			ptr, std::forward<Args>(args)...);
+	}
+};
+
+namespace container = boost::container;
+
+container::vector<int> gen_vec(size_t n)
+{
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<int> un;
+	container::vector<int> res(n, container::default_init);
+	std::generate_n(res.begin(), n, [&]
+		{
+			return un(rng);
+		});
+	return res;
 }
 
 int main()

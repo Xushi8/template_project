@@ -13,6 +13,10 @@ std::error_code create_reserve_file(std::string const& file_name, size_t len)
 		return {};
 	ofs.seekp(len - 1);
 	ofs.write("", 1);
-	return (ofs ? std::error_code{} : std::make_error_code(static_cast<std::errc>(errno)));
+	if (!ofs) [[unlikely]]
+	{
+		return std::make_error_code(static_cast<std::errc>(errno));
+	}
+	return {};
 }
 BASIC_END_NAMESPACE
