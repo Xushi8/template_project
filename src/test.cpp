@@ -167,8 +167,6 @@
 // 	print("value: {}, message: {}.\n", ec.value(), ec.message());
 // 	// print("hash val: {}\n", *basic_namespace::hash_from_file("a.txt"));
 
-
-
 // 	return ec.value();
 // }
 
@@ -176,7 +174,33 @@
 #include <array>
 #include <fmt/format.h>
 #include <fmt/ranges.h>
+#include <vector>
+#include <boost/container/vector.hpp>
+#include <random>
 using fmt::print;
+
+template <typename T>
+std::vector<T> gen_vec(const size_t n)
+{
+	if constexpr (std::is_integral_v<T>)
+	{
+		std::mt19937 rng(std::random_device{}());
+		std::uniform_int_distribution<T> un;
+		boost::container::vector<T> res(n, boost::container::default_init);
+		return {res.begin(), res.end()};
+	}
+	else if constexpr (std::is_floating_point_v<T>)
+	{
+		std::mt19937 rng(std::random_device{}());
+		std::uniform_real_distribution<T> un;
+		std::vector<T> res(n);
+		return res;
+	}
+	else
+	{
+		static_assert(false, "gen_vec only support integral or floating_point");
+	}
+}
 
 int main()
 {
@@ -184,4 +208,8 @@ int main()
 	std::array<uint64_t, 8> arr;
 	vec.store(arr.data());
 	print("{}\n", arr);
+
+	(void)gen_vec<int>(100);
+	(void)gen_vec<double>(100);
+	// (void)gen_vec<std::array<int, 1>>(100);
 }
