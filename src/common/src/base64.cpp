@@ -4,35 +4,39 @@
 #include <boost/container/string.hpp>
 
 BASIC_BEGIN_NAMESPACE
-boost::container::string base64_encode(std::string_view input)
+
+namespace container = boost::container;
+using namespace boost::beast::detail::base64;
+
+container::string base64_encode(std::string_view input)
 {
 	const std::size_t len = input.size();
-	boost::container::string output(boost::beast::detail::base64::encoded_size(len), boost::container::default_init);
-	output.resize(boost::beast::detail::base64::encode(output.data(), input.data(), len), boost::container::default_init);
+	container::string output(encoded_size(len), container::default_init);
+	output.resize(encode(output.data(), input.data(), len), container::default_init);
 	return output;
 }
 
-boost::container::string base64_encode(const void* input, const size_t len)
+container::string base64_encode(const void* input, const size_t len)
 {
-	boost::container::string output(boost::beast::detail::base64::encoded_size(len), boost::container::default_init);
-	output.resize(boost::beast::detail::base64::encode(output.data(), input, len), boost::container::default_init);
+	container::string output(encoded_size(len), container::default_init);
+	output.resize(encode(output.data(), input, len), container::default_init);
 	return output;
 }
 
-boost::container::string base64_decode(std::string_view input)
+container::string base64_decode(std::string_view input)
 {
 	const std::size_t len = input.size();
-	boost::container::string output(boost::beast::detail::base64::encoded_size(len), boost::container::default_init);
-	auto result = boost::beast::detail::base64::decode(output.data(), input.data(), len);
-	output.resize(result.first, boost::container::default_init);
+	container::string output(encoded_size(len), container::default_init);
+	auto result = decode(output.data(), input.data(), len);
+	output.resize(result.first, container::default_init);
 	return output;
 }
 
-boost::container::string base64_decode(const char* input, const size_t len)
+container::string base64_decode(const char* input, const size_t len)
 {
-	boost::container::string output(boost::beast::detail::base64::encoded_size(len), boost::container::default_init);
-	auto result = boost::beast::detail::base64::decode(output.data(), input, len);
-	output.resize(result.first, boost::container::default_init);
+	container::string output(encoded_size(len), container::default_init);
+	auto result = decode(output.data(), input, len);
+	output.resize(result.first, container::default_init);
 	return output;
 }
 BASIC_END_NAMESPACE
