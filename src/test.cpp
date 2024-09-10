@@ -170,90 +170,112 @@
 // 	return ec.value();
 // }
 
-#include <vectorclass/vectorclass.h>
-#include <array>
+// #include <vectorclass/vectorclass.h>
+// #include <array>
+// #include <fmt/format.h>
+// #include <fmt/ranges.h>
+// #include <vector>
+// #include <boost/container/vector.hpp>
+// #include <random>
+// #include <algorithm>
+// using fmt::print;
+
+// template <typename T>
+// std::vector<T> gen_vec(const size_t n)
+// {
+// 	if constexpr (std::is_integral_v<T>)
+// 	{
+// 		std::mt19937 rng(std::random_device{}());
+// 		std::uniform_int_distribution<T> un;
+// 		boost::container::vector<T> res(n, boost::container::default_init);
+// 		return {res.begin(), res.end()};
+// 	}
+// 	else if constexpr (std::is_floating_point_v<T>)
+// 	{
+// 		std::mt19937 rng(std::random_device{}());
+// 		std::uniform_real_distribution<T> un;
+// 		std::vector<T> res(n);
+// 		return res;
+// 	}
+// 	else
+// 	{
+// 		static_assert(false, "gen_vec only support integral or floating_point");
+// 	}
+// }
+
+// template <typename T, typename A = std::allocator<T>>
+// class default_init_allocator : public A
+// {
+// 	typedef std::allocator_traits<A> a_t;
+
+// public:
+// 	template <typename U>
+// 	struct rebind
+// 	{
+// 		using other =
+// 			default_init_allocator<
+// 				U, typename a_t::template rebind_alloc<U>>;
+// 	};
+
+// 	using A::A;
+
+// 	template <typename U>
+// 	void construct(U* ptr) noexcept(std::is_nothrow_default_constructible<U>::value)
+// 	{
+// 		::new (static_cast<void*>(ptr)) U;
+// 	}
+// 	template <typename U, typename... Args>
+// 	void construct(U* ptr, Args&&... args)
+// 	{
+// 		a_t::construct(static_cast<A&>(*this),
+// 			ptr, std::forward<Args>(args)...);
+// 	}
+// };
+
+// namespace container = boost::container;
+
+// container::vector<int> gen_vec(size_t n)
+// {
+// 	std::mt19937 rng(std::random_device{}());
+// 	std::uniform_int_distribution<int> un;
+// 	container::vector<int> res(n, container::default_init);
+// 	std::generate_n(res.begin(), n, [&]
+// 		{
+// 			return un(rng);
+// 		});
+// 	return res;
+// }
+
+// int main()
+// {
+// 	vectorclass::Vec8uq vec;
+// 	std::array<uint64_t, 8> arr;
+// 	vec.store(arr.data());
+// 	print("{}\n", arr);
+
+// 	(void)gen_vec<int>(100);
+// 	(void)gen_vec<double>(100);
+// 	// (void)gen_vec<std::array<int, 1>>(100);
+// }
+
+#include <xsimd/xsimd.hpp>
 #include <fmt/format.h>
 #include <fmt/ranges.h>
-#include <vector>
-#include <boost/container/vector.hpp>
 #include <random>
-#include <algorithm>
 using fmt::print;
-
-template <typename T>
-std::vector<T> gen_vec(const size_t n)
-{
-	if constexpr (std::is_integral_v<T>)
-	{
-		std::mt19937 rng(std::random_device{}());
-		std::uniform_int_distribution<T> un;
-		boost::container::vector<T> res(n, boost::container::default_init);
-		return {res.begin(), res.end()};
-	}
-	else if constexpr (std::is_floating_point_v<T>)
-	{
-		std::mt19937 rng(std::random_device{}());
-		std::uniform_real_distribution<T> un;
-		std::vector<T> res(n);
-		return res;
-	}
-	else
-	{
-		static_assert(false, "gen_vec only support integral or floating_point");
-	}
-}
-
-template <typename T, typename A = std::allocator<T>>
-class default_init_allocator : public A
-{
-	typedef std::allocator_traits<A> a_t;
-
-public:
-	template <typename U>
-	struct rebind
-	{
-		using other =
-			default_init_allocator<
-				U, typename a_t::template rebind_alloc<U>>;
-	};
-
-	using A::A;
-
-	template <typename U>
-	void construct(U* ptr) noexcept(std::is_nothrow_default_constructible<U>::value)
-	{
-		::new (static_cast<void*>(ptr)) U;
-	}
-	template <typename U, typename... Args>
-	void construct(U* ptr, Args&&... args)
-	{
-		a_t::construct(static_cast<A&>(*this),
-			ptr, std::forward<Args>(args)...);
-	}
-};
-
-namespace container = boost::container;
-
-container::vector<int> gen_vec(size_t n)
-{
-	std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<int> un;
-	container::vector<int> res(n, container::default_init);
-	std::generate_n(res.begin(), n, [&]
-		{
-			return un(rng);
-		});
-	return res;
-}
 
 int main()
 {
-	vectorclass::Vec8uq vec;
-	std::array<uint64_t, 8> arr;
-	vec.store(arr.data());
-	print("{}\n", arr);
-
-	(void)gen_vec<int>(100);
-	(void)gen_vec<double>(100);
-	// (void)gen_vec<std::array<int, 1>>(100);
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_real_distribution<double> unf;
+	xsimd::batch<double> a(unf(rng));
+	xsimd::batch<double> b(unf(rng));
+	xsimd::batch<double> c(unf(rng));
+	auto mean = a * b + c;
+	auto mean1 = xsimd::fma(a, b, c);
+	std::array<double, mean.size> tmp;
+	mean.store_unaligned(tmp.data());
+	print("{}\n", tmp);
+	mean1.store_unaligned(tmp.data());
+	print("{}\n", tmp);
 }
