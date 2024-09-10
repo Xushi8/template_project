@@ -264,6 +264,17 @@
 #include <random>
 using fmt::print;
 
+void func(float* a, size_t n)
+{
+	size_t i;
+	for (i = 0; i + 8 <= n; i += 8)
+	{
+		auto vec = xsimd::load_unaligned(&a[i]);
+		vec = xsimd::sin(vec);
+		vec.store_unaligned(&a[i]);
+	}
+}
+
 int main()
 {
 	std::mt19937 rng(std::random_device{}());
