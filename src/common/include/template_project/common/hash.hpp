@@ -3,9 +3,9 @@
 #include <xxhash/xxhash.hpp>
 #include <string_view>
 #include <utility>
-#include <expected>
 #include <mio/mio.hpp>
 #include <system_error>
+#include <tl/expected.hpp>
 
 #include <template_project/common/common.hpp>
 
@@ -13,26 +13,26 @@ BASIC_BEGIN_NAMESPACE
 static constexpr size_t hash_buffer_size = 64 * 1024;
 
 template <size_t N = 64>
-inline std::expected<xxh::hash_t<N>, std::error_code> hash_from_file(std::string_view file_name)
+inline tl::expected<xxh::hash_t<N>, std::error_code> hash_from_file(std::string_view file_name)
 {
 	std::error_code ec;
 	auto file = mio::make_mmap_source(file_name, ec);
 	if (ec)
 	{
-		return std::unexpected(ec);
+		return tl::unexpected(ec);
 	}
 	xxh::hash3_state_t<64> hash_stream;
 	hash_stream.update(file.begin(), file.end());
 	return hash_stream.digest();
 }
 
-inline std::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_code> hash_from_file_both(std::string_view file_name)
+inline tl::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_code> hash_from_file_both(std::string_view file_name)
 {
 	std::error_code ec;
 	auto file = mio::make_mmap_source(file_name, ec);
 	if (ec)
 	{
-		return std::unexpected(ec);
+		return tl::unexpected(ec);
 	}
 	xxh::hash3_state_t<64> hash_stream1;
 	xxh::hash3_state_t<128> hash_stream2;
