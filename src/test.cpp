@@ -246,13 +246,19 @@ size_t find2(container::vector<int> const& vec, int val)
 	__m256i x = _mm256_set1_epi32(val);
 	const int* a = vec.data();
 
-	for (size_t i = 0; i < vec.size(); i += 8)
+	for (size_t i = 0; i < vec.size(); i += 16)
 	{
-		__m256i y = _mm256_load_si256((__m256i*)&a[i]);
-		__m256i m = _mm256_cmpeq_epi32(x, y);
-		int mask = _mm256_movemask_ps((__m256)m);
-		if (mask != 0)
+		__m256i y1 = _mm256_load_si256((__m256i*)&a[i]);
+		__m256i y2 = _mm256_load_si256((__m256i*)&a[i + 8]);
+		__m256i m1 = _mm256_cmpeq_epi32(x, y1);
+		__m256i m2 = _mm256_cmpeq_epi32(x, y2);
+		__m256i m = _mm256_or_si256(m1, m2);
+		if (!_mm256_testz_si256(m, m))
+		{
+			int mask = (_mm256_movemask_ps((__m256)m2) << 8)
+					   + _mm256_movemask_ps((__m256)m1);
 			return i + __builtin_ctz(mask);
+		}
 	}
 
 	return vec.size();
@@ -271,7 +277,7 @@ int main()
 	ifs.read(reinterpret_cast<char*>(a.data()), N * sizeof(int));
 	print("vector read over\n");
 
-	const int target = a[N * 1 / 16];
+	const int target = a[N - 1];
 	size_t res;
 	auto time_use = time_test([&]
 		{
