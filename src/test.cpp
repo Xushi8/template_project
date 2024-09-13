@@ -117,9 +117,9 @@
 // 	return 0;
 // }
 
-#include <fmt/format.h>
-#include <xsimd/xsimd.hpp>
-using fmt::print;
+// #include <fmt/format.h>
+// #include <xsimd/xsimd.hpp>
+// using fmt::print;
 
 // gather
 /**
@@ -139,78 +139,149 @@ int main()
 }
 */
 
+// int main()
+// {
+// 	const xsimd::batch<int> c(1);
+// 	const xsimd::batch<int> z(0);
+
+// 	xsimd::batch<int> s(0);
+
+// 	constexpr size_t N = 3248324979843;
+// 	int* a = new int[N];
+
+// 	for (size_t i = 0; i + s.size <= N; i += s.size)
+// 	{
+// 		xsimd::batch<int> x = xsimd::load_unaligned(&a[i]);
+// 		auto mask = (x > c);
+// 		x = xsimd::select(mask, x, z);
+// 		s += x;
+// 	}
+
+// 	return xsimd::reduce_add(s);
+// }
+
+// int func()
+// {
+// 	const xsimd::batch<int> c(1);
+
+// 	xsimd::batch<int> s(0);
+
+// 	constexpr size_t N = 3248324979843;
+// 	int* a = new int[N];
+
+// 	for (size_t i = 0; i + s.size <= N; i += s.size)
+// 	{
+// 		xsimd::batch<int> x = xsimd::load_unaligned(&a[i]);
+// 		auto mask = (x > c);
+// 		x &= static_cast<xsimd::batch<int>>(mask);
+// 		s += x;
+// 	}
+
+// 	return xsimd::reduce_add(s);
+// }
+
+// inline int horizontal_sum(__m256i x)
+// {
+// 	// 提取低128位和高128位
+// 	__m128i low = _mm256_extracti128_si256(x, 0);  // 低128位
+// 	__m128i high = _mm256_extracti128_si256(x, 1); // 高128位
+
+// 	// 先对每个128位向量中的元素求和
+// 	__m128i sum128 = _mm_add_epi32(low, high);
+
+// 	// 水平加法：将128位中的4个int求和
+// 	sum128 = _mm_hadd_epi32(sum128, sum128);
+// 	sum128 = _mm_hadd_epi32(sum128, sum128);
+
+// 	// 提取结果
+// 	return _mm_cvtsi128_si32(sum128);
+// }
+
+// int func2()
+// {
+// 	constexpr size_t N = 3248324979843;
+// 	int* a = new int[N];
+// 	const __m256i c = _mm256_set1_epi32(50);
+// 	__m256i s = _mm256_setzero_si256();
+
+// 	for (size_t i = 0; i < N; i += 8)
+// 	{
+// 		__m256i x = _mm256_load_si256((__m256i*)&a[i]);
+// 		__m256i mask = _mm256_cmpgt_epi32(c, x);
+// 		x = _mm256_and_si256(x, mask);
+// 		s = _mm256_add_epi32(s, x);
+// 	}
+
+// 	return horizontal_sum(s);
+// }
+
+#include <chrono>
+#include <xsimd/xsimd.hpp>
+#include <fmt/format.h>
+#include <execution>
+#include <boost/container/vector.hpp>
+#include <fstream>
+using fmt::print;
+
+namespace container = boost::container;
+
+#define celve std::execution::unseq
+
+template <typename Func>
+std::chrono::duration<double, std::milli> time_test(Func&& func)
+{
+	auto t_begin = std::chrono::steady_clock::now();
+	func();
+	auto t_end = std::chrono::steady_clock::now();
+	return t_end - t_begin;
+}
+
+size_t find1(container::vector<int> const& vec, int val)
+{
+	return std::find(celve, vec.begin(), vec.end(), val) - vec.begin();
+}
+
+size_t find2(container::vector<int> const& vec, int val)
+{
+	__m256i x = _mm256_set1_epi32(val);
+	const int* a = vec.data();
+
+	for (size_t i = 0; i < vec.size(); i += 8)
+	{
+		__m256i y = _mm256_load_si256((__m256i*)&a[i]);
+		__m256i m = _mm256_cmpeq_epi32(x, y);
+		int mask = _mm256_movemask_ps((__m256)m);
+		if (mask != 0)
+			return i + __builtin_ctz(mask);
+	}
+
+	return vec.size();
+}
+
 int main()
 {
-	const xsimd::batch<int> c(1);
-	const xsimd::batch<int> z(0);
+	std::ifstream ifs("a.txt");
+	ifs.seekg(0, std::ios::end);
+	const size_t N = ifs.tellg() / sizeof(char) / sizeof(int);
+	ifs.seekg(0);
+	print("vector before\n");
+	container::vector<int> a(N, container::default_init);
+	print("vector default init over\n");
+	print("vector read begin\n");
+	ifs.read(reinterpret_cast<char*>(a.data()), N * sizeof(int));
+	print("vector read over\n");
 
-	xsimd::batch<int> s(0);
+	const int target = a[N * 1 / 16];
+	size_t res;
+	auto time_use = time_test([&]
+		{
+			res = find1(a, target);
+		});
+	print("{} {}ms\n", res, time_use.count());
 
-	constexpr size_t N = 3248324979843;
-	int* a = new int[N];
-
-	for (size_t i = 0; i + s.size <= N; i += s.size)
-	{
-		xsimd::batch<int> x = xsimd::load_unaligned(&a[i]);
-		auto mask = (x > c);
-		x = xsimd::select(mask, x, z);
-		s += x;
-	}
-
-	return xsimd::reduce_add(s);
-}
-
-int func()
-{
-	const xsimd::batch<int> c(1);
-
-	xsimd::batch<int> s(0);
-
-	constexpr size_t N = 3248324979843;
-	int* a = new int[N];
-
-	for (size_t i = 0; i + s.size <= N; i += s.size)
-	{
-		xsimd::batch<int> x = xsimd::load_unaligned(&a[i]);
-		auto mask = (x > c);
-		x &= static_cast<xsimd::batch<int>>(mask);
-		s += x;
-	}
-
-	return xsimd::reduce_add(s);
-}
-
-inline int horizontal_sum(__m256i x)
-{
-	// 提取低128位和高128位
-	__m128i low = _mm256_extracti128_si256(x, 0);  // 低128位
-	__m128i high = _mm256_extracti128_si256(x, 1); // 高128位
-
-	// 先对每个128位向量中的元素求和
-	__m128i sum128 = _mm_add_epi32(low, high);
-
-	// 水平加法：将128位中的4个int求和
-	sum128 = _mm_hadd_epi32(sum128, sum128);
-	sum128 = _mm_hadd_epi32(sum128, sum128);
-
-	// 提取结果
-	return _mm_cvtsi128_si32(sum128);
-}
-
-int func2()
-{
-	constexpr size_t N = 3248324979843;
-	int* a = new int[N];
-	const __m256i c = _mm256_set1_epi32(50);
-	__m256i s = _mm256_setzero_si256();
-
-	for (size_t i = 0; i < N; i += 8)
-	{
-		__m256i x = _mm256_load_si256((__m256i*)&a[i]);
-		__m256i mask = _mm256_cmpgt_epi32(c, x);
-		x = _mm256_and_si256(x, mask);
-		s = _mm256_add_epi32(s, x);
-	}
-
-	return horizontal_sum(s);
+	time_use = time_test([&]
+		{
+			res = find2(a, target);
+		});
+	print("{} {}ms\n", res, time_use.count());
 }
