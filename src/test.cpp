@@ -117,8 +117,100 @@
 // 	return 0;
 // }
 
+#include <fmt/format.h>
+#include <xsimd/xsimd.hpp>
+using fmt::print;
+
+// gather
+/**
+int main()
+{
+	alignas(32) int data[8] = {10, 20, 30, 40, 50, 60, 70, 80};
+	xsimd::batch<int, xsimd::fma3<xsimd::avx2>> index = {0, 2, 4, 6, 1, 3, 5, 7};
+	decltype(index) result;
+	result = result.gather(data, index);
+
+	alignas(32) int res[8];
+	result.store_aligned(res);
+	for (std::size_t i = 0; i < result.size; ++i)
+	{
+		print("{} ", res[i]);
+	}
+}
+*/
 
 int main()
 {
-	
+	const xsimd::batch<int> c(1);
+	const xsimd::batch<int> z(0);
+
+	xsimd::batch<int> s(0);
+
+	constexpr size_t N = 3248324979843;
+	int* a = new int[N];
+
+	for (size_t i = 0; i + s.size <= N; i += s.size)
+	{
+		xsimd::batch<int> x = xsimd::load_unaligned(&a[i]);
+		auto mask = (x > c);
+		x = xsimd::select(mask, x, z);
+		s += x;
+	}
+
+	return xsimd::reduce_add(s);
+}
+
+int func()
+{
+	const xsimd::batch<int> c(1);
+
+	xsimd::batch<int> s(0);
+
+	constexpr size_t N = 3248324979843;
+	int* a = new int[N];
+
+	for (size_t i = 0; i + s.size <= N; i += s.size)
+	{
+		xsimd::batch<int> x = xsimd::load_unaligned(&a[i]);
+		auto mask = (x > c);
+		x &= static_cast<xsimd::batch<int>>(mask);
+		s += x;
+	}
+
+	return xsimd::reduce_add(s);
+}
+
+inline int horizontal_sum(__m256i x)
+{
+	// 提取低128位和高128位
+	__m128i low = _mm256_extracti128_si256(x, 0);  // 低128位
+	__m128i high = _mm256_extracti128_si256(x, 1); // 高128位
+
+	// 先对每个128位向量中的元素求和
+	__m128i sum128 = _mm_add_epi32(low, high);
+
+	// 水平加法：将128位中的4个int求和
+	sum128 = _mm_hadd_epi32(sum128, sum128);
+	sum128 = _mm_hadd_epi32(sum128, sum128);
+
+	// 提取结果
+	return _mm_cvtsi128_si32(sum128);
+}
+
+int func2()
+{
+	constexpr size_t N = 3248324979843;
+	int* a = new int[N];
+	const __m256i c = _mm256_set1_epi32(50);
+	__m256i s = _mm256_setzero_si256();
+
+	for (size_t i = 0; i < N; i += 8)
+	{
+		__m256i x = _mm256_load_si256((__m256i*)&a[i]);
+		__m256i mask = _mm256_cmpgt_epi32(c, x);
+		x = _mm256_and_si256(x, mask);
+		s = _mm256_add_epi32(s, x);
+	}
+
+	return horizontal_sum(s);
 }
