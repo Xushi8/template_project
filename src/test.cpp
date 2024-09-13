@@ -267,12 +267,18 @@ using fmt::print;
 void func(float* a, size_t n)
 {
 	size_t i;
-	for (i = 0; i + 8 <= n; i += 8)
+	constexpr size_t siz = xsimd::batch<double>::size;
+	for (i = 0; i + siz <= n; i += siz)
 	{
 		auto vec = xsimd::load_unaligned(&a[i]);
 		vec = xsimd::sin(vec);
 		vec.store_unaligned(&a[i]);
 	}
+}
+
+xsimd::batch<double> func1(xsimd::batch<double> const& a, xsimd::batch<double> const& b, xsimd::batch<double> const& c)
+{
+	return a * b + c;
 }
 
 int main()
