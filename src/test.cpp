@@ -215,79 +215,99 @@ int main()
 // 	return horizontal_sum(s);
 // }
 
-#include <chrono>
-#include <xsimd/xsimd.hpp>
+// #include <chrono>
+// #include <xsimd/xsimd.hpp>
+// #include <fmt/format.h>
+// #include <execution>
+// #include <boost/container/vector.hpp>
+// #include <fstream>
+// using fmt::print;
+
+// namespace container = boost::container;
+
+// #define celve std::execution::unseq
+
+// template <typename Func>
+// std::chrono::duration<double, std::milli> time_test(Func&& func)
+// {
+// 	auto t_begin = std::chrono::steady_clock::now();
+// 	func();
+// 	auto t_end = std::chrono::steady_clock::now();
+// 	return t_end - t_begin;
+// }
+
+// size_t find1(container::vector<int> const& vec, int val)
+// {
+// 	return std::find(celve, vec.begin(), vec.end(), val) - vec.begin();
+// }
+
+// size_t find2(container::vector<int> const& vec, int val)
+// {
+// 	__m256i x = _mm256_set1_epi32(val);
+// 	const int* a = vec.data();
+
+// 	for (size_t i = 0; i < vec.size(); i += 16)
+// 	{
+// 		__m256i y1 = _mm256_load_si256((__m256i*)&a[i]);
+// 		__m256i y2 = _mm256_load_si256((__m256i*)&a[i + 8]);
+// 		__m256i m1 = _mm256_cmpeq_epi32(x, y1);
+// 		__m256i m2 = _mm256_cmpeq_epi32(x, y2);
+// 		__m256i m = _mm256_or_si256(m1, m2);
+// 		if (!_mm256_testz_si256(m, m))
+// 		{
+// 			int mask = (_mm256_movemask_ps((__m256)m2) << 8)
+// 					   + _mm256_movemask_ps((__m256)m1);
+// 			return i + __builtin_ctz(mask);
+// 		}
+// 	}
+
+// 	return vec.size();
+// }
+
+// int main()
+// {
+// 	std::ifstream ifs("a.txt");
+// 	ifs.seekg(0, std::ios::end);
+// 	const size_t N = ifs.tellg() / sizeof(char) / sizeof(int);
+// 	ifs.seekg(0);
+// 	print("vector before\n");
+// 	container::vector<int> a(N, container::default_init);
+// 	print("vector default init over\n");
+// 	print("vector read begin\n");
+// 	ifs.read(reinterpret_cast<char*>(a.data()), N * sizeof(int));
+// 	print("vector read over\n");
+
+// 	const int target = a[N - 1];
+// 	size_t res;
+// 	auto time_use = time_test([&]
+// 		{
+// 			res = find1(a, target);
+// 		});
+// 	print("{} {}ms\n", res, time_use.count());
+
+// 	time_use = time_test([&]
+// 		{
+// 			res = find2(a, target);
+// 		});
+// 	print("{} {}ms\n", res, time_use.count());
+// }
+
+
+#include <boost/multiprecision/gmp.hpp>
+#include <boost/multiprecision/mpfr.hpp>
 #include <fmt/format.h>
-#include <execution>
-#include <boost/container/vector.hpp>
-#include <fstream>
 using fmt::print;
 
-namespace container = boost::container;
-
-#define celve std::execution::unseq
-
-template <typename Func>
-std::chrono::duration<double, std::milli> time_test(Func&& func)
-{
-	auto t_begin = std::chrono::steady_clock::now();
-	func();
-	auto t_end = std::chrono::steady_clock::now();
-	return t_end - t_begin;
-}
-
-size_t find1(container::vector<int> const& vec, int val)
-{
-	return std::find(celve, vec.begin(), vec.end(), val) - vec.begin();
-}
-
-size_t find2(container::vector<int> const& vec, int val)
-{
-	__m256i x = _mm256_set1_epi32(val);
-	const int* a = vec.data();
-
-	for (size_t i = 0; i < vec.size(); i += 16)
-	{
-		__m256i y1 = _mm256_load_si256((__m256i*)&a[i]);
-		__m256i y2 = _mm256_load_si256((__m256i*)&a[i + 8]);
-		__m256i m1 = _mm256_cmpeq_epi32(x, y1);
-		__m256i m2 = _mm256_cmpeq_epi32(x, y2);
-		__m256i m = _mm256_or_si256(m1, m2);
-		if (!_mm256_testz_si256(m, m))
-		{
-			int mask = (_mm256_movemask_ps((__m256)m2) << 8)
-					   + _mm256_movemask_ps((__m256)m1);
-			return i + __builtin_ctz(mask);
-		}
-	}
-
-	return vec.size();
-}
+namespace multiprecision =  boost::multiprecision;
 
 int main()
 {
-	std::ifstream ifs("a.txt");
-	ifs.seekg(0, std::ios::end);
-	const size_t N = ifs.tellg() / sizeof(char) / sizeof(int);
-	ifs.seekg(0);
-	print("vector before\n");
-	container::vector<int> a(N, container::default_init);
-	print("vector default init over\n");
-	print("vector read begin\n");
-	ifs.read(reinterpret_cast<char*>(a.data()), N * sizeof(int));
-	print("vector read over\n");
+	multiprecision::mpf_float ans{};
+	constexpr size_t n = 1e6;
+	for (size_t i = 1; i <= n; i++)
+	{
+		ans += multiprecision::log(multiprecision::mpf_float(i)) / (i * i);
+	}
 
-	const int target = a[N - 1];
-	size_t res;
-	auto time_use = time_test([&]
-		{
-			res = find1(a, target);
-		});
-	print("{} {}ms\n", res, time_use.count());
-
-	time_use = time_test([&]
-		{
-			res = find2(a, target);
-		});
-	print("{} {}ms\n", res, time_use.count());
+	print("{}\n", ans.str());
 }
