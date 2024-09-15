@@ -296,18 +296,28 @@ int main()
 #include <boost/multiprecision/gmp.hpp>
 #include <boost/multiprecision/mpfr.hpp>
 #include <fmt/format.h>
+#include <numbers>
 using fmt::print;
 
 namespace multiprecision =  boost::multiprecision;
 
 int main()
 {
-	multiprecision::mpf_float ans{};
-	constexpr size_t n = 1e6;
+	multiprecision::mpf_float ans1{};
+	constexpr size_t n = 30;
 	for (size_t i = 1; i <= n; i++)
 	{
-		ans += multiprecision::log(multiprecision::mpf_float(i)) / (i * i);
+		ans1 += multiprecision::log(multiprecision::mpf_float(i)) / (i * i);
 	}
 
-	print("{}\n", ans.str());
+	print("{}\n", ans1.str());
+
+	multiprecision::mpf_float ans2{};
+	for (size_t i = 1; i <= n; i++)
+	{
+		ans2 += multiprecision::mpf_float(1) / (i * i);
+	}
+	print("{}\n", ans2.str());
+
+	print("{}\n", std::numbers::pi * std::numbers::pi / 6);
 }
