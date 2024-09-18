@@ -7,6 +7,7 @@ add_subdirectory(test_lib)
 set(BASIC_TARGETS
     test
     gen
+    template_project
 )
 
 foreach(name ${BASIC_TARGETS})

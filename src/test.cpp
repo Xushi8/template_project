@@ -292,32 +292,80 @@ int main()
 // 	print("{} {}ms\n", res, time_use.count());
 // }
 
+// #include <boost/multiprecision/gmp.hpp>
+// #include <boost/multiprecision/mpfr.hpp>
+// #include <fmt/format.h>
+// #include <numbers>
+// using fmt::print;
 
-#include <boost/multiprecision/gmp.hpp>
-#include <boost/multiprecision/mpfr.hpp>
-#include <fmt/format.h>
-#include <numbers>
-using fmt::print;
+// namespace multiprecision =  boost::multiprecision;
 
-namespace multiprecision =  boost::multiprecision;
+// int main()
+// {
+// 	multiprecision::mpf_float ans1{};
+// 	constexpr size_t n = 30;
+// 	for (size_t i = 1; i <= n; i++)
+// 	{
+// 		ans1 += multiprecision::log(multiprecision::mpf_float(i)) / (i * i);
+// 	}
+
+// 	print("{}\n", ans1.str());
+
+// 	multiprecision::mpf_float ans2{};
+// 	for (size_t i = 1; i <= n; i++)
+// 	{
+// 		ans2 += multiprecision::mpf_float(1) / (i * i);
+// 	}
+// 	print("{}\n", ans2.str());
+
+// 	print("{}\n", std::numbers::pi * std::numbers::pi / 6);
+// }
+
+/**
+
+*   1
+
+*   1
+*
+
+ *  3
+***
+ *
+
+ *  3
+***
+***
+ *
+
+*/
+
+#include <iostream>
+#include <string>
 
 int main()
 {
-	multiprecision::mpf_float ans1{};
-	constexpr size_t n = 30;
-	for (size_t i = 1; i <= n; i++)
+	int n;
+	std::cin >> n;
+	const int max_len = (n % 2 == 0 ? n - 1 : n); // 最长边的长度
+	for (int row = 0, num_of_star = -1; row < n; row++)
 	{
-		ans1 += multiprecision::log(multiprecision::mpf_float(i)) / (i * i);
+		if (row <= n / 2)
+		{
+			if (num_of_star < max_len)
+			{
+				num_of_star += 2;
+			}
+		}
+		else
+		{
+			num_of_star -= 2;
+		}
+
+		std::string space((max_len - num_of_star) / 2, ' ');
+		std::string star(num_of_star, '*');
+
+		std::cout << space << star << '\n';
 	}
 
-	print("{}\n", ans1.str());
-
-	multiprecision::mpf_float ans2{};
-	for (size_t i = 1; i <= n; i++)
-	{
-		ans2 += multiprecision::mpf_float(1) / (i * i);
-	}
-	print("{}\n", ans2.str());
-
-	print("{}\n", std::numbers::pi * std::numbers::pi / 6);
+	return 0;
 }
