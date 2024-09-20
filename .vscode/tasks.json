@@ -32,7 +32,7 @@
                 // "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DBASIC_ENABLE_MOLD=ON",
                 // "-DBUILD_SHARED_LIBS=ON",
-                "-DBASIC_STATIS_LIBCXX=ON",
+                "-DBASIC_STATIC_LIBCXX=ON",
                 // "-DBASIC_STATIC_EXTERNAL_LIB=OFF"
                 // "-DBASIC_INSTALL_STATIC_LIB=ON",
                 "-DBASIC_ENABLE_AVX2=ON",

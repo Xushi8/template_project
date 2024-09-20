@@ -38,7 +38,7 @@ endif()
 
 option(BASIC_INSTALL_STATIC_LIB "Install static lib" OFF)
 
-option(BASIC_STATIS_LIBCXX "Link static cpp lib" ON)
+option(BASIC_STATIC_LIBCXX "Link static cpp lib" ON)
 
 if(NOT WIN32)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
