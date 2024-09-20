@@ -3,7 +3,7 @@ find_package(OpenMP REQUIRED)
 find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
 
-if(BASIC_USE_GUI)
+if(BASIC_ENABLE_GUI)
     find_package(Qt6 REQUIRED COMPONENTS Widgets)
 endif()
 

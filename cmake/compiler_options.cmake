@@ -10,17 +10,26 @@ endif()
 
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    # # sse4
-    # add_compile_options(-march=core2)
-    # add_link_options(-march=core2)
+    
+    if(BASIC_ENABLE_SSE4)
+        add_compile_options(-march=core2)
+        add_link_options(-march=core2)
+    endif()
 
-    # # avx
-    # add_compile_options(-march=sandybridge)
-    # add_link_options(-march=sandybridge)
+    if(BASIC_ENABLE_AVX)
+        add_compile_options(-march=sandybridge)
+        add_link_options(-march=sandybridge)
+    endif()
 
-    # avx2 fma
-    add_compile_options(-march=haswell)
-    add_link_options(-march=haswell)
+    if(BASIC_ENABLE_AVX2)
+        add_compile_options(-march=haswell)
+        add_link_options(-march=haswell)
+    endif()
+
+    if(NOT BASIC_AUTHOR)
+        add_compile_options(-march=native)
+        add_link_options(-march=native)
+    endif()
 
     add_compile_options(-fdiagnostics-color=always)
     add_link_options(-fdiagnostics-color=always)
@@ -61,7 +70,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
         add_link_options(-ggdb3 -fno-omit-frame-pointer)
     endif()
 
-    if(BASIC_USE_MOLD)
+    if(BASIC_ENABLE_MOLD)
         add_link_options(-fuse-ld=mold)
     endif()
 
