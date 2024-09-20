@@ -55,7 +55,7 @@
             "label": "build",
             "dependsOrder": "sequence", // 按列出的顺序执行任务依赖项
             "dependsOn": [
-                "flatbuf",
+                // "flatbuf",
                 "cmake_pre",
                 "cmake_next",
             ]
