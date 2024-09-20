@@ -339,33 +339,42 @@ int main()
 
 */
 
-#include <iostream>
-#include <string>
+// #include <iostream>
+// #include <string>
+
+// int main()
+// {
+// 	int n;
+// 	std::cin >> n;
+// 	const int max_len = (n % 2 == 0 ? n - 1 : n); // 最长边的长度
+// 	for (int row = 0, num_of_star = -1; row < n; row++)
+// 	{
+// 		if (row <= n / 2)
+// 		{
+// 			if (num_of_star < max_len)
+// 			{
+// 				num_of_star += 2;
+// 			}
+// 		}
+// 		else
+// 		{
+// 			num_of_star -= 2;
+// 		}
+
+// 		std::string space((max_len - num_of_star) / 2, ' ');
+// 		std::string star(num_of_star, '*');
+
+// 		std::cout << space << star << '\n';
+// 	}
+
+// 	return 0;
+// }
+
+
+#include <fmt/format.h>
+using fmt::print;
 
 int main()
 {
-	int n;
-	std::cin >> n;
-	const int max_len = (n % 2 == 0 ? n - 1 : n); // 最长边的长度
-	for (int row = 0, num_of_star = -1; row < n; row++)
-	{
-		if (row <= n / 2)
-		{
-			if (num_of_star < max_len)
-			{
-				num_of_star += 2;
-			}
-		}
-		else
-		{
-			num_of_star -= 2;
-		}
-
-		std::string space((max_len - num_of_star) / 2, ' ');
-		std::string star(num_of_star, '*');
-
-		std::cout << space << star << '\n';
-	}
-
-	return 0;
+	print("111\n");
 }
