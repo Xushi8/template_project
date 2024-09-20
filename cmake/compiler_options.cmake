@@ -10,10 +10,17 @@ endif()
 
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    add_compile_options(-mavx2)
-    add_link_options(-mavx2)
-    add_compile_options(-mfma)
-    add_link_options(-mfma)
+    # # sse4
+    # add_compile_options(-march=core2)
+    # add_link_options(-march=core2)
+
+    # # avx
+    # add_compile_options(-march=sandybridge)
+    # add_link_options(-march=sandybridge)
+
+    # avx2 fma
+    add_compile_options(-march=haswell)
+    add_link_options(-march=haswell)
 
     add_compile_options(-fdiagnostics-color=always)
     add_link_options(-fdiagnostics-color=always)
