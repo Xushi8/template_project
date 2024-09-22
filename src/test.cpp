@@ -375,30 +375,30 @@ int main()
 #include <random>
 #include <algorithm>
 #include <array>
-#include <tbb/parallel_invoke.h>
+#include <tbb/parallel_for.h>
 #include <fmt/format.h>
 using fmt::print;
 
-enum class Choice
+enum class choice
 {
-	HUAN,
-	BU_HUAN,
+	huan,
+	buhuan,
 };
 
-template <Choice game_choice>
+template <choice game_choice>
 bool game()
 {
 	thread_local std::mt19937 rng(std::random_device{}());
 	std::uniform_int_distribution<size_t> uni(0, 2);
 	std::array<bool, 3> men{true, false, false};
-	std::ranges::shuffle(men, rng);
+	std::shuffle(men.begin(), men.end(), rng);
 	size_t index = uni(rng);
-	if constexpr (game_choice == Choice::BU_HUAN)
+	if constexpr (game_choice == choice::buhuan)
 		return men[index];
 
 	size_t wrong_index = [&]
 	{
-		for (size_t i = 0; i <= 2; i++)
+		for (size_t i = 0; i < 3; i++)
 		{
 			if (i != index && !men[i])
 			{
@@ -408,7 +408,7 @@ bool game()
 		basic_namespace::unreachable();
 	}();
 
-	for (size_t i = 0; i <= 2; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		if (i != index && i != wrong_index)
 		{
@@ -424,34 +424,20 @@ int main()
 	constexpr size_t N = 1e8;
 	double ans_huan, ans_buhuan;
 
-	tbb::parallel_invoke(
-		[&]
+	std::atomic<size_t> sum_huan = 0, sum_buhuan = 0;
+	tbb::parallel_for(tbb::blocked_range<size_t>(0, N), [&](tbb::blocked_range<size_t> const& r)
 		{
-			size_t sum = 0;
-			for (size_t i = 0; i < N; i++)
+			size_t local_sum_huan = 0, local_sum_buhuan = 0;
+			for(size_t i = r.begin(); i != r.end(); i++)
 			{
-				sum += game<Choice::HUAN>();
+				local_sum_huan += game<choice::huan>();
+				local_sum_buhuan += game<choice::buhuan>();
 			}
-			ans_huan = sum * 100.0 / N;
-		},
-		[&]
-		{
-			size_t sum = 0;
-			for (size_t i = 0; i < N; i++)
-			{
-				sum += game<Choice::BU_HUAN>();
-			}
-			ans_buhuan = sum * 100.0 / N;
+			sum_huan += local_sum_huan;
+			sum_buhuan += local_sum_buhuan;
 		});
-
-	// size_t sum_huan = 0, sum_buhuan = 0;
-	// for (size_t i = 0; i < N; i++)
-	// {
-	// 	sum_huan += game<Choice::HUAN>();
-	// 	sum_buhuan += game<Choice::BU_HUAN>();
-	// }
-	// ans_huan = sum_huan * 100.0 / N;
-	// ans_buhuan = sum_buhuan * 100.0 / N;
+	ans_huan = sum_huan * 100.0 / N;
+	ans_buhuan = sum_buhuan * 100.0 / N;
 
 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
 }
