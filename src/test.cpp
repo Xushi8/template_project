@@ -370,11 +370,88 @@ int main()
 // 	return 0;
 // }
 
-
+#include <template_project/common/common.hpp>
+#include <cstddef>
+#include <random>
+#include <algorithm>
+#include <array>
+#include <tbb/parallel_invoke.h>
 #include <fmt/format.h>
 using fmt::print;
 
+enum class Choice
+{
+	HUAN,
+	BU_HUAN,
+};
+
+template <Choice game_choice>
+bool game()
+{
+	thread_local std::mt19937 rng(std::random_device{}());
+	thread_local std::uniform_int_distribution<size_t> uni(0, 2);
+	std::array<bool, 3> men{true, false, false};
+	std::ranges::shuffle(men, rng);
+	size_t index = uni(rng);
+	if constexpr (game_choice == Choice::BU_HUAN)
+		return men[index];
+
+	size_t wrong_index = [&]
+	{
+		for (size_t i = 0; i <= 2; i++)
+		{
+			if (i != index && !men[i])
+			{
+				return i;
+			}
+		}
+		basic_namespace::unreachable();
+	}();
+
+	for (size_t i = 0; i <= 2; i++)
+	{
+		if (i != index && i != wrong_index)
+		{
+			return men[i];
+		}
+	}
+
+	basic_namespace::unreachable();
+}
+
 int main()
 {
-	print("111\n");
+	constexpr size_t N = 1e8;
+	double ans_huan, ans_buhuan;
+
+	tbb::parallel_invoke(
+		[&]
+		{
+			size_t sum = 0;
+			for (size_t i = 0; i < N; i++)
+			{
+				sum += game<Choice::HUAN>();
+			}
+			ans_huan = sum * 100.0 / N;
+		},
+		[&]
+		{
+			size_t sum = 0;
+			for (size_t i = 0; i < N; i++)
+			{
+				sum += game<Choice::BU_HUAN>();
+			}
+			ans_buhuan = sum * 100.0 / N;
+		});
+
+	// size_t sum_huan = 0, sum_buhuan = 0;
+	// for (size_t i = 0; i < N; i++)
+	// {
+	// 	sum_huan += game<Choice::HUAN>();
+	// 	sum_buhuan += game<Choice::BU_HUAN>();
+	// }
+	// ans_huan = sum_huan * 100.0 / N;
+	// ans_buhuan = sum_buhuan * 100.0 / N;
+
+	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
 }

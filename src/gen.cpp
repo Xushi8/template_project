@@ -1,8 +1,12 @@
-#include <fstream>
+#include <template_project/common/common.hpp>
 #include <cstddef>
 #include <vector>
 #include <random>
 #include <algorithm>
+#include <array>
+#include <fstream>
+#include <fmt/format.h>
+using fmt::print;
 using namespace std;
 int main()
 {
