@@ -389,7 +389,7 @@ template <Choice game_choice>
 bool game()
 {
 	thread_local std::mt19937 rng(std::random_device{}());
-	thread_local std::uniform_int_distribution<size_t> uni(0, 2);
+	std::uniform_int_distribution<size_t> uni(0, 2);
 	std::array<bool, 3> men{true, false, false};
 	std::ranges::shuffle(men, rng);
 	size_t index = uni(rng);
