@@ -371,6 +371,7 @@ int main()
 // }
 
 #include <template_project/common/common.hpp>
+#include <template_project/common/atomic.hpp>
 #include <cstddef>
 #include <random>
 #include <algorithm>
@@ -424,7 +425,7 @@ int main()
 	constexpr size_t N = 1e8;
 	double ans_huan, ans_buhuan;
 
-	std::atomic<size_t> sum_huan = 0, sum_buhuan = 0;
+	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
 	tbb::parallel_for(tbb::blocked_range<size_t>(0, N), [&](tbb::blocked_range<size_t> const& r)
 		{
 			size_t local_sum_huan = 0, local_sum_buhuan = 0;
