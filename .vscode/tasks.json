@@ -38,6 +38,8 @@
                 "-DBASIC_ENABLE_AVX2=ON",
                 "-DBASIC_AUTHOR=ON",
                 "-DCMAKE_VERBOSE_MAKEFILE=ON", // 打印详细信息
+                "-DABSL_BUILD_TESTING=OFF",
+                "-DABSL_PROPAGATE_CXX_STD=ON",
             ]
         },
         {

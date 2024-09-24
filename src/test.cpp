@@ -459,6 +459,5 @@ int main()
 		print("{}\n", x);
 	}
 
-	absl::int128 x;
 	return 0;
 }
