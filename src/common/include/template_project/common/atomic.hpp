@@ -6,7 +6,6 @@
 BASIC_BEGIN_NAMESPACE
 
 // Same with std::atomic but use relaxed memory order
-// Support load, store, exchange, operators(++, --, +=, -=, &=, |= ^=)
 template <typename T>
 struct atomic_relaxed : std::atomic<T>
 {
@@ -41,43 +40,66 @@ struct atomic_relaxed : std::atomic<T>
 		return std::atomic<T>::load(order);
 	}
 
-	T exchange(T val) noexcept
+	T exchange(T val, std::memory_order order = memory_order) noexcept
 	{
-		return std::atomic<T>::exchange(val, memory_order);
+		return std::atomic<T>::exchange(val, order);
+	}
+
+	bool compare_exchange_weak(T& expected, T desired, std::memory_order order = memory_order)
+	{
+		return std::atomic<T>::compare_exchange_weak(expected, desired, order);
+	}
+
+	bool compare_exchange_strong(T& expected, T desired, std::memory_order order = memory_order)
+	{
+		return std::atomic<T>::compare_exchange_strong(expected, desired, order);
+	}
+
+	void wait(T old, std::memory_order order = memory_order)
+	{
+		std::atomic<T>::wait(old, order);
 	}
 
 	T operator&=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_and(val, memory_order);
 	}
+	
 	T operator|=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_or(val, memory_order);
 	}
+
 	T operator^=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_xor(val, memory_order);
 	}
+
 	T operator++() noexcept
 	{
 		return std::atomic<T>::fetch_add(1, memory_order) + 1;
 	}
+
 	T operator--() noexcept
 	{
 		return std::atomic<T>::fetch_sub(1, memory_order) - 1;
 	}
+
 	T operator++(int) noexcept
 	{
 		return std::atomic<T>::fetch_add(1, memory_order);
 	}
+
 	T operator--(int) noexcept
 	{
 		return std::atomic<T>::fetch_sub(1, memory_order);
 	}
+
 	T operator+=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_add(val, memory_order);
 	}
+	
 	T operator-=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_sub(val, memory_order);

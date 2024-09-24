@@ -370,146 +370,75 @@ int main()
 // 	return 0;
 // }
 
-// #include <template_project/common/common.hpp>
-// #include <template_project/common/atomic.hpp>
-// #include <cstddef>
-// #include <random>
-// #include <algorithm>
-// #include <array>
-// #include <tbb/parallel_for.h>
-// #include <fmt/format.h>
-// using fmt::print;
-
-// enum class choice
-// {
-// 	huan,
-// 	buhuan,
-// };
-
-// template <choice game_choice>
-// bool game()
-// {
-// 	thread_local std::mt19937 rng(std::random_device{}());
-// 	std::uniform_int_distribution<size_t> uni(0, 2);
-// 	std::array<bool, 3> men{true, false, false};
-// 	std::shuffle(men.begin(), men.end(), rng);
-// 	size_t index = uni(rng);
-// 	if constexpr (game_choice == choice::buhuan)
-// 		return men[index];
-
-// 	size_t wrong_index = [&]
-// 	{
-// 		for (size_t i = 0; i < 3; i++)
-// 		{
-// 			if (i != index && !men[i])
-// 			{
-// 				return i;
-// 			}
-// 		}
-// 		basic_namespace::unreachable();
-// 	}();
-
-// 	for (size_t i = 0; i < 3; i++)
-// 	{
-// 		if (i != index && i != wrong_index)
-// 		{
-// 			return men[i];
-// 		}
-// 	}
-
-// 	basic_namespace::unreachable();
-// }
-
-// int main()
-// {
-// 	constexpr size_t N = 1e8;
-// 	double ans_huan, ans_buhuan;
-
-// 	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
-// 	tbb::parallel_for(tbb::blocked_range<size_t>(0, N), [&](tbb::blocked_range<size_t> const& r)
-// 		{
-// 			size_t local_sum_huan = 0, local_sum_buhuan = 0;
-// 			for(size_t i = r.begin(); i != r.end(); i++)
-// 			{
-// 				local_sum_huan += game<choice::huan>();
-// 				local_sum_buhuan += game<choice::buhuan>();
-// 			}
-// 			sum_huan += local_sum_huan;
-// 			sum_buhuan += local_sum_buhuan;
-// 		});
-// 	ans_huan = sum_huan * 100.0 / N;
-// 	ans_buhuan = sum_buhuan * 100.0 / N;
-
-// 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
-// }
-
-// #include <atomic>
-// #include <fmt/format.h>
-// using fmt::print;
-
-// struct my_shared_ptr
-// {
-// 	void inc_ref() noexcept;
-
-// 	void dec_ref() noexcept;
-
-// 	void dec_ref1() noexcept;
-
-// 	~my_shared_ptr()
-// 	{
-// 		print("Destroyed!\n");
-// 	}
-
-// private:
-// 	std::atomic<int> ref_count;
-// };
-
-// void my_shared_ptr::inc_ref() noexcept
-// {
-// 	ref_count.fetch_add(1, std::memory_order_relaxed);
-// }
-
-// void my_shared_ptr::dec_ref() noexcept
-// {
-// 	if (ref_count.fetch_sub(1, std::memory_order_release) == 1)
-// 	{
-// 		std::atomic_thread_fence(std::memory_order_acquire);
-// 		delete this;
-// 	}
-// }
-
-// void my_shared_ptr::dec_ref1() noexcept
-// {
-// 	if (ref_count.fetch_sub(1, std::memory_order_relaxed) == 1)
-// 	{
-// 		// std::atomic_thread_fence(std::memory_order_acquire);
-// 		delete this;
-// 	}
-// }
-
-#include <atomic>
-#include <tbb/tbb.h>
+#include <template_project/common/common.hpp>
+#include <template_project/common/atomic.hpp>
+#include <cstddef>
+#include <random>
+#include <algorithm>
+#include <array>
+#include <tbb/parallel_for.h>
 #include <fmt/format.h>
 using fmt::print;
-#include <boost/container/vector.hpp>
-namespace container = boost::container;
+
+enum class choice
+{
+	huan,
+	buhuan,
+};
+
+template <choice game_choice>
+bool game()
+{
+	thread_local std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<size_t> uni(0, 2);
+	std::array<bool, 3> men{true, false, false};
+	std::shuffle(men.begin(), men.end(), rng);
+	size_t index = uni(rng);
+	if constexpr (game_choice == choice::buhuan)
+		return men[index];
+
+	size_t wrong_index = [&]
+	{
+		for (size_t i = 0; i < 3; i++)
+		{
+			if (i != index && !men[i])
+			{
+				return i;
+			}
+		}
+		basic_namespace::unreachable();
+	}();
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (i != index && i != wrong_index)
+		{
+			return men[i];
+		}
+	}
+
+	basic_namespace::unreachable();
+}
 
 int main()
 {
-	constexpr size_t n = 1e6;
-	container::vector<int> a(n, 1);
-	std::atomic<size_t> cnt = 0;
-	tbb::parallel_for(tbb::blocked_range<size_t>(0, n), [&](tbb::blocked_range<size_t> const& r)
+	constexpr size_t N = 1e8;
+	double ans_huan, ans_buhuan;
+
+	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
+	tbb::parallel_for(tbb::blocked_range<size_t>(0, N), [&](tbb::blocked_range<size_t> const& r)
 		{
-			size_t local_cnt = 0;
-			for (size_t i = r.begin(); i != r.end(); i++)
+			size_t local_sum_huan = 0, local_sum_buhuan = 0;
+			for(size_t i = r.begin(); i != r.end(); i++)
 			{
-				local_cnt += a[i];
+				local_sum_huan += game<choice::huan>();
+				local_sum_buhuan += game<choice::buhuan>();
 			}
-			cnt.fetch_add(local_cnt, std::memory_order_relaxed);
+			sum_huan += local_sum_huan;
+			sum_buhuan += local_sum_buhuan;
 		});
+	ans_huan = sum_huan * 100.0 / N;
+	ans_buhuan = sum_buhuan * 100.0 / N;
 
-	print("{}\n", cnt.load(std::memory_order_acquire));
-
-	
+	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
 }
