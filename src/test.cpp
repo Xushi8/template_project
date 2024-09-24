@@ -370,75 +370,119 @@ int main()
 // 	return 0;
 // }
 
-#include <template_project/common/common.hpp>
-#include <template_project/common/atomic.hpp>
-#include <cstddef>
-#include <random>
-#include <algorithm>
-#include <array>
-#include <tbb/parallel_for.h>
+// #include <template_project/common/common.hpp>
+// #include <template_project/common/atomic.hpp>
+// #include <cstddef>
+// #include <random>
+// #include <algorithm>
+// #include <array>
+// #include <tbb/parallel_for.h>
+// #include <fmt/format.h>
+// using fmt::print;
+
+// enum class choice
+// {
+// 	huan,
+// 	buhuan,
+// };
+
+// template <choice game_choice>
+// bool game()
+// {
+// 	thread_local std::mt19937 rng(std::random_device{}());
+// 	std::uniform_int_distribution<size_t> uni(0, 2);
+// 	std::array<bool, 3> men{true, false, false};
+// 	std::shuffle(men.begin(), men.end(), rng);
+// 	size_t index = uni(rng);
+// 	if constexpr (game_choice == choice::buhuan)
+// 		return men[index];
+
+// 	size_t wrong_index = [&]
+// 	{
+// 		for (size_t i = 0; i < 3; i++)
+// 		{
+// 			if (i != index && !men[i])
+// 			{
+// 				return i;
+// 			}
+// 		}
+// 		basic_namespace::unreachable();
+// 	}();
+
+// 	for (size_t i = 0; i < 3; i++)
+// 	{
+// 		if (i != index && i != wrong_index)
+// 		{
+// 			return men[i];
+// 		}
+// 	}
+
+// 	basic_namespace::unreachable();
+// }
+
+// int main()
+// {
+// 	constexpr size_t N = 1e8;
+// 	double ans_huan, ans_buhuan;
+
+// 	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
+// 	tbb::parallel_for(tbb::blocked_range<size_t>(0, N), [&](tbb::blocked_range<size_t> const& r)
+// 		{
+// 			size_t local_sum_huan = 0, local_sum_buhuan = 0;
+// 			for(size_t i = r.begin(); i != r.end(); i++)
+// 			{
+// 				local_sum_huan += game<choice::huan>();
+// 				local_sum_buhuan += game<choice::buhuan>();
+// 			}
+// 			sum_huan += local_sum_huan;
+// 			sum_buhuan += local_sum_buhuan;
+// 		});
+// 	ans_huan = sum_huan * 100.0 / N;
+// 	ans_buhuan = sum_buhuan * 100.0 / N;
+
+// 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
+// }
+
+#include <atomic>
 #include <fmt/format.h>
 using fmt::print;
 
-enum class choice
+struct my_shared_ptr
 {
-	huan,
-	buhuan,
-};
+	void inc_ref() noexcept;
 
-template <choice game_choice>
-bool game()
-{
-	thread_local std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<size_t> uni(0, 2);
-	std::array<bool, 3> men{true, false, false};
-	std::shuffle(men.begin(), men.end(), rng);
-	size_t index = uni(rng);
-	if constexpr (game_choice == choice::buhuan)
-		return men[index];
+	void dec_ref() noexcept;
 
-	size_t wrong_index = [&]
+	void dec_ref1() noexcept;
+
+	~my_shared_ptr()
 	{
-		for (size_t i = 0; i < 3; i++)
-		{
-			if (i != index && !men[i])
-			{
-				return i;
-			}
-		}
-		basic_namespace::unreachable();
-	}();
-
-	for (size_t i = 0; i < 3; i++)
-	{
-		if (i != index && i != wrong_index)
-		{
-			return men[i];
-		}
+		print("Destroyed!\n");
 	}
 
-	basic_namespace::unreachable();
+private:
+	std::atomic<int> ref_count;
+};
+
+void my_shared_ptr::inc_ref() noexcept
+{
+	ref_count.fetch_add(1, std::memory_order_relaxed);
 }
 
-int main()
+void my_shared_ptr::dec_ref() noexcept
 {
-	constexpr size_t N = 1e8;
-	double ans_huan, ans_buhuan;
+	if (ref_count.fetch_sub(1, std::memory_order_release) == 1)
+	{
+		std::atomic_thread_fence(std::memory_order_acquire);
+		delete this;
+	}
+}
 
-	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
-	tbb::parallel_for(tbb::blocked_range<size_t>(0, N), [&](tbb::blocked_range<size_t> const& r)
-		{
-			size_t local_sum_huan = 0, local_sum_buhuan = 0;
-			for(size_t i = r.begin(); i != r.end(); i++)
-			{
-				local_sum_huan += game<choice::huan>();
-				local_sum_buhuan += game<choice::buhuan>();
-			}
-			sum_huan += local_sum_huan;
-			sum_buhuan += local_sum_buhuan;
-		});
-	ans_huan = sum_huan * 100.0 / N;
-	ans_buhuan = sum_buhuan * 100.0 / N;
-
-	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
+void my_shared_ptr::dec_ref1() noexcept
+{
+	if (ref_count.fetch_sub(1, std::memory_order_relaxed) == 1)
+	{
+		// std::atomic_thread_fence(std::memory_order_acquire);
+		delete this;
+	}
 }
