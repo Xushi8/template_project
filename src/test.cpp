@@ -450,14 +450,8 @@ using fmt::print;
 
 int main()
 {
-	absl::btree_set<int> st;
-	st.emplace(3);
-	st.emplace(2);
-	st.emplace(1);
-	for (auto x : st)
-	{
-		print("{}\n", x);
-	}
+	absl::int128 x = 4587935748393540453;
+	fmt::print("{}\n", static_cast<__int128_t>(x));
 
 	return 0;
 }
