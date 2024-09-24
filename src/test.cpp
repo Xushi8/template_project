@@ -443,46 +443,73 @@ int main()
 // 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
 // }
 
+// #include <atomic>
+// #include <fmt/format.h>
+// using fmt::print;
+
+// struct my_shared_ptr
+// {
+// 	void inc_ref() noexcept;
+
+// 	void dec_ref() noexcept;
+
+// 	void dec_ref1() noexcept;
+
+// 	~my_shared_ptr()
+// 	{
+// 		print("Destroyed!\n");
+// 	}
+
+// private:
+// 	std::atomic<int> ref_count;
+// };
+
+// void my_shared_ptr::inc_ref() noexcept
+// {
+// 	ref_count.fetch_add(1, std::memory_order_relaxed);
+// }
+
+// void my_shared_ptr::dec_ref() noexcept
+// {
+// 	if (ref_count.fetch_sub(1, std::memory_order_release) == 1)
+// 	{
+// 		std::atomic_thread_fence(std::memory_order_acquire);
+// 		delete this;
+// 	}
+// }
+
+// void my_shared_ptr::dec_ref1() noexcept
+// {
+// 	if (ref_count.fetch_sub(1, std::memory_order_relaxed) == 1)
+// 	{
+// 		// std::atomic_thread_fence(std::memory_order_acquire);
+// 		delete this;
+// 	}
+// }
+
 #include <atomic>
+#include <tbb/tbb.h>
 #include <fmt/format.h>
 using fmt::print;
+#include <boost/container/vector.hpp>
+namespace container = boost::container;
 
-struct my_shared_ptr
+int main()
 {
-	void inc_ref() noexcept;
+	constexpr size_t n = 1e6;
+	container::vector<int> a(n, 1);
+	std::atomic<size_t> cnt = 0;
+	tbb::parallel_for(tbb::blocked_range<size_t>(0, n), [&](tbb::blocked_range<size_t> const& r)
+		{
+			size_t local_cnt = 0;
+			for (size_t i = r.begin(); i != r.end(); i++)
+			{
+				local_cnt += a[i];
+			}
+			cnt.fetch_add(local_cnt, std::memory_order_relaxed);
+		});
 
-	void dec_ref() noexcept;
+	print("{}\n", cnt.load(std::memory_order_acquire));
 
-	void dec_ref1() noexcept;
-
-	~my_shared_ptr()
-	{
-		print("Destroyed!\n");
-	}
-
-private:
-	std::atomic<int> ref_count;
-};
-
-void my_shared_ptr::inc_ref() noexcept
-{
-	ref_count.fetch_add(1, std::memory_order_relaxed);
-}
-
-void my_shared_ptr::dec_ref() noexcept
-{
-	if (ref_count.fetch_sub(1, std::memory_order_release) == 1)
-	{
-		std::atomic_thread_fence(std::memory_order_acquire);
-		delete this;
-	}
-}
-
-void my_shared_ptr::dec_ref1() noexcept
-{
-	if (ref_count.fetch_sub(1, std::memory_order_relaxed) == 1)
-	{
-		// std::atomic_thread_fence(std::memory_order_acquire);
-		delete this;
-	}
+	
 }
