@@ -443,15 +443,11 @@ int main()
 // 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
 // }
 
-#include <absl/container/btree_set.h>
-#include <absl/numeric/int128.h>
 #include <fmt/format.h>
 using fmt::print;
 
 int main()
 {
-	absl::int128 x = 4587935748393540453;
-	fmt::print("{}\n", static_cast<__int128_t>(x));
-
+	
 	return 0;
 }
