@@ -23,7 +23,6 @@ foreach(name ${BASIC_TARGETS})
         OpenMP::OpenMP_CXX
         TBB::tbb
         mimalloc
-        absl::base
 
         # Boost::filesystem
 
