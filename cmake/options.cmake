@@ -19,11 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(BASIC_STATIC_EXTERNAL_LIB "Enable static external lib" ON)
 if(BASIC_STATIC_EXTERNAL_LIB)
-    if(WIN32)
-        set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib")
-    else()
-        set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-    endif()
+    set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib" ".a")
 endif()
 
 if(NOT DEFINED BUILD_SHARED_LIBS)
