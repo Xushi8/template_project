@@ -37,7 +37,7 @@
                 // "-DBASIC_INSTALL_STATIC_LIB=ON",
                 "-DBASIC_ENABLE_AVX2=ON",
                 "-DBASIC_AUTHOR=ON",
-                "-DCMAKE_VERBOSE_MAKEFILE=ON", // 打印详细信息
+                // "-DCMAKE_VERBOSE_MAKEFILE=ON", // 打印详细信息
             ]
         },
         {

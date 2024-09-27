@@ -370,85 +370,93 @@ int main()
 // 	return 0;
 // }
 
-#include <deque>
-#include <list>
-#include <template_project/common/common.hpp>
-#include <template_project/common/atomic.hpp>
-#include <cstddef>
-#include <random>
-#include <algorithm>
-#include <array>
-#include <tbb/parallel_for.h>
+// #include <deque>
+// #include <list>
+// #include <template_project/common/common.hpp>
+// #include <template_project/common/atomic.hpp>
+// #include <cstddef>
+// #include <random>
+// #include <algorithm>
+// #include <array>
+// #include <tbb/parallel_for.h>
+// #include <fmt/format.h>
+// #include <fmt/ranges.h>
+// using fmt::print;
+
+// enum class choice
+// {
+// 	huan,
+// 	buhuan,
+// };
+
+// template <choice game_choice>
+// bool game()
+// {
+// 	thread_local std::mt19937 rng(std::random_device{}());
+// 	std::uniform_int_distribution<size_t> uni(0, 2);
+// 	std::array<bool, 3> men{true, false, false};
+// 	std::shuffle(men.begin(), men.end(), rng);
+// 	size_t index = uni(rng);
+// 	if constexpr (game_choice == choice::buhuan)
+// 		return men[index];
+
+// 	size_t wrong_index = [&]
+// 	{
+// 		for (size_t i = 0; i < 3; i++)
+// 		{
+// 			if (i != index && !men[i])
+// 			{
+// 				return i;
+// 			}
+// 		}
+// 		basic_namespace::unreachable();
+// 	}();
+
+// 	for (size_t i = 0; i < 3; i++)
+// 	{
+// 		if (i != index && i != wrong_index)
+// 		{
+// 			return men[i];
+// 		}
+// 	}
+
+// 	basic_namespace::unreachable();
+// }
+
+// int main()
+// {
+// 	constexpr size_t N = 1e5;
+// 	double ans_huan, ans_buhuan;
+
+// 	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
+// 	// check random_access_iterator and input_iterator
+// 	// input iterator not support
+// 	std::deque<int> a(N);
+// 	iota(a.begin(), a.end(), 0);
+// 	tbb::parallel_for(tbb::blocked_range<decltype(a.begin())>(a.begin(), a.end()), [&](tbb::blocked_range<decltype(a.begin())> const& r)
+// 		{
+// 			size_t local_sum_huan = 0, local_sum_buhuan = 0;
+// 			std::vector<size_t> vec;
+// 			for(auto i = r.begin(); i != r.end(); i++)
+// 			{
+// 				local_sum_huan += game<choice::huan>();
+// 				local_sum_buhuan += game<choice::buhuan>();
+// 				vec.emplace_back(*i);
+// 			}
+// 			sum_huan += local_sum_huan;
+// 			sum_buhuan += local_sum_buhuan;
+// 			print("{}\n {}\n", vec.size(), vec);
+// 		});
+// 	ans_huan = sum_huan * 100.0 / N;
+// 	ans_buhuan = sum_buhuan * 100.0 / N;
+
+// 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
+// }
+
 #include <fmt/format.h>
-#include <fmt/ranges.h>
 using fmt::print;
-
-enum class choice
-{
-	huan,
-	buhuan,
-};
-
-template <choice game_choice>
-bool game()
-{
-	thread_local std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<size_t> uni(0, 2);
-	std::array<bool, 3> men{true, false, false};
-	std::shuffle(men.begin(), men.end(), rng);
-	size_t index = uni(rng);
-	if constexpr (game_choice == choice::buhuan)
-		return men[index];
-
-	size_t wrong_index = [&]
-	{
-		for (size_t i = 0; i < 3; i++)
-		{
-			if (i != index && !men[i])
-			{
-				return i;
-			}
-		}
-		basic_namespace::unreachable();
-	}();
-
-	for (size_t i = 0; i < 3; i++)
-	{
-		if (i != index && i != wrong_index)
-		{
-			return men[i];
-		}
-	}
-
-	basic_namespace::unreachable();
-}
 
 int main()
 {
-	constexpr size_t N = 1e5;
-	double ans_huan, ans_buhuan;
-
-	basic_namespace::atomic_relaxed<size_t> sum_huan = 0, sum_buhuan = 0;
-	// check random_access_iterator and input_iterator
-	// input iterator not support
-	std::list<int> a(N);
-	iota(a.begin(), a.end(), 0);
-	tbb::parallel_for(tbb::blocked_range<decltype(a.begin())>(a.begin(), a.end()), [&](tbb::blocked_range<decltype(a.begin())> const& r)
-		{
-			size_t local_sum_huan = 0, local_sum_buhuan = 0;
-			std::vector<size_t> vec;
-			for(auto i = r.begin(); i != r.end(); i++)
-			{
-				local_sum_huan += game<choice::huan>();
-				local_sum_buhuan += game<choice::buhuan>();
-				vec.emplace_back(*i);
-			}
-			sum_huan += local_sum_huan;
-			sum_buhuan += local_sum_buhuan;
-			print("{}\n {}\n", vec.size(), vec);
-		});
-	ans_huan = sum_huan * 100.0 / N;
-	ans_buhuan = sum_buhuan * 100.0 / N;
-
-	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
+	
 }
