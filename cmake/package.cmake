@@ -16,6 +16,10 @@ find_path(RE2_INCLUDE_DIR NAMES re2)
 find_library(RE2_LIB NAMES re2 libre2)
 include_directories(${RE2_INCLUDE_DIR})
 
+find_path(ABSL_INCLUDE_DIR NAMES absl)
+find_library(ABSL_BASE_LIB NAMES absl_base libabsl_base)
+include_directories(${ABSL_INCLUDE_DIR})
+
 find_path(GMP_INCLUDE_DIR NAMES gmp.h)
 find_library(GMP_LIB NAMES gmp libgmp)
 include_directories(${GMP_INCLUDE_DIR})
