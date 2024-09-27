@@ -27,7 +27,6 @@ foreach(name ${BASIC_TARGETS})
         # Boost::filesystem
 
         ${RE2_LIB}
-        ${ABSL_BASE_LIB}
 
         ${GMP_LIB}
         ${MPFR_LIB}

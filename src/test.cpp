@@ -458,5 +458,4 @@ using fmt::print;
 
 int main()
 {
-	
 }
