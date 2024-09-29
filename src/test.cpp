@@ -281,3 +281,16 @@ unstable use boost::block_indirect_sort
 // 		});
 // 	print("boost::parallel_stable_sort:\t {:.3f}ms\n", time_use.count());
 // }
+
+#include <ratio>
+#include <fmt/format.h>
+using fmt::print;
+int main()
+{
+	using milli = std::ratio<1, 1000>;
+	print("{} {}\n", milli::num, milli::den);
+
+	using one = std::ratio<1, 1>;
+	using result = std::ratio_divide<one, milli>;
+	print("{} {}\n", result::num, result::den);
+}
