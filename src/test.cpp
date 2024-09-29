@@ -544,6 +544,13 @@ int main()
 	a = b;
 	time_use = time_test([&]
 		{
+			boost::sort::pdqsort_branchless(a.begin(), a.end());
+		});
+	print("boost::pdqsort_branchless:\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
 			boost::sort::spinsort(a.begin(), a.end());
 		});
 	print("boost::spinsort:\t\t {:.3f}ms\n", time_use.count());
