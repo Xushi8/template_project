@@ -453,9 +453,126 @@ int main()
 // 	print("huan: {}%, buhaun: {}%\n", ans_huan, ans_buhuan);
 // }
 
+/**
+single thread:
+unstable use boost::sort::spinsort
+  stable use boost::sort::pdqsort
+
+multi thread
+unstable use boost::block_indirect_sort
+  stable use boost::sample_sort
+*/
+
 #include <fmt/format.h>
+#include <fmt/chrono.h>
+#include <random>
+#include <boost/container/vector.hpp>
+#include <execution>
+#include <tbb/parallel_sort.h>
+#include <boost/sort/sort.hpp>
 using fmt::print;
+namespace container = boost::container;
+
+template <typename Func>
+std::chrono::duration<double, std::milli> time_test(Func&& func)
+{
+	auto t_begin = std::chrono::steady_clock::now();
+	func();
+	auto t_end = std::chrono::steady_clock::now();
+	return (t_end - t_begin);
+}
 
 int main()
 {
+	constexpr size_t N = 1e8;
+	container::vector<size_t> a(N, container::default_init);
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<size_t> uni;
+
+	auto time_use = time_test([&]
+		{
+			std::generate(a.begin(), a.end(), [&]
+				{
+					return uni(rng);
+				});
+		});
+	print("std::generate:\t\t\t {:.3f}ms\n", time_use.count());
+
+	auto b = a;
+
+	time_use = time_test([&]
+		{
+			std::sort(a.begin(), a.end());
+		});
+	print("std::sort:\t\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			std::stable_sort(a.begin(), a.end());
+		});
+	print("std::stable_sort:\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			std::sort(std::execution::par_unseq, a.begin(), a.end());
+		});
+	print("std::sort with par_unseq:\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			tbb::parallel_sort(a.begin(), a.end());
+		});
+	print("tbb::parallel_sort:\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::spreadsort::spreadsort(a.begin(), a.end());
+		});
+	print("boost::spreadsort:\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::pdqsort(a.begin(), a.end());
+		});
+	print("boost::pdqsort:\t\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::spinsort(a.begin(), a.end());
+		});
+	print("boost::spinsort:\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::flat_stable_sort(a.begin(), a.end());
+		});
+	print("boost::flat_stable_sort:\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::block_indirect_sort(a.begin(), a.end());
+		});
+	print("boost::block_indirect_sort:\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::sample_sort(a.begin(), a.end());
+		});
+	print("boost::sample_sort:\t\t {:.3f}ms\n", time_use.count());
+
+	a = b;
+	time_use = time_test([&]
+		{
+			boost::sort::parallel_stable_sort(a.begin(), a.end());
+		});
+	print("boost::parallel_stable_sort:\t {:.3f}ms\n", time_use.count());
 }
