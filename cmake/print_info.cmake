@@ -23,7 +23,7 @@ message(STATUS "Global compile options: ${GLOBAL_COMPILE_OPTIONS}")
 
 
 if (PROJECT_BINARY_DIR STREQUAL PROJECT_SOURCE_DIR)
-    message(WARNING "The binary directory of CMake cannot be the same as source directory!")
+    message(FATAL_ERROR "The binary directory of CMake cannot be the same as source directory!")
 endif()
 
 
