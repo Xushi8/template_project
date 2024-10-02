@@ -15,16 +15,14 @@ struct atomic_relaxed : std::atomic<T>
 	atomic_relaxed(const atomic_relaxed<T>& other) noexcept :
 		std::atomic<T>(other.load(memory_order)) {}
 
-	atomic_relaxed<T>& operator=(const atomic_relaxed<T>& other) noexcept
-	{
-		store(other.load(memory_order));
-		return *this;
-	}
+	atomic_relaxed<T>& operator=(const atomic_relaxed<T>& other) = delete;
 
-	void operator=(T val) noexcept
+	T operator=(T val) noexcept // NOLINT(cppcoreguidelines-c-copy-assignment-signature, misc-unconventional-assign-operator)
 	{
 		store(val, memory_order);
+		return val;
 	}
+
 	operator T() const noexcept
 	{
 		return load(memory_order);
@@ -64,7 +62,7 @@ struct atomic_relaxed : std::atomic<T>
 	{
 		return std::atomic<T>::fetch_and(val, memory_order);
 	}
-	
+
 	T operator|=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_or(val, memory_order);
@@ -99,7 +97,7 @@ struct atomic_relaxed : std::atomic<T>
 	{
 		return std::atomic<T>::fetch_add(val, memory_order);
 	}
-	
+
 	T operator-=(T val) noexcept
 	{
 		return std::atomic<T>::fetch_sub(val, memory_order);

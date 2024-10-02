@@ -16,7 +16,7 @@ container::string base64_encode(std::string_view input)
 	return output;
 }
 
-container::string base64_encode(const void* input, const size_t len)
+container::string base64_encode(const void* input, size_t len)
 {
 	container::string output(encoded_size(len), container::default_init);
 	output.resize(encode(output.data(), input, len), container::default_init);
@@ -32,7 +32,7 @@ container::string base64_decode(std::string_view input)
 	return output;
 }
 
-container::string base64_decode(const char* input, const size_t len)
+container::string base64_decode(const char* input, size_t len)
 {
 	container::string output(encoded_size(len), container::default_init);
 	auto result = decode(output.data(), input, len);

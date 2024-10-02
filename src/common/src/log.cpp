@@ -17,7 +17,7 @@ using std::string;
  * @param level
  * @param log_path
  */
-void set_default_log(string const& log_name, string const& log_path, spdlog::level::level_enum level)
+void set_default_log(string const& log_path, string const& log_name, spdlog::level::level_enum level)
 {
 	spdlog::init_thread_pool(8192, 1);
 	auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
