@@ -1,7 +1,3 @@
-if(MSVC)
-    message(FATAL_ERROR "This project doesn't support MSVC, please use mingw or clang instead")
-endif()
-
 message(STATUS "------------------ General configuration for ${PROJECT_NAME} ${${PROJECT_NAME}_VERSION} -----------------")
 message(STATUS )
 message(STATUS "CMake Version =         ${CMAKE_VERSION}")
