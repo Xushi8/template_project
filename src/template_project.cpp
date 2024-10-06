@@ -14,6 +14,12 @@
 
 #include <template_project/common/common.hpp>
 
+#include <clocale>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 BASIC_BEGIN_NAMESPACE
 using u64 = uint64_t;
 using fmt::print;
@@ -65,6 +71,12 @@ BASIC_END_NAMESPACE
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
+	setlocale(LC_ALL, ".utf-8");
+#ifdef _WIN32
+	SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
+	SetConsoleCP(CP_UTF8);		 // 设置控制台输入编码，用于 std::cin
+#endif
+
 	// basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
 
 	// basic_namespace::test_spdlog();
