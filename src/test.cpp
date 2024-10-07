@@ -293,23 +293,13 @@ unstable use boost::block_indirect_sort
 // 	print("{} {}\n", result::num, result::den);
 // }
 
-#include <clocale>
-#include <string>
-#include <boost/locale.hpp>
-#include <iostream>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
+#include <clocale>
+#include <fmt/format.h>
+using fmt::print;
 
 int main()
 {
-#ifdef _WIN32
-	setlocale(LC_ALL, ".utf-8");
-	SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
-	SetConsoleCP(CP_UTF8);		 // 设置控制台输入编码，用于 std::cin
-#else
-	setlocale(LC_ALL, "en_US.utf-8");
-#endif
-
+	setlocale(LC_ALL, "");
+	print("{}\n", strerror(2));
 }

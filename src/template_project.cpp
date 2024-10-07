@@ -76,7 +76,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 	SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
 	SetConsoleCP(CP_UTF8);		 // 设置控制台输入编码，用于 std::cin
 #else
-	setlocale(LC_ALL, "en_US.utf-8");
+	setlocale(LC_ALL, "");
 #endif
 
 	// basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
