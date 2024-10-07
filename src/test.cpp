@@ -296,9 +296,7 @@ unstable use boost::block_indirect_sort
 #include <clocale>
 #include <string>
 #include <boost/locale.hpp>
-#include <fmt/format.h>
 #include <iostream>
-using fmt::print;
 
 #ifdef _WIN32
 #include <windows.h>
@@ -306,14 +304,12 @@ using fmt::print;
 
 int main()
 {
-	setlocale(LC_ALL, ".utf-8");
 #ifdef _WIN32
-	SetConsoleOutputCP(CP_UTF8);
-	SetConsoleCP(CP_UTF8);
+	setlocale(LC_ALL, ".utf-8");
+	SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
+	SetConsoleCP(CP_UTF8);		 // 设置控制台输入编码，用于 std::cin
+#else
+	setlocale(LC_ALL, "en_US.utf-8");
 #endif
-	
-	std::string s = "斯达康龙江路口🐴";
-	std::cout << s << '\n';
-	std::wstring s1 = boost::locale::conv::utf_to_utf<wchar_t>(s);
-	std::wcout << s1 << '\n';
+
 }
