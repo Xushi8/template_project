@@ -280,15 +280,40 @@ unstable use boost::block_indirect_sort
 // 	print("boost::parallel_stable_sort:\t {:.3f}ms\n", time_use.count());
 // }
 
-#include <ratio>
+// #include <ratio>
+// #include <fmt/format.h>
+// using fmt::print;
+// int main()
+// {
+// 	using milli = std::ratio<1, 1000>;
+// 	print("{} {}\n", milli::num, milli::den);
+
+// 	using one = std::ratio<1, 1>;
+// 	using result = std::ratio_divide<one, milli>;
+// 	print("{} {}\n", result::num, result::den);
+// }
+
+#include <clocale>
+#include <string>
+#include <boost/locale.hpp>
 #include <fmt/format.h>
+#include <iostream>
 using fmt::print;
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 int main()
 {
-	using milli = std::ratio<1, 1000>;
-	print("{} {}\n", milli::num, milli::den);
-
-	using one = std::ratio<1, 1>;
-	using result = std::ratio_divide<one, milli>;
-	print("{} {}\n", result::num, result::den);
+	setlocale(LC_ALL, ".utf-8");
+#ifdef _WIN32
+	SetConsoleOutputCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8);
+#endif
+	
+	std::string s = "斯达康龙江路口🐴";
+	std::cout << s << '\n';
+	std::wstring s1 = boost::locale::conv::utf_to_utf<wchar_t>(s);
+	std::wcout << s1 << '\n';
 }

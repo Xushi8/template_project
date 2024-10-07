@@ -38,8 +38,8 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 
 # optimize
 
-add_compile_options(-fno-rtti)
-add_link_options(-fno-rtti)
+# add_compile_options(-fno-rtti)
+# add_link_options(-fno-rtti)
 
 # add_compile_options(-fno-semantic-interposition)
 # add_link_options(-fno-semantic-interposition)

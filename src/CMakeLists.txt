@@ -24,7 +24,7 @@ foreach(name ${BASIC_TARGETS})
         TBB::tbb
         mimalloc
 
-        # Boost::filesystem
+        Boost::locale
 
         ${RE2_LIB}
 
