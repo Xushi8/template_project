@@ -2,10 +2,10 @@
 template <typename Func>
 std::chrono::duration<double, std::milli> time_test(Func&& func)
 {
-	auto t_begin = std::chrono::steady_clock::now();
-	func();
-	auto t_end = std::chrono::steady_clock::now();
-	return (t_end - t_begin);
+    auto t_begin = std::chrono::steady_clock::now();
+    func();
+    auto t_end = std::chrono::steady_clock::now();
+    return (t_end - t_begin);
 }
 
 // #include <boost/intrusive/bs_set.hpp>
@@ -303,42 +303,60 @@ unstable use boost::block_indirect_sort
 // 	print("{} {}\n", result::num, result::den);
 // }
 
-#include <template_project/common/singleton.hpp>
-#include <boost/container/vector.hpp>
+#include <boost/mysql.hpp>
+
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/ssl/context.hpp>
+#include <boost/system/system_error.hpp>
 #include <fmt/format.h>
-#include <tbb/tbb.h>
+#include <iostream>
 using fmt::print;
-namespace container = boost::container;
-constexpr size_t N = 1e9;
 
-__attribute__((noinline)) void func1()
+int main(int argc, const char* argv[])
 {
-    container::vector<size_t> a(N, container::default_init);
-    auto time_use = time_test([&]
+    try
+    {
+        if (argc != 4)
         {
-            for (size_t i = 0; i < N; i++)
-            {
-                a[i] = basic_namespace::A::get_instance().get();
-            }
-        });
-    print("func1: {}ms\n", time_use.count());
-}
+            // std::cerr << "Usage: " << argv[0] << " <username> <password> <server-hostname>\n";
+            print(stderr, "Usage: {} <username> <password> <server-hostname>\n", argv[0]);
+            exit(1);
+        }
 
-__attribute__((noinline)) void func2()
-{
-    container::vector<size_t> a(N, container::default_init);
-    basic_namespace::A tmp;
-    auto time_use = time_test([&]
-        {
-            for (size_t i = 0; i < N; i++)
-            {
-                a[i] = tmp.get();
-            }
-        });
-    print("func2: {}ms\n", time_use.count());
-}
+        // The execution context, required to run I/O operations.
+        boost::asio::io_context ctx;
 
-int main()
-{
-    tbb::parallel_invoke(func1, func2);
+        // Represents a connection to the MySQL server.
+        boost::mysql::tcp_connection conn(ctx);
+
+        // Resolve the hostname to get a collection of endpoints
+        boost::asio::ip::tcp::resolver resolver(ctx.get_executor());
+        auto endpoints = resolver.resolve(argv[3], boost::mysql::default_port_string);
+
+        // The username, password and database to use
+        boost::mysql::handshake_params params(
+            argv[1],               // username
+            argv[2],               // password
+            "boost_mysql_examples" // database
+        );
+
+        // Connect to the server using the first endpoint returned by the resolver
+        conn.connect(*endpoints.begin(), params);
+
+        // Issue the SQL query to the server
+        const char* sql = "SELECT 'Hello world!'";
+        boost::mysql::results result;
+        conn.query(sql, result);
+
+        // Print the first field in the first row
+        std::cout << result.rows().at(0).at(0) << std::endl;
+        // print("{}\n", result.rows.at(0).at(0).get_string().data());
+
+        // Close the connection
+        conn.close();
+    }
+    catch (std::exception const& e)
+    {
+        print(stderr, "Exception: {}\n", e.what());
+    }
 }
