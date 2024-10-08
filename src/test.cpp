@@ -297,9 +297,9 @@ unstable use boost::block_indirect_sort
 #include <clocale>
 #include <fmt/format.h>
 using fmt::print;
+#include <ozo/ozo.h>
 
 int main()
 {
 	setlocale(LC_ALL, "");
-	print("{}\n", strerror(2));
 }
