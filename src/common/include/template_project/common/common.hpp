@@ -44,6 +44,9 @@
 
 BASIC_BEGIN_NAMESPACE
 
+namespace detail
+{
+
 [[noreturn]] inline void unreachable()
 {
     // Uses compiler specific extensions if possible.
@@ -54,6 +57,8 @@ BASIC_BEGIN_NAMESPACE
 #else // GCC, Clang
     __builtin_unreachable();
 #endif
+}
+
 }
 
 BASIC_END_NAMESPACE
