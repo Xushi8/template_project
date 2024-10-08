@@ -25,6 +25,8 @@ foreach(name ${BASIC_TARGETS})
         mimalloc
 
         Boost::locale
+        OpenSSL::Crypto
+        OpenSSL::SSL
 
         ${RE2_LIB}
 

@@ -2,6 +2,7 @@ find_package(Threads REQUIRED)
 find_package(OpenMP REQUIRED)
 find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 if(BASIC_ENABLE_GUI)
     find_package(Qt6 REQUIRED COMPONENTS Widgets)

@@ -11,7 +11,7 @@
             // "program": "${workspaceFolder}/build/bin/template_project",
             "program": "${workspaceFolder}/build/bin/test",
             // "program": "/usr/bin/whoami",
-            "args": [],
+            "args": ["root", "root", "::1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

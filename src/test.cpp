@@ -293,12 +293,3 @@ unstable use boost::block_indirect_sort
 // 	print("{} {}\n", result::num, result::den);
 // }
 
-#include <clocale>
-#include <fmt/format.h>
-using fmt::print;
-
-int main()
-{
-    setlocale(LC_ALL, "");
-    print("{}\n", strerror(2));
-}
