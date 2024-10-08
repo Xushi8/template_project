@@ -32,7 +32,6 @@ foreach(name ${BASIC_TARGETS})
         ${MPFR_LIB}
 
         ${PQ_LIB}
-        ${PQXX_LIB}
 
         # external
     )

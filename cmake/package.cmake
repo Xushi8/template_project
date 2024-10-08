@@ -27,7 +27,3 @@ include_directories(${MPFR_INCLUDE_DIR})
 find_path(PQ_INCLUDE_DIR NAMES postgresql)
 find_library(PQ_LIB NAMES pq libpq)
 include_directories(${PQ_INCLUDE_DIR})
-
-find_path(PQXX_INCLUDE_DIR NAMES pqxx)
-find_library(PQXX_LIB NAMES pqxx libpqpqxx)
-include_directories(${PQXX_INCLUDE_DIR})
