@@ -25,89 +25,89 @@ using fmt::print;
 
 void test_spdlog()
 {
-	spdlog::info("info log");
-	spdlog::warn("warn log");
+    spdlog::info("info log");
+    spdlog::warn("warn log");
 }
 
 void test_xxhash()
 {
-	auto hash_val = hash_from_file("/media/tom/Data/test.txt");
-	if (!hash_val.has_value())
-	{
-		print("/media/tom/Data/test.txt error: {}\n", hash_val.error().message());
-	}
-	else
-	{
-		print("{:x}\n", *hash_val);
-	}
+    auto hash_val = hash_from_file("/media/tom/Data/test.txt");
+    if (!hash_val.has_value())
+    {
+        print("/media/tom/Data/test.txt error: {}\n", hash_val.error().message());
+    }
+    else
+    {
+        print("{:x}\n", *hash_val);
+    }
 
-	auto val1 = hash_from_file_both("./.gitignore");
-	if (!val1.has_value())
-	{
-		print("./.gitignore error: {}\n", val1.error().message());
-	}
-	else
-	{
-		print("{:x}\n", val1->first);
-	}
-	constexpr uint64_t x = 0xf74f53b60490421c;
-	constexpr uint64_t y = 0x1c429004b6534ff7;
-	print("{}\n{}\n", x, y);
+    auto val1 = hash_from_file_both("./.gitignore");
+    if (!val1.has_value())
+    {
+        print("./.gitignore error: {}\n", val1.error().message());
+    }
+    else
+    {
+        print("{:x}\n", val1->first);
+    }
+    constexpr uint64_t x = 0xf74f53b60490421c;
+    constexpr uint64_t y = 0x1c429004b6534ff7;
+    print("{}\n{}\n", x, y);
 
-	std::array<int, 4> arr = {0, 0, 0, 0};
-	hash_val = xxh::xxhash3<64>(arr);
-	print("{}\n", *hash_val);
+    std::array<int, 4> arr = {0, 0, 0, 0};
+    hash_val = xxh::xxhash3<64>(arr);
+    print("{}\n", *hash_val);
 
-	std::vector<int> vec = {0, 0, 0, 0};
-	hash_val = xxh::xxhash3<64>(vec);
-	print("{}\n", *hash_val);
+    std::vector<int> vec = {0, 0, 0, 0};
+    hash_val = xxh::xxhash3<64>(vec);
+    print("{}\n", *hash_val);
 
-	std::vector<char> vec1(16, 'a');
-	hash_val = xxh::xxhash3<64>(vec1);
-	print("{}\n", *hash_val);
+    std::vector<char> vec1(16, 'a');
+    hash_val = xxh::xxhash3<64>(vec1);
+    print("{}\n", *hash_val);
 }
 BASIC_END_NAMESPACE
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
 #ifdef _WIN32
-	setlocale(LC_ALL, ".utf-8");
-	SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
-	SetConsoleCP(CP_UTF8);		 // 设置控制台输入编码，用于 std::cin
+    setlocale(LC_ALL, ".utf-8");
+    SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
+    SetConsoleCP(CP_UTF8);       // 设置控制台输入编码，用于 std::cin
 #else
-	setlocale(LC_ALL, "");
+    setlocale(LC_ALL, "");
 #endif
 
-	// basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
+    // basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
 
-	// basic_namespace::test_spdlog();
+    // basic_namespace::test_spdlog();
 
-	basic_namespace::test_xxhash();
+    basic_namespace::test_xxhash();
 
-	// std::string s = "hello world";
-	// s = basic_namespace::base64_encode(s.data(), s.size());
-	// fmt::print("{}\n", s);
-	// s = basic_namespace::base64_decode(s.data(), s.size());
-	// fmt::print("{}\n", s);
+    // std::string s = "hello world";
+    // s = basic_namespace::base64_encode(s.data(), s.size());
+    // fmt::print("{}\n", s);
+    // s = basic_namespace::base64_decode(s.data(), s.size());
+    // fmt::print("{}\n", s);
 
-	basic_namespace::test_error_code();
+    basic_namespace::test_error_code();
 
-	std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
-	std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式
-	RE2 re(pattern);
+    std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
+    std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式
+    RE2 re(pattern);
 
-	re2::StringPiece input(text);
-	std::string email;
+    re2::StringPiece input(text);
+    std::string email;
 
-	while (RE2::FindAndConsume(&input, re, &email))
-	{
-		// std::cout << "Found email: " << email << std::endl;
-		fmt::print("Found email: {}\n", email);
-	}
+    while (RE2::FindAndConsume(&input, re, &email))
+    {
+        // std::cout << "Found email: " << email << std::endl;
+        fmt::print("Found email: {}\n", email);
+    }
 
-	basic_namespace::test_multiprecision();
+    basic_namespace::test_multiprecision();
 
-	// basic_namespace::test_flatbuffers();
+    // basic_namespace::test_flatbuffers();
 
-	return 0;
+    return 0;
 }
