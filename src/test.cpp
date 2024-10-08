@@ -1,3 +1,13 @@
+#include <chrono>
+template <typename Func>
+std::chrono::duration<double, std::milli> time_test(Func&& func)
+{
+	auto t_begin = std::chrono::steady_clock::now();
+	func();
+	auto t_end = std::chrono::steady_clock::now();
+	return (t_end - t_begin);
+}
+
 // #include <boost/intrusive/bs_set.hpp>
 // #include <iostream>
 
@@ -293,3 +303,42 @@ unstable use boost::block_indirect_sort
 // 	print("{} {}\n", result::num, result::den);
 // }
 
+#include <template_project/common/singleton.hpp>
+#include <boost/container/vector.hpp>
+#include <fmt/format.h>
+#include <tbb/tbb.h>
+using fmt::print;
+namespace container = boost::container;
+constexpr size_t N = 1e9;
+
+__attribute__((noinline)) void func1()
+{
+    container::vector<size_t> a(N, container::default_init);
+    auto time_use = time_test([&]
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                a[i] = basic_namespace::A::get_instance().get();
+            }
+        });
+    print("func1: {}ms\n", time_use.count());
+}
+
+__attribute__((noinline)) void func2()
+{
+    container::vector<size_t> a(N, container::default_init);
+    basic_namespace::A tmp;
+    auto time_use = time_test([&]
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                a[i] = tmp.get();
+            }
+        });
+    print("func2: {}ms\n", time_use.count());
+}
+
+int main()
+{
+    tbb::parallel_invoke(func1, func2);
+}
