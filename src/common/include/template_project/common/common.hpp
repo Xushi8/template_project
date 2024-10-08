@@ -59,6 +59,6 @@ namespace detail
 #endif
 }
 
-}
+} // namespace detail
 
 BASIC_END_NAMESPACE
