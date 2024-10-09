@@ -303,7 +303,6 @@ unstable use boost::block_indirect_sort
 // 	print("{} {}\n", result::num, result::den);
 // }
 
-#include <boost/system/system_error.hpp>
 #include <fmt/format.h>
 #include <boost/mysql/tcp.hpp>
 #include <iostream>

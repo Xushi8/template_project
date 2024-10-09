@@ -1,7 +1,7 @@
 add_library(template_project_common "")
 
-file(GLOB sources CONFIGURE_DEPENDS src/*.c src/*.cpp)
-file(GLOB header CONFIGURE_DEPENDS include/*.h include/*.hpp)
+file(GLOB_RECURSE sources CONFIGURE_DEPENDS src/*.c src/*.cpp)
+file(GLOB_RECURSE header CONFIGURE_DEPENDS include/*.h include/*.hpp)
 
 target_sources(template_project_common
 PRIVATE
