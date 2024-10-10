@@ -303,51 +303,9 @@ unstable use boost::block_indirect_sort
 // 	print("{} {}\n", result::num, result::den);
 // }
 
-#include <fmt/format.h>
-#include <boost/mysql/tcp.hpp>
-#include <iostream>
-using fmt::print;
+#include <clocale>
 
-int main(int argc, const char* argv[])
+int main()
 {
-    if (argc != 4)
-    {
-        // std::cerr << "Usage: " << argv[0] << " <username> <password> <server-hostname>\n";
-        print(stderr, "Usage: {} <username> <password> <server-hostname>\n", argv[0]);
-        exit(1);
-    }
-
-    // The execution context, required to run I/O operations.
-    boost::asio::io_context ctx;
-
-    // Represents a connection to the MySQL server.
-    boost::mysql::tcp_connection conn(ctx);
-
-    // Resolve the hostname to get a collection of endpoints
-    boost::asio::ip::tcp::resolver resolver(ctx.get_executor());
-    auto endpoints = resolver.resolve(argv[3], boost::mysql::default_port_string);
-
-    // The username, password and database to use
-    boost::mysql::handshake_params params(
-        argv[1],               // username
-        argv[2],               // password
-        "boost_mysql_examples" // database
-    );
-
-    // Connect to the server using the first endpoint returned by the resolver
-    conn.connect(*endpoints.begin(), params);
-
-    // Issue the SQL query to the server
-    const char* sql = "SELECT 'Hello world!'";
-    boost::mysql::results result;
-    conn.query(sql, result);
-
-    // Print the first field in the first row
-    std::cout << result.rows().at(0).at(0) << std::endl;
-    // print("{}\n", result.rows.at(0).at(0).get_string().data());
-
-    // Close the connection
-    conn.close();
-
-    print("{}\n", BOOST_VERSION);
+    
 }
