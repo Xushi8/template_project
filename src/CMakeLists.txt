@@ -1,5 +1,4 @@
 add_subdirectory(common)
-add_subdirectory(test_lib)
 
 # target_link_libraries(common PUBLIC test_lib)
 
@@ -16,7 +15,6 @@ foreach(name ${BASIC_TARGETS})
     PUBLIC
         # src
         template_project_common
-        template_project_test_lib
 
         # package
         Threads::Threads

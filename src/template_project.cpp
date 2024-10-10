@@ -8,7 +8,6 @@
 #include <string>
 #include <template_project/common/base64.hpp>
 #include <template_project/common/error_code.hpp>
-#include <template_project/test_lib/multiprecision.hpp>
 #include <re2/re2.h>
 
 #include <template_project/common/common.hpp>
@@ -104,8 +103,6 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
         // std::cout << "Found email: " << email << std::endl;
         fmt::print("Found email: {}\n", email);
     }
-
-    basic_namespace::test_multiprecision();
 
     // basic_namespace::test_flatbuffers();
 
