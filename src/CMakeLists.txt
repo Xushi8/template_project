@@ -20,13 +20,20 @@ foreach(name ${BASIC_TARGETS})
         Threads::Threads
         TBB::tbb
         mimalloc
+
+
+        GMP::gmp
+        MPFR::mpfr
+        RE2::re2
         PostgreSQL::PostgreSQL
 
-
-        ${RE2_LIB}
-
-        ${GMP_LIB}
-        ${MPFR_LIB}
+        ${AVCODEC_LIBRARIES}
+        ${AVDEVICE_LIBRARIES}
+        ${AVFORMAT_LIBRARIES}
+        ${AVFILTER_LIBRARIES}
+        ${AVUTIL_LIBRARIES}
+        ${POSTPROC_LIBRARIES}
+        ${SWSCALE_LIBRARIES}
 
         # external
     )

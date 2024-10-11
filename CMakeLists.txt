@@ -14,6 +14,8 @@ if(NOT (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "
     message(FATAL_ERROR "This project only supports gcc and clang")
 endif()
 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/options.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compiler_options.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compiler_definitions.cmake)
