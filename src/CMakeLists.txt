@@ -20,14 +20,13 @@ foreach(name ${BASIC_TARGETS})
         Threads::Threads
         TBB::tbb
         mimalloc
+        PostgreSQL::PostgreSQL
 
 
         ${RE2_LIB}
 
         ${GMP_LIB}
         ${MPFR_LIB}
-
-        ${PQ_LIB}
 
         # external
     )

@@ -1,6 +1,7 @@
 find_package(Threads REQUIRED)
 find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
+find_package(PostgreSQL REQUIRED)
 
 if(BASIC_ENABLE_GUI)
     find_package(Qt6 REQUIRED COMPONENTS Widgets)
@@ -22,7 +23,3 @@ include_directories(${GMP_INCLUDE_DIR})
 find_path(MPFR_INCLUDE_DIR NAMES mpfr.h)
 find_library(MPFR_LIB NAMES mpfr libmpfr)
 include_directories(${MPFR_INCLUDE_DIR})
-
-find_path(PQ_INCLUDE_DIR NAMES postgresql)
-find_library(PQ_LIB NAMES pq libpq)
-include_directories(${PQ_INCLUDE_DIR})
