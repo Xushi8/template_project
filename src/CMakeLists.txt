@@ -18,7 +18,6 @@ foreach(name ${BASIC_TARGETS})
 
         # package
         Threads::Threads
-        OpenMP::OpenMP_CXX
         TBB::tbb
         mimalloc
 
