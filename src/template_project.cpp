@@ -71,25 +71,15 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
 #ifdef _WIN32
     setlocale(LC_ALL, ".utf-8");
-    SetConsoleOutputCP(CP_UTF8); // 设置控制台输出编码，或者写 system("chcp 65001") 也行，这里 CP_UTF8 = 65001
-    SetConsoleCP(CP_UTF8);       // 设置控制台输入编码，用于 std::cin
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
 #else
     setlocale(LC_ALL, "");
 #endif
 
-    // basic_namespace::set_default_log("template_project", "logs/mylog.txt", spdlog::level::info);
-
-    // basic_namespace::test_spdlog();
+    basic_namespace::set_default_log(spdlog::level::info, "logs/mylog.txt", "template_project");
 
     basic_namespace::test_xxhash();
-
-    // std::string s = "hello world";
-    // s = basic_namespace::base64_encode(s.data(), s.size());
-    // fmt::print("{}\n", s);
-    // s = basic_namespace::base64_decode(s.data(), s.size());
-    // fmt::print("{}\n", s);
-
-    basic_namespace::test_error_code();
 
     std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
     std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式
@@ -100,11 +90,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 
     while (RE2::FindAndConsume(&input, re, &email))
     {
-        // std::cout << "Found email: " << email << std::endl;
         fmt::print("Found email: {}\n", email);
     }
-
-    // basic_namespace::test_flatbuffers();
 
     return 0;
 }

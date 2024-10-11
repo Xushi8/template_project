@@ -46,8 +46,6 @@ inline std::error_code make_error_code(error_code ec) noexcept
     return {static_cast<int>(ec), get_error_category()};
 }
 
-BASIC_EXPORT
-void test_error_code();
 BASIC_END_NAMESPACE
 
 template <>
