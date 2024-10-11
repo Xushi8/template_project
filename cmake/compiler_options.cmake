@@ -57,7 +57,7 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 # add_compile_options(-fprofile-use=pgo_files)
 # add_link_options(-fprofile-use=pgo_files)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND NOT WIN32)
     add_compile_options(-fsanitize=undefined)
     add_link_options(-fsanitize=undefined)
     # add_compile_options(-fsanitize=address)
