@@ -63,6 +63,7 @@ Checks: >
   -modernize-loop-convert,
   -modernize-raw-string-literal,
   -modernize-unary-static-assert,
+  -modernize-use-bool-literals,
   -performance-no-automatic-move,
   -readability-convert-member-functions-to-static,
   -readability-else-after-return,
