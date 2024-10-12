@@ -2,6 +2,7 @@ find_package(Threads REQUIRED)
 find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
 find_package(PostgreSQL REQUIRED)
+find_package(SDL2 REQUIRED)
 
 find_package(Boost 1.81.0 REQUIRED)
 if(BASIC_PROJECT_STATIC_EXTERNAL_LIB)
