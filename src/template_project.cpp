@@ -18,7 +18,7 @@
 #include <windows.h>
 #endif
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 using u64 = uint64_t;
 using fmt::print;
 
@@ -65,7 +65,7 @@ void test_xxhash()
     hash_val = xxh::xxhash3<64>(vec1);
     print("{}\n", *hash_val);
 }
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
@@ -77,9 +77,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
     setlocale(LC_ALL, "");
 #endif
 
-    basic_namespace::set_default_log(spdlog::level::info, "logs/mylog.txt", "template_project");
+    BASIC_PROJECT_namespace::set_default_log(spdlog::level::info, "logs/mylog.txt", "template_project");
 
-    basic_namespace::test_xxhash();
+    BASIC_PROJECT_namespace::test_xxhash();
 
     std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
     std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式

@@ -3,13 +3,13 @@ add_subdirectory(common)
 # target_link_libraries(common PUBLIC test_lib)
 
 
-set(BASIC_TARGETS
+set(BASIC_PROJECT_TARGETS
     test
     gen
     template_project
 )
 
-foreach(name ${BASIC_TARGETS})
+foreach(name ${BASIC_PROJECT_TARGETS})
     add_executable(${name} ${name}.cpp)
     target_link_libraries(${name}
     PUBLIC
@@ -38,6 +38,6 @@ foreach(name ${BASIC_TARGETS})
         # external
     )
 
-endforeach(name ${BASIC_TARGETS})
+endforeach(name ${BASIC_PROJECT_TARGETS})
 
-install(TARGETS ${BASIC_TARGETS})
+install(TARGETS ${BASIC_PROJECT_TARGETS})

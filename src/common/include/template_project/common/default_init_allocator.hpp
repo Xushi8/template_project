@@ -1,10 +1,10 @@
 #include <template_project/common/common.hpp>
 #include <memory>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 
 template <typename T, typename A = std::allocator<T>>
-class BASIC_EXPORT default_init_allocator : public A
+class BASIC_PROJECT_EXPORT default_init_allocator : public A
 {
     using a_t = std::allocator_traits<A>;
 
@@ -32,4 +32,4 @@ public:
     }
 };
 
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE

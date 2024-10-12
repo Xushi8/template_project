@@ -8,22 +8,22 @@ if(WIN32)
 endif()
 
 
-if(BASIC_ENABLE_SSE4)
+if(BASIC_PROJECT_ENABLE_SSE4)
     add_compile_options(-march=core2)
     add_link_options(-march=core2)
 endif()
 
-if(BASIC_ENABLE_AVX)
+if(BASIC_PROJECT_ENABLE_AVX)
     add_compile_options(-march=sandybridge)
     add_link_options(-march=sandybridge)
 endif()
 
-if(BASIC_ENABLE_AVX2)
+if(BASIC_PROJECT_ENABLE_AVX2)
     add_compile_options(-march=haswell)
     add_link_options(-march=haswell)
 endif()
 
-if(NOT BASIC_AUTHOR)
+if(NOT BASIC_PROJECT_AUTHOR)
     add_compile_options(-march=native)
     add_link_options(-march=native)
 endif()
@@ -69,11 +69,11 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND NOT WIN32)
     add_link_options(-ggdb3 -fno-omit-frame-pointer)
 endif()
 
-if(BASIC_ENABLE_MOLD)
+if(BASIC_PROJECT_ENABLE_MOLD)
     add_link_options(-fuse-ld=mold)
 endif()
 
-if(BASIC_STATIC_LIBCXX)
+if(BASIC_PROJECT_STATIC_LIBCXX)
     add_link_options(-static-libstdc++)
 endif()
 

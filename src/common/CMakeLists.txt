@@ -15,7 +15,7 @@ PUBLIC
 ./include
 )
 
-if(BUILD_SHARED_LIBS OR BASIC_INSTALL_STATIC_LIB)
+if(BUILD_SHARED_LIBS OR BASIC_PROJECT_INSTALL_STATIC_LIB)
     install(TARGETS template_project_common)
 endif()
 

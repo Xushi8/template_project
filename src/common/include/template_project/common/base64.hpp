@@ -6,7 +6,7 @@
 #include <template_project/common/common.hpp>
 #include <boost/beast/core/detail/base64.hpp>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 
 inline boost::container::string base64_encode(std::string_view input)
 {
@@ -39,4 +39,4 @@ inline boost::container::string base64_decode(const char* input, size_t len)
     return output;
 }
 
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE

@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <fstream>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 
 inline std::error_code create_reserve_file(std::string const& file_name, size_t len)
 {
@@ -22,4 +22,4 @@ inline std::error_code create_reserve_file(std::string const& file_name, size_t 
     return {};
 }
 
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE

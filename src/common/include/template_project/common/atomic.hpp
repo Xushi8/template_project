@@ -3,7 +3,7 @@
 #include <template_project/common/common.hpp>
 #include <atomic>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 
 // Same with std::atomic but use relaxed memory order
 template <typename T>
@@ -104,4 +104,4 @@ struct atomic_relaxed : std::atomic<T>
     }
 };
 
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE

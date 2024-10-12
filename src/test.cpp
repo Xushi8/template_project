@@ -65,7 +65,7 @@ std::chrono::duration<double, std::milli> time_test(Func&& func)
 // using namespace std;
 // using namespace boost;
 
-// BASIC_BEGIN_NAMESPACE
+// BASIC_PROJECT_BEGIN_NAMESPACE
 
 // // 自定义对象类
 // class Test;

@@ -7,9 +7,9 @@
 #include <spdlog/sinks/rotating_file_sink.h>
 #include <spdlog/async.h>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 
-inline void set_default_log(spdlog::level::level_enum level = spdlog::level::info, std::string const& log_path = "./logs/log.txt", std::string const& log_name = "basic_namespace")
+inline void set_default_log(spdlog::level::level_enum level = spdlog::level::info, std::string const& log_path = "./logs/log.txt", std::string const& log_name = "BASIC_PROJECT_namespace")
 {
     spdlog::init_thread_pool(8192, 1);
     auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -31,4 +31,4 @@ inline void change_default_log_level(spdlog::level::level_enum level)
     spdlog::default_logger()->set_level(level);
 }
 
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE

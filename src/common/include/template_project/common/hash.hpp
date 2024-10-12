@@ -9,7 +9,7 @@
 
 #include <template_project/common/common.hpp>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 static constexpr size_t hash_buffer_size = 64 * 1024;
 
 template <size_t N = 64>
@@ -44,4 +44,4 @@ inline tl::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_cod
     }
     return std::make_pair(hash_stream1.digest(), hash_stream2.digest());
 }
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE

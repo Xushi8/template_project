@@ -4,7 +4,7 @@
 
 #include <template_project/common/common.hpp>
 
-BASIC_BEGIN_NAMESPACE
+BASIC_PROJECT_BEGIN_NAMESPACE
 enum class error_code
 {
     success = 0,
@@ -12,11 +12,11 @@ enum class error_code
     file_error,
 };
 
-struct BASIC_EXPORT error_category : public std::error_category
+struct BASIC_PROJECT_EXPORT error_category : public std::error_category
 {
     const char* name() const noexcept override
     {
-        return "basic_namespace::error_category";
+        return "BASIC_PROJECT_namespace::error_category";
     }
 
     std::string message(int ev) const noexcept override
@@ -39,16 +39,16 @@ struct BASIC_EXPORT error_category : public std::error_category
     }
 };
 
-[[nodiscard]] BASIC_EXPORT error_category const& get_error_category() noexcept;
+[[nodiscard]] BASIC_PROJECT_EXPORT error_category const& get_error_category() noexcept;
 
 inline std::error_code make_error_code(error_code ec) noexcept
 {
     return {static_cast<int>(ec), get_error_category()};
 }
 
-BASIC_END_NAMESPACE
+BASIC_PROJECT_END_NAMESPACE
 
 template <>
-struct std::is_error_code_enum<basic_namespace::error_code> : public std::true_type
+struct std::is_error_code_enum<BASIC_PROJECT_namespace::error_code> : public std::true_type
 {
 };
