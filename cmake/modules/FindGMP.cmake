@@ -22,6 +22,6 @@ set_target_properties(GMP::gmpxx PROPERTIES
 )
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(GMP DEFAULT_MSG GMP_INCLUDE_DIR GMP_LIBRARIES)
+find_package_handle_standard_args(GMP DEFAULT_MSG GMP_INCLUDE_DIR GMP_LIBRARIES GMPXX_LIBRARIES)
 
-mark_as_advanced(GMP_INCLUDE_DIR GMP_LIBRARIES)
+mark_as_advanced(GMP_INCLUDE_DIR GMP_LIBRARIES GMPXX_LIBRARIES)
