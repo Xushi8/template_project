@@ -2,7 +2,6 @@ find_package(Threads REQUIRED)
 find_package(TBB CONFIG REQUIRED COMPONENTS tbb)
 find_package(mimalloc CONFIG REQUIRED)
 find_package(PostgreSQL REQUIRED)
-find_package(SDL2 REQUIRED)
 
 find_package(SFML 2.5 REQUIRED COMPONENTS system window graphics audio)
 
@@ -20,8 +19,10 @@ find_package(MPFR)
 find_package(RE2)
 
 
-# FFmpeg always dynamic link
+# some package always dynamic link
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll" ".so")
+
+find_package(SDL2 REQUIRED)
 
 find_package(FFmpeg REQUIRED)
 
