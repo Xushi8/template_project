@@ -20,6 +20,12 @@ foreach(name ${BASIC_PROJECT_TARGETS})
         Threads::Threads
         TBB::tbb
         mimalloc
+        SDL2::SDL2
+
+        sfml-system
+        sfml-window
+        sfml-graphics
+        sfml-audio
 
 
         GMP::gmp
@@ -37,12 +43,6 @@ foreach(name ${BASIC_PROJECT_TARGETS})
 
         # external
     )
-
-    if(BASIC_PROJECT_STATIC_EXTERNAL_LIB)
-        target_link_libraries(${name} PUBLIC SDL2::SDL2-static)
-    else()
-        target_link_libraries(${name} PUBLIC SDL2::SDL2)
-    endif()
 
 endforeach(name ${BASIC_PROJECT_TARGETS})
 

@@ -4,6 +4,8 @@ find_package(mimalloc CONFIG REQUIRED)
 find_package(PostgreSQL REQUIRED)
 find_package(SDL2 REQUIRED)
 
+find_package(SFML 2.5 REQUIRED COMPONENTS system window graphics audio)
+
 find_package(Boost 1.81.0 REQUIRED)
 if(BASIC_PROJECT_STATIC_EXTERNAL_LIB)
     set(Boost_USE_STATIC_LIBS ON)
