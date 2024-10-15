@@ -77,9 +77,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
     setlocale(LC_ALL, "");
 #endif
 
-    BASIC_PROJECT_namespace::set_default_log(spdlog::level::info, "logs/mylog.txt", "template_project");
+    basic_namespace::set_default_log(spdlog::level::info, "logs/mylog.txt", "template_project");
 
-    BASIC_PROJECT_namespace::test_xxhash();
+    basic_namespace::test_xxhash();
 
     std::string text = "My emails are first@example.com, second@example.com, and third@example.com.";
     std::string pattern = R"((\w+@\w+\.\w+))"; // 正则表达式模式
