@@ -9,7 +9,7 @@
 
 BASIC_PROJECT_BEGIN_NAMESPACE
 
-inline void set_default_log(spdlog::level::level_enum level = spdlog::level::info, std::string const& log_path = "./logs/log.txt", std::string const& log_name = "BASIC_PROJECT_namespace")
+inline void set_default_log(spdlog::level::level_enum level = spdlog::level::info, std::string const& log_path = "./logs/log.txt", std::string const& log_name = "basic_namespace")
 {
     spdlog::init_thread_pool(8192, 1);
     auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();

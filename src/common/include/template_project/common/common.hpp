@@ -13,7 +13,7 @@
 
 #ifndef BASIC_PROJECT_BEGIN_NAMESPACE
 #define BASIC_PROJECT_BEGIN_NAMESPACE \
-	namespace BASIC_PROJECT_namespace \
+	namespace basic_namespace \
 	{                         \
 	inline namespace v0       \
 	{

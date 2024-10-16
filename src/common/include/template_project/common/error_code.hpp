@@ -16,7 +16,7 @@ struct BASIC_PROJECT_EXPORT error_category : public std::error_category
 {
     const char* name() const noexcept override
     {
-        return "BASIC_PROJECT_namespace::error_category";
+        return "basic_namespace::error_category";
     }
 
     std::string message(int ev) const noexcept override
@@ -49,6 +49,6 @@ inline std::error_code make_error_code(error_code ec) noexcept
 BASIC_PROJECT_END_NAMESPACE
 
 template <>
-struct std::is_error_code_enum<BASIC_PROJECT_namespace::error_code> : public std::true_type
+struct std::is_error_code_enum<basic_namespace::error_code> : public std::true_type
 {
 };
