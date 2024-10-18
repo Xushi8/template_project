@@ -8,6 +8,9 @@ add_definitions(-DFMT_HEADER_ONLY)
 add_definitions(-DSPDLOG_FMT_EXTERNAL)
 add_definitions(-DVCL_NAMESPACE=vectorclass)
 
+# asio::io_context default construct CONCURRENCY is -1, which means to use the number of your cpu's logical threads, change it to 1 so it can do some optimizations.
+add_definitions(-DASIO_CONCURRENCY_HINT_DEFAULT=1)
+
 if(WIN32)
     add_definitions(-DNOMINMAX)
     add_definitions(-D_USE_MATH_DEFINES)

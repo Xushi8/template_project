@@ -110,10 +110,8 @@ unstable use boost::block_indirect_sort
   stable use boost::sample_sort
 */
 
-#include <fmt/format.h>
-using fmt::print;
+#include <boost/asio/io_context.hpp>
 
 int main()
 {
-    
 }
