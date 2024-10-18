@@ -112,14 +112,8 @@ unstable use boost::block_indirect_sort
 
 #include <fmt/format.h>
 using fmt::print;
-#include <template_project/common/literals.hpp>
-using namespace basic_namespace::literals;
-#include <chrono>
-using namespace std::chrono_literals;
 
 int main()
 {
-    constexpr uint64_t x = 1.2_KiB;
-    print(FMT_STRING("{}\n"), x);
-
+    
 }
