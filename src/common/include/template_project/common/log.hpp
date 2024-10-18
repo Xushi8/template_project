@@ -1,6 +1,7 @@
 #pragma once
 
 #include <template_project/common/common.hpp>
+#include <template_project/common/literals.hpp>
 #include <string>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -13,7 +14,8 @@ inline void set_default_log(spdlog::level::level_enum level = spdlog::level::inf
 {
     spdlog::init_thread_pool(8192, 1);
     auto stdout_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-    auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(log_path, size_t(1024) * 1024 * 10, 3);
+    using namespace basic_namespace::literals;
+    auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(log_path, 10_MiB, 3);
     stdout_sink->set_level(spdlog::level::trace);
     rotating_sink->set_level(spdlog::level::trace);
     std::vector<spdlog::sink_ptr> sinks{stdout_sink, rotating_sink};
