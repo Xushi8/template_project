@@ -42,9 +42,6 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 
 # optimize
 
-add_compile_options(-fconstexpr-ops-limit=1000000000)
-add_link_options(-fconstexpr-ops-limit=1000000000)
-
 # add_compile_options(-fno-rtti)
 # add_link_options(-fno-rtti)
 
@@ -84,8 +81,11 @@ endif()
 
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    # add_compile_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
-    # add_link_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
+    add_compile_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
+    add_link_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
     # add_compile_options(-floop-nest-optimize)
     # add_link_options(-floop-nest-optimize)
+
+    add_compile_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
+    add_link_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
 endif()
