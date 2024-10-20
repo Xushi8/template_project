@@ -110,24 +110,10 @@ unstable use boost::block_indirect_sort
   stable use boost::sample_sort
 */
 
+#include <tbb/tbb.h>
 #include <fmt/format.h>
 using fmt::print;
-#include <tbb/tbb.h>
 
-int x;
-tbb::spin_rw_mutex mtx;
-
-void func1()
-{
-    std::scoped_lock lock(mtx);
-    x++;
-}
-
-int func2()
-{
-    std::shared_lock lock(mtx);
-    return x;
-}
 
 std::atomic<int> x1;
 

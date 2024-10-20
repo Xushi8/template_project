@@ -23,7 +23,7 @@ if(BASIC_PROJECT_ENABLE_AVX2)
     add_link_options(-march=haswell)
 endif()
 
-if(NOT BASIC_PROJECT_AUTHOR)
+if(BASIC_PROJECT_NATIVE_ARCH)
     add_compile_options(-march=native)
     add_link_options(-march=native)
 endif()
@@ -57,13 +57,24 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 # add_compile_options(-fprofile-use=pgo_files)
 # add_link_options(-fprofile-use=pgo_files)
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug" AND NOT WIN32)
+if(BASIC_PROJECT_ENABLE_ADDRESS_SANITIZER)
+    add_compile_options(-fsanitize=address)
+    add_link_options(-fsanitize=address)
+endif()
+
+if(BASIC_PROJECT_ENABLE_UNDEFINED_SANITIZER)
     add_compile_options(-fsanitize=undefined)
     add_link_options(-fsanitize=undefined)
-    # add_compile_options(-fsanitize=address)
-    # add_link_options(-fsanitize=address)
-    # add_compile_options(-fsanitize=thread)
-    # add_link_options(-fsanitize=thread)
+endif()
+
+if(BASIC_PROJECT_ENABLE_THREAD_SANITIZER)
+    add_compile_options(-fsanitize=thread)
+    add_link_options(-fsanitize=thread)
+endif()
+
+if(BASIC_PROJECT_ENABLE_MEMORY_SANITIZER)
+    add_compile_options(-fsanitize=memory)
+    add_link_options(-fsanitize=memory)
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
