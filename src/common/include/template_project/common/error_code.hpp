@@ -41,7 +41,7 @@ struct BASIC_PROJECT_EXPORT [[nodiscard]] error_category : public std::error_cat
 
 [[nodiscard]] BASIC_PROJECT_EXPORT error_category const& get_error_category() noexcept;
 
-inline std::error_code make_error_code(error_code ec) noexcept
+[[nodiscard]] inline std::error_code make_error_code(error_code ec) noexcept
 {
     return {static_cast<int>(ec), get_error_category()};
 }

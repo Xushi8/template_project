@@ -13,7 +13,7 @@
 BASIC_PROJECT_BEGIN_NAMESPACE
 
 template <size_t N = 64>
-inline tl::expected<xxh::hash_t<N>, std::error_code> hash_from_file(std::string_view file_name)
+[[nodiscard]] inline tl::expected<xxh::hash_t<N>, std::error_code> hash_from_file(std::string_view file_name)
 {
     std::error_code ec;
     auto file = mio::make_mmap_source(file_name, ec);
@@ -26,7 +26,7 @@ inline tl::expected<xxh::hash_t<N>, std::error_code> hash_from_file(std::string_
     return hash_stream.digest();
 }
 
-inline tl::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_code> hash_from_file_both(std::string_view file_name)
+[[nodiscard]] inline tl::expected<std::pair<xxh::hash_t<64>, xxh::hash_t<128>>, std::error_code> hash_from_file_both(std::string_view file_name)
 {
     std::error_code ec;
     auto file = mio::make_mmap_source(file_name, ec);

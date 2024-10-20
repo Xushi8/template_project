@@ -23,7 +23,7 @@ struct atomic_relaxed : std::atomic<T>
         return val;
     }
 
-    operator T() const noexcept
+    explicit operator T() const noexcept
     {
         return load(memory_order);
     }
