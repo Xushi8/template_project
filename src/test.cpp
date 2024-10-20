@@ -110,8 +110,46 @@ unstable use boost::block_indirect_sort
   stable use boost::sample_sort
 */
 
-#include <boost/asio/io_context.hpp>
+#include <fmt/format.h>
+using fmt::print;
+#include <tbb/tbb.h>
+
+int x;
+tbb::spin_rw_mutex mtx;
+
+void func1()
+{
+    std::scoped_lock lock(mtx);
+    x++;
+}
+
+int func2()
+{
+    std::shared_lock lock(mtx);
+    return x;
+}
+
+std::atomic<int> x1;
+
+void func3()
+{
+    x1.fetch_add(1, std::memory_order_relaxed);
+}
+
+int func4()
+{
+    return x1.load(std::memory_order_relaxed);
+}
 
 int main()
 {
+    constexpr size_t n = 10000;
+    tbb::parallel_for(tbb::blocked_range<size_t>(0, n), [&](tbb::blocked_range<size_t> const& r)
+        {
+            for (size_t i = r.begin(); i != r.end(); i++)
+            {
+                func3();
+                print("{}\n", func4());
+            }
+        });
 }

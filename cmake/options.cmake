@@ -13,8 +13,6 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(CMAKE_LINK_WHAT_YOU_USE ON)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(BASIC_PROJECT_STATIC_EXTERNAL_LIB "Enable static external lib" ON)
