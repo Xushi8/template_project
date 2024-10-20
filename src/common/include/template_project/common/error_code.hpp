@@ -12,7 +12,7 @@ enum class error_code
     file_error,
 };
 
-struct BASIC_PROJECT_EXPORT error_category : public std::error_category
+struct BASIC_PROJECT_EXPORT [[nodiscard]] error_category : public std::error_category
 {
     const char* name() const noexcept override
     {
