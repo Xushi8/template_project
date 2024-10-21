@@ -110,32 +110,33 @@ unstable use boost::block_indirect_sort
   stable use boost::sample_sort
 */
 
-#include <tbb/tbb.h>
 #include <fmt/format.h>
 using fmt::print;
+#include <template_project/common/error_code.hpp>
+#include <memory>
+#include <cstdio>
 
-
-std::atomic<int> x1;
-
-void func3()
+struct fclose_deleter
 {
-    x1.fetch_add(1, std::memory_order_relaxed);
-}
+    void operator()(FILE* fp) const noexcept
+    {
+        fclose(fp);
+    }
+};
+using file_ptr = std::unique_ptr<FILE, fclose_deleter>;
 
-int func4()
+struct free_deleter
 {
-    return x1.load(std::memory_order_relaxed);
-}
+    void operator()(void* p) const noexcept
+    {
+        free(p);
+    }
+};
+template <typename T>
+using c_unique_ptr = std::unique_ptr<T, free_deleter>;
 
 int main()
 {
-    constexpr size_t n = 10000;
-    tbb::parallel_for(tbb::blocked_range<size_t>(0, n), [&](tbb::blocked_range<size_t> const& r)
-        {
-            for (size_t i = r.begin(); i != r.end(); i++)
-            {
-                func3();
-                print("{}\n", func4());
-            }
-        });
+    std::error_code ec{basic_namespace::make_error_code(basic_namespace::error_code::file_error)};
+    print("{} {}\n", ec.value(), ec.message());
 }
