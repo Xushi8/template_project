@@ -13,9 +13,7 @@ int main()
     std::uniform_int_distribution<int> uni(numeric_limits<int>::min(), numeric_limits<int>::max());
     std::vector<int> a(N);
     std::generate_n(a.begin(), N, [&]
-        {
-            return uni(rng);
-        });
+        { return uni(rng); });
     ofstream ofs("in.txt");
     ofs.write(reinterpret_cast<const char*>(a.data()), sizeof(int) * N);
 }
