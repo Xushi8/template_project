@@ -110,33 +110,50 @@ unstable use boost::block_indirect_sort
   stable use boost::sample_sort
 */
 
-#include <fmt/format.h>
+// #include <fmt/format.h>
+// using fmt::print;
+// #include <template_project/common/error_code.hpp>
+// #include <memory>
+// #include <cstdio>
+
+// struct fclose_deleter
+// {
+//     void operator()(FILE* fp) const noexcept
+//     {
+//         fclose(fp);
+//     }
+// };
+// using file_ptr = std::unique_ptr<FILE, fclose_deleter>;
+
+// struct free_deleter
+// {
+//     void operator()(void* p) const noexcept
+//     {
+//         free(p); // NOLINT(cppcoreguidelines-no-malloc)
+//     }
+// };
+// template <typename T>
+// using c_unique_ptr = std::unique_ptr<T, free_deleter>;
+
+// int main()
+// {
+//     std::error_code ec{basic_namespace::make_error_code(basic_namespace::error_code::file_error)};
+//     print("{} {}\n", ec.value(), ec.message());
+// }
+
+#include <ranges>
+#include <fmt/base.h>
 using fmt::print;
-#include <template_project/common/error_code.hpp>
-#include <memory>
-#include <cstdio>
-
-struct fclose_deleter
-{
-    void operator()(FILE* fp) const noexcept
-    {
-        fclose(fp);
-    }
-};
-using file_ptr = std::unique_ptr<FILE, fclose_deleter>;
-
-struct free_deleter
-{
-    void operator()(void* p) const noexcept
-    {
-        free(p); // NOLINT(cppcoreguidelines-no-malloc)
-    }
-};
-template <typename T>
-using c_unique_ptr = std::unique_ptr<T, free_deleter>;
 
 int main()
 {
-    std::error_code ec{basic_namespace::make_error_code(basic_namespace::error_code::file_error)};
-    print("{} {}\n", ec.value(), ec.message());
+    auto split_string = std::ranges::views::split(std::string_view{"Hello,World,, ,C++20!"}, ',')
+                        | std::ranges::views::transform([](auto const& rng)
+                            { return std::string_view(rng.data(), rng.size()); })
+                        | std::ranges::views::filter([](std::string_view sv)
+                            { return !sv.empty(); });
+    for (auto const& str : split_string)
+    {
+        print("{}\n", str);
+    }
 }

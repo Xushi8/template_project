@@ -6,7 +6,6 @@
 #include <cstdint>
 #include <string_view>
 #include <string>
-#include <template_project/common/base64.hpp>
 #include <template_project/common/error_code.hpp>
 #include <re2/re2.h>
 
