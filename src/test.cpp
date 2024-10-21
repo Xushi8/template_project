@@ -129,7 +129,7 @@ struct free_deleter
 {
     void operator()(void* p) const noexcept
     {
-        free(p);
+        free(p); // NOLINT(cppcoreguidelines-no-malloc)
     }
 };
 template <typename T>
