@@ -147,7 +147,8 @@ using fmt::print;
 
 int main()
 {
-    auto split_string = std::ranges::views::split(std::string_view{"Hello,World,, ,C++20!"}, ',')
+    auto split_string = std::string_view{"Hello,World,, ,C++20!"}
+                        | std::ranges::views::split(',')
                         | std::ranges::views::transform([](auto const& rng)
                             { return std::string_view(rng.data(), rng.size()); })
                         | std::ranges::views::filter([](std::string_view sv)
