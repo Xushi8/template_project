@@ -141,48 +141,65 @@ unstable use boost::block_indirect_sort
 //     print("{} {}\n", ec.value(), ec.message());
 // }
 
-#include <ranges>
-#include <fmt/base.h>
-#include <vector>
-using fmt::print;
+// #include <ranges>
+// #include <fmt/base.h>
+// #include <vector>
+// using fmt::print;
+
+// int main()
+// {
+//     auto split_string = std::string_view{"Hello,World,, ,C++20!"}
+//                         | std::ranges::views::split(',')
+//                         | std::ranges::views::transform([](auto const& rng)
+//                             { return std::string_view(rng.data(), rng.size()); })
+//                         | std::ranges::views::filter([](std::string_view sv)
+//                             { return !sv.empty(); });
+//     for (auto const& str : split_string)
+//     {
+//         print("{}\n", str);
+//     }
+
+//     auto rng = std::views::iota(1, 10) | std::views::take(5) | std::views::transform([](int x)
+//                    { return std::to_string(x); });
+
+//     std::vector<std::string> vec{rng.begin(), rng.end()};
+//     for (auto const& x : vec)
+//     {
+//         print("{}\n", x);
+//     }
+
+//     std::string input = "part1|||part2|||part3";
+//     std::string delimiter = "|||";
+//     auto parts = input | std::views::split(delimiter)
+//                  | std::views::transform([](auto const& part)
+//                      { return std::string_view(part.begin(), part.end()); })
+//                  | std::views::filter([](std::string_view sv)
+//                      { return !sv.empty(); });
+
+//     for (std::string_view sv : parts)
+//     {
+//         print("{}\n", sv);
+//     }
+
+//     for (std::string_view sv : parts)
+//     {
+//         print("{}\n", sv);
+//     }
+// }
+
+#include <random>
+#include <cassert>
 
 int main()
 {
-    auto split_string = std::string_view{"Hello,World,, ,C++20!"}
-                        | std::ranges::views::split(',')
-                        | std::ranges::views::transform([](auto const& rng)
-                            { return std::string_view(rng.data(), rng.size()); })
-                        | std::ranges::views::filter([](std::string_view sv)
-                            { return !sv.empty(); });
-    for (auto const& str : split_string)
-    {
-        print("{}\n", str);
-    }
+    auto rnd = std::mt19937(1080100664);
+    assert(rnd() == 7);
 
-    auto rng = std::views::iota(1, 10) | std::views::take(5) | std::views::transform([](int x)
-                   { return std::to_string(x); });
+    rnd.seed(736640520);
+    assert(rnd() == 7);
 
-    std::vector<std::string> vec{rng.begin(), rng.end()};
-    for (auto const& x : vec)
-    {
-        print("{}\n", x);
-    }
+    rnd.seed(1292535796);
+    assert(rnd() == 13);
 
-    std::string input = "part1|||part2|||part3";
-    std::string delimiter = "|||";
-    auto parts = input | std::views::split(delimiter)
-                 | std::views::transform([](auto const& part)
-                     { return std::string_view(part.begin(), part.end()); })
-                 | std::views::filter([](std::string_view sv)
-                     { return !sv.empty(); });
-
-    for (std::string_view sv : parts)
-    {
-        print("{}\n", sv);
-    }
-
-    for (std::string_view sv : parts)
-    {
-        print("{}\n", sv);
-    }
+    auto x = std::mt19937::result_type{10};
 }
