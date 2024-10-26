@@ -15,6 +15,11 @@ PUBLIC
 ./include
 )
 
+# 使用这个链接参数可以保证全局变量也被导出到静态库
+# if(NOT BUILD_SHARED_LIBS)
+#     target_link_options(template_project_common PRIVATE -Wl,--whole-archive)
+# endif()
+
 if(BUILD_SHARED_LIBS OR BASIC_PROJECT_INSTALL_STATIC_LIB)
     install(TARGETS template_project_common)
 endif()
