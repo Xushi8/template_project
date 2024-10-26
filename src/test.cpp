@@ -187,19 +187,38 @@ unstable use boost::block_indirect_sort
 //     }
 // }
 
-#include <random>
-#include <cassert>
+// #include <random>
+// #include <cassert>
+
+// int main()
+// {
+//     auto rnd = std::mt19937(1080100664);
+//     assert(rnd() == 7);
+
+//     rnd.seed(736640520);
+//     assert(rnd() == 7);
+
+//     rnd.seed(1292535796);
+//     assert(rnd() == 13);
+
+//     auto x = std::mt19937::result_type{10};
+// }
+
+#include <vector>
+void func(int n, int m)
+{
+    std::vector<std::vector<int>> a(n, std::vector<int>(m));
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; i++)
+        {
+            a[i][j] = 1000;
+        }
+    }
+}
 
 int main()
 {
-    auto rnd = std::mt19937(1080100664);
-    assert(rnd() == 7);
-
-    rnd.seed(736640520);
-    assert(rnd() == 7);
-
-    rnd.seed(1292535796);
-    assert(rnd() == 13);
-
-    auto x = std::mt19937::result_type{10};
+    
 }
