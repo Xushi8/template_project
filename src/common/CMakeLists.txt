@@ -17,6 +17,7 @@ PUBLIC
 
 # 使用这个链接参数可以保证全局变量也被导出到静态库
 # if(NOT BUILD_SHARED_LIBS)
+#     target_compile_options(template_project_common PRIVATE -Wl,--whole-archive)
 #     target_link_options(template_project_common PRIVATE -Wl,--whole-archive)
 # endif()
 
