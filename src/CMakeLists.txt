@@ -6,7 +6,6 @@ add_subdirectory(common)
 set(BASIC_PROJECT_TARGETS
     test
     gen
-    template_project
 )
 
 foreach(name ${BASIC_PROJECT_TARGETS})

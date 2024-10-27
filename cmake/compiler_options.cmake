@@ -109,5 +109,9 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
     add_link_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
 
+endif()
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    add_compile_options(-fcolor-diagnostics)
+    add_link_options(-fcolor-diagnostics)
 endif()
