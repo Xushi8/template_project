@@ -204,21 +204,25 @@ unstable use boost::block_indirect_sort
 //     auto x = std::mt19937::result_type{10};
 // }
 
-#include <vector>
-void func(int n, int m)
-{
-    std::vector<std::vector<int>> a(n, std::vector<int>(m));
+// void func(int n, int m)
+// {
+//     std::vector<std::vector<int>> a(n, std::vector<int>(m));
 
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; i++)
-        {
-            a[i][j] = 1000;
-        }
-    }
-}
+//     for (int i = 0; i < n; i++)
+//     {
+//         for (int j = 0; j < m; i++)
+//         {
+//             a[i][j] = 1000;
+//         }
+//     }
+// }
+
+#include <fmt/format.h>
+#include <source_location>
+using fmt::print;
 
 int main()
 {
-    
+    print("{}\n", __FILE__);
+    print("{} {} {} {}\n", std::source_location::current().file_name(), std::source_location::current().line(), std::source_location::current().column(), std::source_location::current().function_name());
 }
