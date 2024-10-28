@@ -223,6 +223,5 @@ using fmt::print;
 
 int main()
 {
-    print("{}\n", __FILE__);
     print("{} {} {} {}\n", std::source_location::current().file_name(), std::source_location::current().line(), std::source_location::current().column(), std::source_location::current().function_name());
 }
