@@ -92,15 +92,6 @@ endif()
 
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    string(REGEX MATCH "^([0-9]+)" GCC_VERSION_MAJOR "${CMAKE_CXX_COMPILER_VERSION}")
-    set(GCC_VERSION_MAJOR "${CMAKE_MATCH_1}")
-    message(STATUS "Detected GCC major version: ${GCC_VERSION_MAJOR}")
-
-    if(GCC_VERSION_MAJOR GREATER_EQUAL 14)
-        add_compile_options(-fanalyzer)
-        add_link_options(-fanalyzer)
-    endif()
-
     add_compile_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
     add_link_options(-fgraphite-identity -fdevirtualize-at-ltrans -fipa-pta -fuse-linker-plugin)
     # add_compile_options(-floop-nest-optimize)
@@ -109,9 +100,16 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
     add_link_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
 
+    # for fmt 11.0.2
+    add_compile_options(-Wno-stringop-overflow)
+    add_link_options(-Wno-stringop-overflow)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-fcolor-diagnostics)
     add_link_options(-fcolor-diagnostics)
+
+    # for fmt 11.0.2
+    add_compile_options(-Wno-shift-overflow)
+    add_link_options(-Wno-shift-overflow)
 endif()
