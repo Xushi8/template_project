@@ -217,11 +217,13 @@ unstable use boost::block_indirect_sort
 //     }
 // }
 
-#include <fmt/format.h>
-#include <source_location>
-using fmt::print;
+#include <template_project/common/log.hpp>
 
 int main()
 {
-    print("{} {} {} {}\n", std::source_location::current().file_name(), std::source_location::current().line(), std::source_location::current().column(), std::source_location::current().function_name());
+    basic_namespace::set_default_log({.log_name = "lasdjlkj", .with_time = true});
+
+    spdlog::info("111");
+    spdlog::warn("111");
+    spdlog::error("111");
 }
