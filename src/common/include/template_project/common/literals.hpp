@@ -8,114 +8,114 @@ BASIC_PROJECT_BEGIN_NAMESPACE
 namespace literals
 {
 
-constexpr uint64_t operator""_KiB(unsigned long long x)
+constexpr uint64_t operator""_kib(unsigned long long x)
 {
     return static_cast<uint64_t>(x) * 1024;
 }
 
-constexpr uint64_t operator""_MiB(unsigned long long x)
+constexpr uint64_t operator""_mib(unsigned long long x)
 {
-    return 1024_KiB * x;
+    return 1024_kib * x;
 }
 
-constexpr uint64_t operator""_GiB(unsigned long long x)
+constexpr uint64_t operator""_gib(unsigned long long x)
 {
-    return 1024_MiB * x;
+    return 1024_mib * x;
 }
 
-constexpr uint64_t operator""_TiB(unsigned long long x)
+constexpr uint64_t operator""_tib(unsigned long long x)
 {
-    return 1024_GiB * x;
+    return 1024_gib * x;
 }
 
-constexpr uint64_t operator""_PiB(unsigned long long x)
+constexpr uint64_t operator""_pib(unsigned long long x)
 {
-    return 1024_TiB * x;
+    return 1024_tib * x;
 }
 
-constexpr uint64_t operator""_KB(unsigned long long x)
+constexpr uint64_t operator""_kb(unsigned long long x)
 {
     return static_cast<uint64_t>(x) * 1000;
 }
 
-constexpr uint64_t operator""_MB(unsigned long long x)
+constexpr uint64_t operator""_mb(unsigned long long x)
 {
-    return 1000_KB * x;
+    return 1000_kb * x;
 }
 
-constexpr uint64_t operator""_GB(unsigned long long x)
+constexpr uint64_t operator""_gb(unsigned long long x)
 {
-    return 1000_MB * x;
+    return 1000_mb * x;
 }
 
-constexpr uint64_t operator""_TB(unsigned long long x)
+constexpr uint64_t operator""_tb(unsigned long long x)
 {
-    return 1000_GB * x;
+    return 1000_gb * x;
 }
 
-constexpr uint64_t operator""_PB(unsigned long long x)
+constexpr uint64_t operator""_pb(unsigned long long x)
 {
-    return 1000_TB * x;
+    return 1000_tb * x;
 }
 
-constexpr uint64_t operator""_KiB(long double x)
+constexpr uint64_t operator""_kib(long double x)
 {
     assert(x >= 0.L);
     return static_cast<uint64_t>(1024 * x);
 }
 
-constexpr uint64_t operator""_MiB(long double x)
+constexpr uint64_t operator""_mib(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1024_KiB * x);
+    return static_cast<uint64_t>(1024_kib * x);
 }
 
-constexpr uint64_t operator""_GiB(long double x)
+constexpr uint64_t operator""_gib(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1024_MiB * x);
+    return static_cast<uint64_t>(1024_mib * x);
 }
 
-constexpr uint64_t operator""_TiB(long double x)
+constexpr uint64_t operator""_tib(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1024_GiB * x);
+    return static_cast<uint64_t>(1024_gib * x);
 }
 
-constexpr uint64_t operator""_PiB(long double x)
+constexpr uint64_t operator""_pib(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1024_TiB * x);
+    return static_cast<uint64_t>(1024_tib * x);
 }
 
-constexpr uint64_t operator""_KB(long double x)
+constexpr uint64_t operator""_kb(long double x)
 {
     assert(x >= 0.L);
     return static_cast<uint64_t>(100 * x);
 }
 
-constexpr uint64_t operator""_MB(long double x)
+constexpr uint64_t operator""_mb(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1000_KB * x);
+    return static_cast<uint64_t>(1000_kb * x);
 }
 
-constexpr uint64_t operator""_GB(long double x)
+constexpr uint64_t operator""_gb(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1000_MB * x);
+    return static_cast<uint64_t>(1000_mb * x);
 }
 
-constexpr uint64_t operator""_TB(long double x)
+constexpr uint64_t operator""_tb(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1000_GB * x);
+    return static_cast<uint64_t>(1000_gb * x);
 }
 
-constexpr uint64_t operator""_PB(long double x)
+constexpr uint64_t operator""_pb(long double x)
 {
     assert(x >= 0.L);
-    return static_cast<uint64_t>(1000_TB * x);
+    return static_cast<uint64_t>(1000_tb * x);
 }
 
 } // namespace literals

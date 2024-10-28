@@ -29,7 +29,7 @@ inline void set_default_log(const log_options& opts)
     if (!opts.file_path.empty())
     {
         using namespace basic_namespace::literals;
-        auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(opts.file_path, 10_MiB, 3);
+        auto rotating_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(opts.file_path, 10_mib, 3);
         rotating_sink->set_level(spdlog::level::trace);
         sinks.emplace_back(rotating_sink);
     }
