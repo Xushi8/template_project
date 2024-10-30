@@ -26,6 +26,7 @@ foreach(name ${BASIC_PROJECT_TARGETS})
         sfml-graphics
         sfml-audio
 
+        Boost::headers
 
         GMP::gmp
         MPFR::mpfr
