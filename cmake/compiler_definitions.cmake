@@ -6,10 +6,8 @@ if(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS)
     add_definitions(-D_LIBCPP_DEBUG=2)
 endif()
 
-
 add_definitions(-DFMT_HEADER_ONLY)
 add_definitions(-DSPDLOG_FMT_EXTERNAL)
-add_definitions(-DVCL_NAMESPACE=vectorclass)
 
 # asio::io_context default construct CONCURRENCY is -1, which means to use the number of your cpu's logical threads, change it to 1 so it can do some optimizations.
 # in later, this macro will be defined in module, not spread
