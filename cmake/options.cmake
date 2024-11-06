@@ -11,6 +11,11 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+option(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS "Enable strict debugging and runtime checks" OFF)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS ON)
+endif()
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(BASIC_PROJECT_STATIC_EXTERNAL_LIB "Enable static external lib" ON)

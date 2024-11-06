@@ -1,14 +1,18 @@
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+if(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS)
     add_definitions(-D_GLIBCXX_DEBUG)
     add_definitions(-D_GLIBCXX_DEBUG_PEDANTIC)
-    add_definitions(-D_FORTIFY_SOURCE=3)
+    add_definitions(-D_FORTIFY_SOURCE=2)
+
+    add_definitions(-D_LIBCPP_DEBUG=2)
 endif()
+
 
 add_definitions(-DFMT_HEADER_ONLY)
 add_definitions(-DSPDLOG_FMT_EXTERNAL)
 add_definitions(-DVCL_NAMESPACE=vectorclass)
 
 # asio::io_context default construct CONCURRENCY is -1, which means to use the number of your cpu's logical threads, change it to 1 so it can do some optimizations.
+# in later, this macro will be defined in module, not spread
 add_definitions(-DASIO_CONCURRENCY_HINT_DEFAULT=1)
 
 if(WIN32)
