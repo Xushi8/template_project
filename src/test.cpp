@@ -217,13 +217,194 @@ unstable use boost::block_indirect_sort
 //     }
 // }
 
-#include <template_project/common/log.hpp>
+#include <iostream>
+#include <fstream>
+#include <stdexcept>
+#include <cstring>
+#include <cerrno>
+
+#ifdef __linux__
+#include <fcntl.h>
+#include <unistd.h>
+#endif
+
+#ifdef __APPLE__
+#include <sys/fcntl.h>
+#include <sys/stat.h>
+#endif
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <cstdint>
+
+#ifdef _WIN32
+bool PrintLastError(const char* prefix)
+{
+    DWORD lastError = GetLastError();
+    char* buf = nullptr;
+    DWORD msgSize = FormatMessageA(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        lastError,
+        0,
+        (LPSTR)&buf,
+        0,
+        NULL);
+
+    if (msgSize && buf)
+    {
+        std::cerr << prefix << ": " << lastError << ": " << buf << std::endl;
+        LocalFree(buf);
+        return false;
+    }
+    return true;
+}
+#endif
+
+bool reserve_file_size(std::string_view file_name, uint64_t file_size)
+{
+    int fd = open(file_name.data(), O_RDWR | O_CREAT, 0644); // 打开文件
+    if (fd == -1)
+    {
+        std::cerr << "Failed to open file: " << strerror(errno) << std::endl;
+        return false;
+    }
+
+#if defined(__linux__) && !defined(__APPLE__) && !defined(__MINGW32__)
+    // Linux 使用 fallocate
+    int r;
+    while ((r = fallocate(fd, 0, 0, file_size)) == -1 && errno == EINTR)
+    {
+        // 如果遇到 EINTR 错误，重试
+    }
+    if (r == -1)
+    {
+        std::cerr << "fallocate failed: " << strerror(errno) << std::endl;
+        close(fd);
+        return false;
+    }
+#elif defined(__APPLE__)
+    // macOS 使用 fcntl 进行预分配
+    fstore_t fstore = {F_ALLOCATECONTIG | F_ALLOCATEALL, F_PEOFPOSMODE, 0, file_size, 0};
+    if (fcntl(fd, F_PREALLOCATE, &fstore) == -1)
+    {
+        fstore.fst_flags = F_ALLOCATEALL; // 尝试非连续分配
+        if (fcntl(fd, F_PREALLOCATE, &fstore) == -1)
+        {
+            std::cerr << "fcntl(F_PREALLOCATE) failed: " << strerror(errno) << std::endl;
+            close(fd);
+            return false;
+        }
+    }
+    // 扩展文件大小，确保逻辑大小正确
+    if (ftruncate(fd, file_size) == -1)
+    {
+        std::cerr << "ftruncate failed: " << strerror(errno) << std::endl;
+        close(fd);
+        return false;
+    }
+#elif defined(_WIN32)
+    // 获取进程令牌
+    HANDLE hToken;
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+    {
+        PrintLastError("OpenProcessToken");
+        return false;
+    }
+
+    // 设置权限调整结构
+    TOKEN_PRIVILEGES tp;
+    tp.PrivilegeCount = 1;
+    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+    if (!LookupPrivilegeValue(NULL, SE_MANAGE_VOLUME_NAME, &tp.Privileges[0].Luid))
+    {
+        PrintLastError("LookupPrivilegeValue");
+        CloseHandle(hToken);
+        return false;
+    }
+
+    // 调整进程权限
+    if (!AdjustTokenPrivileges(hToken, FALSE, &tp, 0, NULL, NULL))
+    {
+        PrintLastError("AdjustTokenPrivileges");
+        CloseHandle(hToken);
+        return false;
+    }
+
+    // 打开文件
+    HANDLE hFile = CreateFileA(
+        file_name.data(),
+        GENERIC_WRITE,
+        FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE,
+        NULL,
+        OPEN_ALWAYS,
+        FILE_ATTRIBUTE_NORMAL,
+        NULL);
+
+    if (hFile == INVALID_HANDLE_VALUE)
+    {
+        PrintLastError("CreateFile");
+        CloseHandle(hToken);
+        return false;
+    }
+
+    // 设置文件指针位置
+    LARGE_INTEGER distanceToMove;
+    distanceToMove.QuadPart = static_cast<LONGLONG>(file_size);
+    if (!SetFilePointerEx(hFile, distanceToMove, NULL, FILE_BEGIN))
+    {
+        PrintLastError("SetFilePointerEx");
+        CloseHandle(hFile);
+        CloseHandle(hToken);
+        return false;
+    }
+
+    // 设置文件结尾以扩展文件大小
+    if (!SetEndOfFile(hFile))
+    {
+        PrintLastError("SetEndOfFile");
+        CloseHandle(hFile);
+        CloseHandle(hToken);
+        return false;
+    }
+
+    // 设置文件有效数据大小
+    if (!SetFileValidData(hFile, distanceToMove.QuadPart))
+    {
+        PrintLastError("SetFileValidData");
+        CloseHandle(hFile);
+        CloseHandle(hToken);
+        return false;
+    }
+
+    // 关闭句柄
+    CloseHandle(hFile);
+    CloseHandle(hToken);
+#else
+    std::cerr << "Unsupported platform" << std::endl;
+    close(fd);
+    return false;
+#endif
+
+    close(fd); // 关闭文件
+    return true;
+}
 
 int main()
 {
-    basic_namespace::set_default_log({.log_name = "lasdjlkj", .with_time = true});
+    const std::string filename = "testfile.dat";
+    uint64_t file_size = uint64_t(1024) * 1024 * 1024 * 1; // 1 GB
 
-    spdlog::info("111");
-    spdlog::warn("111");
-    spdlog::error("111");
+    if (reserve_file_size(filename, file_size))
+    {
+        std::cout << "File space reserved successfully." << std::endl;
+    }
+    else
+    {
+        std::cerr << "Failed to reserve space for the file." << std::endl;
+    }
+
+    return 0;
 }
