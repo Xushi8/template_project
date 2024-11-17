@@ -52,7 +52,7 @@
                 "cmake",
                 "--build",
                 "build",
-                "-j$(nproc)",
+                "--parallel",
                 // "1>./build/info.log",
                 // "2>./build/warning.log",
             ]
