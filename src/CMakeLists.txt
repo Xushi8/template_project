@@ -53,8 +53,8 @@ foreach(name ${BASIC_PROJECT_TARGETS})
     if(BASIC_PROJECT_ENABLE_GUI)
         target_link_libraries(${name}
         PUBLIC
-        Qt6::Core
-        Qt6::Widgets
+            Qt6::Core
+            Qt6::Widgets
         )
     endif()
 
