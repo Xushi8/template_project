@@ -1,6 +1,5 @@
-/.vscode/
-/build/
-/.cache/
-/pgo_files/
-/logs/
-rename.sh
+.vscode/
+build/
+.cache/
+pgo_files/
+logs/
