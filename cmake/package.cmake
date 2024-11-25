@@ -8,12 +8,9 @@ if(BASIC_PROJECT_STATIC_EXTERNAL_LIB)
     set(Boost_USE_STATIC_LIBS ON)
 endif()
 
-
-
 find_package(GMP)
 find_package(MPFR)
 find_package(RE2)
-
 
 # Some package always dynamic link
 # dynamic link begin
