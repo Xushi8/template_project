@@ -1,4 +1,5 @@
 add_subdirectory(common)
+add_subdirectory(gui)
 
 # target_link_libraries(common PUBLIC test_lib)
 
@@ -14,6 +15,7 @@ foreach(name ${BASIC_PROJECT_TARGETS})
     PUBLIC
         # src
         template_project_common
+        template_project_gui
 
         # package
         Threads::Threads

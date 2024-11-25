@@ -1,0 +1,5 @@
+#include <template_project/gui/gui.hpp>
+
+BASIC_PROJECT_BEGIN_NAMESPACE
+
+BASIC_PROJECT_END_NAMESPACE
