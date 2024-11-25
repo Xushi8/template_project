@@ -1,5 +1,8 @@
 add_subdirectory(common)
-add_subdirectory(gui)
+
+if(BASIC_PROJECT_ENABLE_GUI)
+    add_subdirectory(gui)
+endif()
 
 # target_link_libraries(common PUBLIC test_lib)
 
@@ -46,6 +49,14 @@ foreach(name ${BASIC_PROJECT_TARGETS})
 
         # external
     )
+
+    if(BASIC_PROJECT_ENABLE_GUI)
+        target_link_libraries(${name}
+        PUBLIC
+        Qt6::Core
+        Qt6::Widgets
+        )
+    endif()
 
 endforeach(name ${BASIC_PROJECT_TARGETS})
 
