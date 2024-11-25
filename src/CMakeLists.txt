@@ -7,6 +7,7 @@ add_subdirectory(gui)
 set(BASIC_PROJECT_TARGETS
     test
     gen
+    main_gui
 )
 
 foreach(name ${BASIC_PROJECT_TARGETS})

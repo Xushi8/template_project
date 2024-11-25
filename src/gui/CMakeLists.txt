@@ -10,7 +10,7 @@ PUBLIC
     ${header}
 )
 
-target_link_libraries(template_project_gui PRIVATE Qt6::Core Qt6::Widgets)
+target_link_libraries(template_project_gui PUBLIC Qt6::Core Qt6::Widgets)
 
 target_include_directories(template_project_gui 
 PUBLIC
