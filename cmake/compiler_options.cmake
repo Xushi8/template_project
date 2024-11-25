@@ -19,8 +19,8 @@ if(BASIC_PROJECT_ENABLE_AVX)
 endif()
 
 if(BASIC_PROJECT_ENABLE_AVX2)
-    add_compile_options(-march=haswell)
-    add_link_options(-march=haswell)
+    add_compile_options(-march=haswell -mno-hle)
+    add_link_options(-march=haswell -mno-hle)
 endif()
 
 if(BASIC_PROJECT_NATIVE_ARCH)
