@@ -102,12 +102,12 @@
 
 /**
 single thread:
-unstable use boost::sort::spinsort
-  stable use boost::sort::pdqsort
+unstable use boost::sort::pdqsort     附带一个branch_less版本的比较函数
+  stable use boost::sort::spinsort
 
 multi thread
-unstable use boost::block_indirect_sort
-  stable use boost::sample_sort
+unstable use boost::sort::block_indirect_sort
+  stable use boost::sort::sample_sort
 */
 
 // #include <fmt/format.h>
