@@ -218,10 +218,11 @@ unstable use boost::sort::block_indirect_sort
 // }
 
 #include <iostream>
-#include <fstream>
-#include <stdexcept>
 #include <cstring>
 #include <cerrno>
+
+#include <fcntl.h>
+#include <unistd.h>
 
 #ifdef __linux__
 #include <fcntl.h>
@@ -240,26 +241,10 @@ unstable use boost::sort::block_indirect_sort
 #include <cstdint>
 
 #ifdef _WIN32
-bool PrintLastError(const char* prefix)
+void PrintLastError(const std::string& function_name)
 {
-    DWORD lastError = GetLastError();
-    char* buf = nullptr;
-    DWORD msgSize = FormatMessageA(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-        NULL,
-        lastError,
-        0,
-        (LPSTR)&buf,
-        0,
-        NULL);
-
-    if (msgSize && buf)
-    {
-        std::cerr << prefix << ": " << lastError << ": " << buf << std::endl;
-        LocalFree(buf);
-        return false;
-    }
-    return true;
+    DWORD error_code = GetLastError();
+    std::cerr << "Error in function " << function_name << ": " << error_code << " (" << error_code << ")" << std::endl;
 }
 #endif
 
@@ -306,7 +291,7 @@ bool reserve_file_size(std::string_view file_name, uint64_t file_size)
         return false;
     }
 #elif defined(_WIN32)
-    // 获取进程令牌
+    // 获取并调整进程令牌的权限
     HANDLE hToken;
     if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
     {
@@ -314,10 +299,8 @@ bool reserve_file_size(std::string_view file_name, uint64_t file_size)
         return false;
     }
 
-    // 设置权限调整结构
     TOKEN_PRIVILEGES tp;
     tp.PrivilegeCount = 1;
-    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
     if (!LookupPrivilegeValue(NULL, SE_MANAGE_VOLUME_NAME, &tp.Privileges[0].Luid))
     {
         PrintLastError("LookupPrivilegeValue");
@@ -325,13 +308,15 @@ bool reserve_file_size(std::string_view file_name, uint64_t file_size)
         return false;
     }
 
-    // 调整进程权限
+    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
     if (!AdjustTokenPrivileges(hToken, FALSE, &tp, 0, NULL, NULL))
     {
         PrintLastError("AdjustTokenPrivileges");
         CloseHandle(hToken);
         return false;
     }
+
+    CloseHandle(hToken);
 
     // 打开文件
     HANDLE hFile = CreateFileA(
@@ -345,43 +330,37 @@ bool reserve_file_size(std::string_view file_name, uint64_t file_size)
 
     if (hFile == INVALID_HANDLE_VALUE)
     {
-        PrintLastError("CreateFile");
-        CloseHandle(hToken);
+        PrintLastError("CreateFileA");
         return false;
     }
 
-    // 设置文件指针位置
+    // 设置文件大小
     LARGE_INTEGER distanceToMove;
-    distanceToMove.QuadPart = static_cast<LONGLONG>(file_size);
+    distanceToMove.QuadPart = file_size;
     if (!SetFilePointerEx(hFile, distanceToMove, NULL, FILE_BEGIN))
     {
         PrintLastError("SetFilePointerEx");
         CloseHandle(hFile);
-        CloseHandle(hToken);
         return false;
     }
 
-    // 设置文件结尾以扩展文件大小
     if (!SetEndOfFile(hFile))
     {
         PrintLastError("SetEndOfFile");
         CloseHandle(hFile);
-        CloseHandle(hToken);
         return false;
     }
 
-    // 设置文件有效数据大小
     if (!SetFileValidData(hFile, distanceToMove.QuadPart))
     {
         PrintLastError("SetFileValidData");
         CloseHandle(hFile);
-        CloseHandle(hToken);
         return false;
     }
 
     // 关闭句柄
     CloseHandle(hFile);
-    CloseHandle(hToken);
+    return true;
 #else
     std::cerr << "Unsupported platform" << std::endl;
     close(fd);
@@ -395,7 +374,7 @@ bool reserve_file_size(std::string_view file_name, uint64_t file_size)
 int main()
 {
     const std::string filename = "testfile.dat";
-    uint64_t file_size = uint64_t(1024) * 1024 * 1024 * 1; // 1 GB
+    uint64_t file_size = uint64_t(1024) * 1024 * 1024 * 1;
 
     if (reserve_file_size(filename, file_size))
     {
