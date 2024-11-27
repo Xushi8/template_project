@@ -1,10 +1,6 @@
 if(WIN32)
     add_compile_options(-finput-charset=utf-8 -fexec-charset=utf-8)
     add_link_options(-finput-charset=utf-8 -fexec-charset=utf-8)
-
-    add_definitions(-DNOMINMAX)
-    add_definitions(-DUNICODE)
-    add_definitions(-D_UNICODE)
 endif()
 
 

@@ -6,6 +6,12 @@ if(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS)
     add_definitions(-D_LIBCPP_DEBUG=2)
 endif()
 
+if(WIN32)
+    add_definitions(-DNOMINMAX)
+    add_definitions(-DUNICODE)
+    add_definitions(-D_UNICODE)
+endif()
+
 add_definitions(-DFMT_HEADER_ONLY)
 add_definitions(-DSPDLOG_FMT_EXTERNAL)
 

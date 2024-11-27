@@ -11,6 +11,7 @@ set(BASIC_PROJECT_TARGETS
     test
     gen
     main_gui
+    locale
 )
 
 foreach(name ${BASIC_PROJECT_TARGETS})
