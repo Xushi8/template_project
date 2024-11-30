@@ -1,3 +1,8 @@
+## 说明
+
+这是我个人整理的一份 C++ 项目模板.
+
+
 ### 依赖
 
 - **[TBB](https://github.com/oneapi-src/oneTBB)**：Threading Building Blocks，用于并行计算和多线程优化。
