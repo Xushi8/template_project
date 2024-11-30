@@ -39,9 +39,9 @@ jobs:
         run: |
           cmake --build build_release --config Release --parallel
 
-      - name: Create .tar.gz release artifact
+      - name: Create .tar.xz release artifact
         run: |
-          tar -czf release.tar.gz -C build_release bin
+          tar -Jcvf release.tar.xz -C build_release bin
 
       - name: Create .7z release artifact
         run: |
@@ -50,6 +50,6 @@ jobs:
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release.tar.gz, release.7z
+          files: release.tar.xz, release.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
