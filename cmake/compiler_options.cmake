@@ -35,6 +35,9 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 
 # optimize
 
+add_compile_options(-fopenmp)
+add_link_options(-fopenmp)
+
 # add_compile_options(-fno-rtti)
 # add_link_options(-fno-rtti)
 
