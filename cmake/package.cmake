@@ -10,6 +10,10 @@ endif()
 
 find_package(RE2)
 
+if(BASIC_PROJECT_ENABLE_TEST)
+    find_package(GTest REQUIRED)
+endif()
+
 # Some package always dynamic link
 # dynamic link begin
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll" ".so")

@@ -27,5 +27,9 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/print_info.cmake)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/common/include)
 
-add_subdirectory(src)
 add_subdirectory(external)
+add_subdirectory(src)
+
+if(BASIC_PROJECT_ENABLE_TEST)
+    add_subdirectory(tests)
+endif()
