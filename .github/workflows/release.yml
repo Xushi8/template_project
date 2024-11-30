@@ -56,7 +56,7 @@ jobs:
         run: |
           tar -Jcvf release.tar.xz -C build_release bin
 
-      - name: Create .7z avx2 release artifact
+      - name: Create .7z release artifact
         run: |
           7z a release.7z -r build_release/bin
 
