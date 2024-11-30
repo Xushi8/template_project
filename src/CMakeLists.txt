@@ -27,6 +27,7 @@ foreach(name ${BASIC_PROJECT_TARGETS})
         TBB::tbb
         mimalloc
         SDL2::SDL2
+        OpenMP::OpenMP_CXX
 
         sfml-system
         sfml-window

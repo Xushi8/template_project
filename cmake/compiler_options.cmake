@@ -27,9 +27,6 @@ endif()
 add_compile_options(-fdiagnostics-color=always)
 add_link_options(-fdiagnostics-color=always)
 
-add_compile_options(-fopenmp)
-add_link_options(-fopenmp)
-
 # warnings
 add_compile_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type -Wimplicit-fallthrough)
 add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type -Wimplicit-fallthrough)
