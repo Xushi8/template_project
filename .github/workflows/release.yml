@@ -1,0 +1,58 @@
+name: Release Workflow
+
+on:
+  release:
+    types: [published]  # 仅在发布发布时触发
+
+permissions:
+  contents: write   # 发布时需要写入权限以上传资产
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set timezone
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+
+      - name: Install dependencies (for release build)
+        run: |
+          sudo apt update
+          sudo apt install g++-14 libomp-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
+
+      - name: Configure release build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_CXX_STANDARD=20 \
+                -GNinja \
+                -Bbuild_release \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON \
+                -DBASIC_PROJECT_ENABLE_AVX2=ON \
+                -DBASIC_PROJECT_ENABLE_STRICT_STL_CHECKS=ON \
+                $GITHUB_WORKSPACE
+
+      - name: Build release
+        run: |
+          cmake --build build_release --config Release --parallel
+
+      - name: Create release artifact
+        run: |
+          tar -zcvf release.tar.gz -C build_release .  # 将构建结果打包成tar.gz文件
+
+      - name: Upload release asset
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-asset
+          path: release.tar.gz  # 上传构建结果为发布资产
+
+      - name: Upload asset to GitHub release
+        uses: gh actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: release.tar.gz
+          asset_name: release.tar.gz
+          asset_content_type: application/gzip
