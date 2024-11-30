@@ -1,0 +1,61 @@
+name: Build and Test with Dependencies
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        cxx: [g++-12, clang++-16]
+        build_type: [Debug, Release]
+        std: [17, 20]
+        include:
+          - cxx: g++-12
+            install: |
+              sudo apt install g++-12
+              sudo apt install libtbb-dev libmimalloc-dev libboost-all-dev libgmp-dev libmpfr-dev libre2-dev libqt6core6a libqt6gui6a libqt6widgets6a libsdl2-dev libffmpeg-dev libsfml-dev libflatbuffers-dev libfmt-dev libgcem-dev libmio-dev nlohmann-json3-dev libspdlog-dev libtl-dev libxsimd-dev libxxhash-dev
+          - cxx: clang++-16
+            install: |
+              sudo apt install clang-16
+              sudo apt install libtbb-dev libmimalloc-dev libboost-all-dev libgmp-dev libmpfr-dev libre2-dev libqt6core6a libqt6gui6a libqt6widgets6a libsdl2-dev libffmpeg-dev libsfml-dev libflatbuffers-dev libfmt-dev libgcem-dev libmio-dev nlohmann-json3-dev libspdlog-dev libtl-dev libxsimd-dev libxxhash-dev
+          # Add more configurations for newer compilers or other specific versions
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set timezone
+      run: sudo timedatectl set-timezone 'Asia/Shanghai'
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        ${{ matrix.install }}
+
+    - name: Create Build Environment
+      run: |
+        sudo apt install locales-all
+        cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure
+      working-directory: ${{runner.workspace}}/build
+      env:
+        CXX: ${{matrix.cxx}}
+      run: |
+        cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
+              -DCMAKE_CXX_STANDARD=${{matrix.std}} \
+              -GNinja \
+              -DBASIC_PROJECT_ENABLE_MOLD=ON \
+              -DBASIC_PROJECT_ENABLE_GUI=ON \
+              -DBASIC_PROJECT_ENABLE_AVX2=ON \
+              -DBASIC_PROJECT_ENABLE_STRICT_STL_CHECKS=ON \
+              $GITHUB_WORKSPACE
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        cmake --build . --config ${{matrix.build_type}} --parallel
+
