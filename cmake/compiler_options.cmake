@@ -104,6 +104,9 @@ endif()
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-fcolor-diagnostics)
     add_link_options(-fcolor-diagnostics)
+    
+    add_compile_options(-stdlib=libc++)
+    add_link_options(-stdlib=libc++)
 
     # for fmt 11.0.2
     add_compile_options(-Wno-shift-overflow)
