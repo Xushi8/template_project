@@ -50,12 +50,11 @@ jobs:
 
       - name: Create .tar.xz release artifact
         run: |
-          tar -Jcvf release.tar.xz -C build_release bin
+          tar -Jcvf release.tar.xz -C build_release bin/
 
       - name: Create .7z release artifact
-        working-directory: $GITHUB_WORKSPACE/build_release
         run: |
-          7z a release.7z -r bin
+          cd build_release && 7z a ../release.7z bin/
 
       # avx2
       - name: Build avx2 release
@@ -64,12 +63,11 @@ jobs:
 
       - name: Create .tar.xz avx2 release artifact
         run: |
-          tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin
+          tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin/
 
       - name: Create .7z avx2 release artifact
-        working-directory: $GITHUB_WORKSPACE/build_release_avx2
         run: |
-          7z a release_avx2.7z -r bin
+          cd build_release_avx2 && 7z a ../release_avx2.7z bin/
 
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
