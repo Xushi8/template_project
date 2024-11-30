@@ -45,12 +45,12 @@ jobs:
       run: |
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
-              -GNinja \
               -Bbuild \
+              -GNinja \
+              -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
               -DBASIC_PROJECT_ENABLE_MOLD=ON \
               -DBASIC_PROJECT_ENABLE_GUI=ON \
               -DBASIC_PROJECT_ENABLE_AVX2=ON \
-              -DBASIC_PROJECT_ENABLE_STRICT_STL_CHECKS=ON \
               $GITHUB_WORKSPACE
 
     - name: Build
