@@ -2,7 +2,7 @@ find_path(RE2_INCLUDE_DIR NAMES re2)
 find_library(RE2_LIBRARIES NAMES re2 libre2)
 
 if(NOT RE2_INCLUDE_DIR OR NOT RE2_LIBRARIES)
-    find_package_handle_standard_args(GMP REQUIRED_VARS RE2_INCLUDE_DIR RE2_LIBRARIES)
+    find_package_handle_standard_args(RE2 REQUIRED_VARS RE2_INCLUDE_DIR RE2_LIBRARIES)
     mark_as_advanced(RE2_INCLUDE_DIR RE2_LIBRARIES)
     return()
 endif()

@@ -2,7 +2,7 @@ find_path(MPFR_INCLUDE_DIR NAMES mpfr.h)
 find_library(MPFR_LIBRARIES NAMES mpfr libmpfr)
 
 if(NOT MPFR_INCLUDE_DIR OR NOT MPFR_LIBRARIES)
-    find_package_handle_standard_args(GMP REQUIRED_VARS MPFR_INCLUDE_DIR MPFR_LIBRARIES)
+    find_package_handle_standard_args(MPFR REQUIRED_VARS MPFR_INCLUDE_DIR MPFR_LIBRARIES)
     mark_as_advanced(MPFR_INCLUDE_DIR MPFR_LIBRARIES)
     return()
 endif()
