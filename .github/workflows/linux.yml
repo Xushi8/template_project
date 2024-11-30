@@ -1,4 +1,4 @@
-name: Build and Test with Dependencies
+name: Build and Test Workflow
 
 on: [push, pull_request]
 
