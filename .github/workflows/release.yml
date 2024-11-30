@@ -41,7 +41,7 @@ jobs:
                 -DCMAKE_CXX_STANDARD=20 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
                 -GNinja \
-                -Bbuild_avx2_release \
+                -Bbuild_release_avx2 \
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
                 -DBASIC_PROJECT_ENABLE_GUI=ON \
                 -DBASIC_PROJECT_ENABLE_AVX2=ON \
@@ -63,19 +63,19 @@ jobs:
       # avx2
       - name: Build avx2 release
         run: |
-          cmake --build build_avx2_release --parallel
+          cmake --build build_release_avx2 --parallel
 
       - name: Create .tar.xz avx2 release artifact
         run: |
-          tar -Jcvf avx2_release.tar.xz -C build_avx2_release bin
+          tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin
 
       - name: Create .7z avx2 release artifact
         run: |
-          7z a avx2_release.7z -r build_avx2_release/bin
+          7z a release_avx2.7z -r build_release_avx2/bin
 
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release.tar.xz, release.7z, avx2_release.tar.xz, avx2_release.7z
+          files: release.tar.xz, release.7z, release_avx2.tar.xz, release_avx2.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
