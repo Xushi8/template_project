@@ -1,3 +1,5 @@
+include(FindPackageHandleStandardArgs)
+
 find_path(RE2_INCLUDE_DIR NAMES re2)
 find_library(RE2_LIBRARIES NAMES re2 libre2)
 
@@ -15,7 +17,6 @@ set_target_properties(RE2::re2 PROPERTIES
     INTERFACE_LINK_LIBRARIES "${RE2_LIBRARIES}"
 )
 
-include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(RE2 DEFAULT_MSG RE2_INCLUDE_DIR RE2_LIBRARIES)
 
 mark_as_advanced(RE2_INCLUDE_DIR RE2_LIBRARIES)
