@@ -33,17 +33,6 @@ jobs:
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
                 -DBASIC_PROJECT_ENABLE_GUI=ON
 
-      - name: Configure avx2 release build
-        run: |
-          cmake -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
-                -Bbuild_release_avx2 \
-                -GNinja \
-                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON \
-                -DBASIC_PROJECT_ENABLE_AVX2=ON
-
       - name: Build release
         run: |
           cmake --build build_release --parallel
@@ -57,6 +46,17 @@ jobs:
           cd build_release && 7z a ../release.7z bin/
 
       # avx2
+      - name: Configure avx2 release build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
+                -Bbuild_release_avx2 \
+                -GNinja \
+                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON \
+                -DBASIC_PROJECT_ENABLE_AVX2=ON
+
       - name: Build avx2 release
         run: |
           cmake --build build_release_avx2 --parallel
