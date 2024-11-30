@@ -7,7 +7,7 @@ add_executable(main_test
 )
 
 # Link Google Test to your test executable
-target_link_libraries(main_test GTest::GTest)
+target_link_libraries(main_test PUBLIC GTest::GTest GTest::gtest_main)
 
 # Add tests to CTest
 add_test(NAME main_test COMMAND main_test)

@@ -48,6 +48,7 @@ jobs:
               -GNinja \
               -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
               -DBASIC_PROJECT_ENABLE_STRICT_STL_CHECKS=ON \
+              -DBASIC_PROJECT_ENABLE_TEST=ON \
               -DBASIC_PROJECT_ENABLE_ADDRESS_SANITIZER=${{ matrix.sanitizer == 'address' && 'ON' || 'OFF' }} \
               -DBASIC_PROJECT_ENABLE_UNDEFINED_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
               -DBASIC_PROJECT_ENABLE_THREAD_SANITIZER=${{ matrix.sanitizer == 'thread' && 'ON' || 'OFF' }} \
@@ -60,4 +61,8 @@ jobs:
     - name: Build
       run: |
         cmake --build build --config ${{matrix.build_type}} --parallel
+
+    - name: Test
+      run: |
+        ./build/bin/main_test
 
