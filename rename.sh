@@ -5,6 +5,7 @@ namespace_name='new_project'
 macro_and_cmake_name='HELLO_PROJECT'
 
 
+
 # 当前脚本的名称
 current_script=$(basename "$0")
 
