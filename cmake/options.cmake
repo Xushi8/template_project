@@ -35,7 +35,7 @@ endif()
 
 option(BASIC_PROJECT_INSTALL_STATIC_LIB "Install static lib" OFF)
 
-option(BASIC_PROJECT_STATIC_LIBCXX "Link static cpp lib" ON)
+option(BASIC_PROJECT_STATIC_LIBSTDCXX "Link static libstdc++" ON)
 
 if(NOT WIN32)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
