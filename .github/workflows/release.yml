@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies (for release build)
         run: |
           sudo apt update
-          sudo apt install g++-14 libomp-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
+          sudo apt install g++-14 libomp-18-dev p7zip-full mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
 
       - name: Configure release build
         run: |
@@ -39,13 +39,17 @@ jobs:
         run: |
           cmake --build build_release --config Release --parallel
 
-      - name: Create release artifact
+      - name: Create .tar.gz release artifact
         run: |
-          tar -Jcvf release.tar.xz -C build_release/ bin/*  # 将构建结果打包成tar.xz文件
+          tar -czf release.tar.gz -C build_release bin
 
-      - name: Upload release asset to GitHub
+      - name: Create .7z release artifact
+        run: |
+          7z a release.7z -r build_release/bin
+
+      - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release.tar.xz
+          files: release.tar.gz, release.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
