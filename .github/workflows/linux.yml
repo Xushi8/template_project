@@ -17,6 +17,7 @@ jobs:
         cxx: [g++-14, clang++-18]
         build_type: [Debug, Release]
         std: [17, 20]
+        sanitizer: [address, others]
         include:
           - cxx: g++-14
             install: |
@@ -48,6 +49,11 @@ jobs:
               -Bbuild \
               -GNinja \
               -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+              -DBASIC_PROJECT_ENABLE_STRICT_STL_CHECKS=ON \
+              -DBASIC_PROJECT_ENABLE_ADDRESS_SANITIZER=${{ matrix.sanitizer == 'address' && 'ON' || 'OFF' }} \
+              -DBASIC_PROJECT_ENABLE_UNDEFINED_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
+              -DBASIC_PROJECT_ENABLE_THREAD_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
+              -DBASIC_PROJECT_ENABLE_MEMORY_SANITIZER=${{ matrix.sanitizer == 'others' && matrix.cxx == 'clang++-18' && 'ON' || 'OFF' }} \
               -DBASIC_PROJECT_ENABLE_MOLD=ON \
               -DBASIC_PROJECT_ENABLE_GUI=ON \
               -DBASIC_PROJECT_ENABLE_AVX2=ON \
