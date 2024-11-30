@@ -1,6 +1,8 @@
 # Enable testing
 enable_testing()
 
+add_subdirectory(common)
+
 # Define the test executable
 add_executable(main_test
     main_test.cpp
