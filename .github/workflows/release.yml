@@ -27,7 +27,7 @@ jobs:
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_CXX_STANDARD=20 \
-                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14
+                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
                 -GNinja \
                 -Bbuild_release \
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
@@ -39,7 +39,7 @@ jobs:
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_CXX_STANDARD=20 \
-                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14
+                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
                 -GNinja \
                 -Bbuild_avx2_release \
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
