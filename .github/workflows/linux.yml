@@ -35,19 +35,14 @@ jobs:
         sudo apt update
         ${{ matrix.install }}
 
-    - name: Create Build Environment
-      run: |
-        sudo apt install locales-all
-        cmake -E make_directory ${{runner.workspace}}/build
-
     - name: Configure
-      working-directory: ${{runner.workspace}}/build
       env:
         CXX: ${{matrix.cxx}}
       run: |
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -DCMAKE_CXX_STANDARD=${{matrix.std}} \
               -GNinja \
+              -Bbuild \
               -DBASIC_PROJECT_ENABLE_MOLD=ON \
               -DBASIC_PROJECT_ENABLE_GUI=ON \
               -DBASIC_PROJECT_ENABLE_AVX2=ON \
@@ -55,7 +50,6 @@ jobs:
               $GITHUB_WORKSPACE
 
     - name: Build
-      working-directory: ${{runner.workspace}}/build
       run: |
-        cmake --build . --config ${{matrix.build_type}} --parallel
+        cmake --build build --config ${{matrix.build_type}} --parallel
 
