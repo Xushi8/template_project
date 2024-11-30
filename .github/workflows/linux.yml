@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-24.04-amd64
     strategy:
       matrix:
         cxx: [g++-14, clang++-18]
