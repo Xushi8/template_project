@@ -2,12 +2,12 @@
 enable_testing()
 
 # Define the test executable
-add_executable(my_tests
-    my_test.cpp
+add_executable(main_test
+    main_test.cpp
 )
 
 # Link Google Test to your test executable
-target_link_libraries(my_tests PUBLIC GTest::gtest GTest::gtest_main)
+target_link_libraries(main_test GTest::GTest)
 
 # Add tests to CTest
-add_test(NAME my_test COMMAND my_tests)
+add_test(NAME main_test COMMAND main_test)
