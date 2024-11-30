@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        cxx: [g++-12, clang++-18]
+        cxx: [g++-14, clang++-18]
         build_type: [Debug, Release]
         std: [17, 20]
         include:
-          - cxx: g++-12
+          - cxx: g++-14
             install: |
-              sudo apt install g++-12
+              sudo apt install g++-14
               sudo apt install libomp-dev mold ccache ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsdl2-dev ffmpeg libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
           - cxx: clang++-18
             install: |
