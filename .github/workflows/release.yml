@@ -26,7 +26,6 @@ jobs:
       - name: Configure release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_CXX_STANDARD=20 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
                 -Bbuild_release \
                 -GNinja \
@@ -37,7 +36,6 @@ jobs:
       - name: Configure avx2 release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_CXX_STANDARD=20 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
                 -Bbuild_release_avx2 \
                 -GNinja \
