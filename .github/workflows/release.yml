@@ -55,7 +55,7 @@ jobs:
           tar -Jcvf release.tar.xz -C build_release bin
 
       - name: Create .7z release artifact
-        working-directory: ${{runner.workspace}}/build_release
+        working-directory: $GITHUB_WORKSPACE/build_release
         run: |
           7z a release.7z -r bin
 
@@ -69,7 +69,7 @@ jobs:
           tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin
 
       - name: Create .7z avx2 release artifact
-        working-directory: ${{runner.workspace}}/build_release_avx2
+        working-directory: $GITHUB_WORKSPACE/build_release_avx2
         run: |
           7z a release_avx2.7z -r bin
 
