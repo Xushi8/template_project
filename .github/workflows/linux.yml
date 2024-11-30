@@ -1,6 +1,10 @@
 name: Build and Test Workflow
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 permissions:
   contents: read
