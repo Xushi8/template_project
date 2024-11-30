@@ -17,11 +17,11 @@ jobs:
           - cxx: g++-12
             install: |
               sudo apt install g++-12
-              sudo apt install mold ccache ninja-build libtbb-dev libmimalloc-dev libboost-all-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsdl2-dev ffmpeg libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
+              sudo apt install libomp-dev mold ccache ninja-build libtbb-dev libmimalloc-dev libboost-all-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsdl2-dev ffmpeg libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
           - cxx: clang++-16
             install: |
               sudo apt install clang-16
-              sudo apt install mold ccache ninja-build libtbb-dev libmimalloc-dev libboost-all-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsdl2-dev ffmpeg libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
+              sudo apt install libomp-dev mold ccache ninja-build libtbb-dev libmimalloc-dev libboost-all-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsdl2-dev ffmpeg libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
           # Add more configurations for newer compilers or other specific versions
 
     steps:
