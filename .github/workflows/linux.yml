@@ -11,18 +11,18 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: debian12
     strategy:
       matrix:
-        cxx: [g++-14, clang++-18]
+        cxx: [g++-12, clang++-16]
         build_type: [Debug, Release]
         sanitizer: [address, others]
         include:
-          - cxx: g++-14
+          - cxx: g++-12
             install: |
-              sudo apt install g++-14
+              sudo apt install g++-12
               sudo apt install libgtest-dev libbenchmark-dev libomp-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
-          - cxx: clang++-18
+          - cxx: clang++-16
             install: |
               sudo apt install clang-18
               sudo apt install libgtest-dev libbenchmark-dev libomp-18-dev libc++-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
