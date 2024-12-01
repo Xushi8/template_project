@@ -38,7 +38,7 @@ jobs:
           sudo apt upgrade
           sudo apt install libglib2.0-dev:arm64
           sudo apt install g++-14 p7zip-full mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
-          sudo apt install g++-14-aarch64-linux-gnu p7zip-full:arm64 mold:arm64 ninja-build:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
+          sudo apt install g++-14-aarch64-linux-gnu libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
 
       # amd64
       - name: Configure release build
