@@ -8,9 +8,9 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  # amd64 job
+  release_amd64:
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -18,30 +18,12 @@ jobs:
       - name: Set timezone
         run: sudo timedatectl set-timezone 'Asia/Shanghai'
 
-      - name: Install dependencies (for release build)
+      - name: Install dependencies (for amd64)
         run: |
-          sudo rm /etc/apt/sources.list.d/ubuntu.sources
-
-          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-
-
-          sudo dpkg --add-architecture arm64
           sudo apt update
-          sudo apt upgrade
           sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build postgresql libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
-          sudo apt install libglib2.0-dev:arm64
-          sudo apt install gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
 
-      # amd64
-      - name: Configure release build
+      - name: Configure amd64 release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/gcc-14 \
@@ -52,71 +34,105 @@ jobs:
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
                 -DBASIC_PROJECT_ENABLE_GUI=ON
 
-      - name: Build release
+      - name: Build amd64 release
         run: |
           cmake --build build_release_amd64 --parallel
 
-      - name: Create .tar.xz release artifact
+      - name: Create .tar.xz amd64 release artifact
         run: |
-          tar -Jcvf release.tar.xz -C build_release_amd64 bin/
+          tar -Jcvf release_amd64.tar.xz -C build_release_amd64 bin/
 
-      - name: Create .7z release artifact
+      - name: Create .7z amd64 release artifact
         run: |
-          cd build_release_amd64 && 7z a ../release.7z bin/
+          cd build_release_amd64 && 7z a ../release_amd64.7z bin/
 
-      # avx2
-      - name: Configure avx2 release build
+  # amd64-avx2 job
+  release_amd64_avx2:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set timezone
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+
+      - name: Install dependencies (for amd64-avx2)
+        run: |
+          sudo apt update
+          sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build postgresql libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
+
+      - name: Configure amd64-avx2 release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
-                -Bbuild_release_avx2 \
+                -Bbuild_release_amd64_avx2 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
                 -DBASIC_PROJECT_ENABLE_GUI=ON \
                 -DBASIC_PROJECT_ENABLE_AVX2=ON
 
-      - name: Build avx2 release
+      - name: Build amd64-avx2 release
         run: |
-          cmake --build build_release_avx2 --parallel
+          cmake --build build_release_amd64_avx2 --parallel
 
-      - name: Create .tar.xz avx2 release artifact
+      - name: Create .tar.xz amd64-avx2 release artifact
         run: |
-          tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin/
+          tar -Jcvf release_amd64_avx2.tar.xz -C build_release_amd64_avx2 bin/
+
+      - name: Create .7z amd64-avx2 release artifact
+        run: |
+          cd build_release_amd64_avx2 && 7z a ../release_amd64_avx2.7z bin/
+
+  # arm64 job
+  release_arm64:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set timezone
+        run: sudo timedatectl set-timezone 'Asia/Shanghai'
+
+      - name: Install dependencies (for arm64)
+        run: |
+          sudo dpkg --add-architecture arm64
+          sudo apt update
+          sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build postgresql 
+          sudo apt install gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
+
+      - name: Configure arm64 release build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 \
+                -DCMAKE_CXX_COMPILER=/usr/bin/aarch64-linux-gnu-g++-14 \
+                -Bbuild_release_arm64 \
+                -GNinja \
+                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON
+
+      - name: Build arm64 release
+        run: |
+          cmake --build build_release_arm64 --parallel
+
+      - name: Create .tar.xz arm64 release artifact
+        run: |
+          tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
 
       - name: Create .7z arm64 release artifact
         run: |
-          cd build_release_avx2 && 7z a ../release_avx2.7z bin/
+          cd build_release_arm64 && 7z a ../release_arm64.7z bin/
 
-      # arm64
-      # - name: Configure arm64 release build
-      #   run: |
-      #     cmake -DCMAKE_BUILD_TYPE=Release \
-      #           -DCMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 \
-      #           -DCMAKE_CXX_COMPILER=/usr/bin/aarch64-linux-gnu-g++-14 \
-      #           -Bbuild_release_arm64 \
-      #           -GNinja \
-      #           -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-      #           -DBASIC_PROJECT_ENABLE_MOLD=ON \
-      #           -DBASIC_PROJECT_ENABLE_GUI=ON \
-      #           -DBASIC_PROJECT_ENABLE_AVX2=ON
-
-      # - name: Build arm64 release
-      #   run: |
-      #     cmake --build build_release_arm64 --parallel
-
-      # - name: Create .tar.xz arm64 release artifact
-      #   run: |
-      #     tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
-
-      # - name: Create .7z arm64 release artifact
-      #   run: |
-      #     cd build_release_arm64 && 7z a ../release_arm64.7z bin/
-
+  # Upload release assets to GitHub
+  upload_assets:
+    needs: [release_amd64, release_amd64_avx2, release_arm64]
+    runs-on: ubuntu-24.04
+    steps:
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release.tar.xz, release.7z, release_avx2.tar.xz, release_avx2.7z, release_arm64.tar.xz, release_arm64.7z
+          files: release_amd64.tar.xz, release_amd64.7z, release_amd64_avx2.tar.xz, release_amd64_avx2.7z, release_arm64.tar.xz, release_arm64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
