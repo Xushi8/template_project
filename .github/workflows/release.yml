@@ -43,6 +43,13 @@ jobs:
         run: |
           cd build_release_amd64 && 7z a ../release_amd64.7z bin/
 
+      - name: Upload amd64 release assets to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build_release_amd64/release_amd64.tar.xz, build_release_amd64/release_amd64.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   # amd64-avx2 job
   release_amd64_avx2:
     runs-on: ubuntu-24.04
@@ -78,6 +85,13 @@ jobs:
       - name: Create .7z amd64-avx2 release artifact
         run: |
           cd build_release_amd64_avx2 && 7z a ../release_amd64_avx2.7z bin/
+
+      - name: Upload avx2 release assets to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build_release_amd64_avx2/release_amd64_avx2.tar.xz, build_release_amd64_avx2/release_amd64_avx2.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # arm64 job
   release_arm64:
@@ -130,14 +144,9 @@ jobs:
         run: |
           cd build_release_arm64 && 7z a ../release_arm64.7z bin/
 
-  # Upload release assets to GitHub
-  upload_assets:
-    needs: [release_amd64, release_amd64_avx2, release_arm64]
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Upload release assets to GitHub
+      - name: Upload arm64 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_amd64.tar.xz, release_amd64.7z, release_amd64_avx2.tar.xz, release_amd64_avx2.7z, release_arm64.tar.xz, release_arm64.7z
+          files: build_release_arm64/release_arm64.tar.xz, build_release_arm64/release_arm64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
