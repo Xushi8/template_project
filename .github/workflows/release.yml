@@ -39,14 +39,10 @@ jobs:
         run: |
           tar -Jcvf release_amd64.tar.xz -C build_release_amd64 bin/
 
-      - name: Create .7z amd64 release artifact
-        run: |
-          cd build_release_amd64 && 7z a ../release_amd64.7z bin/
-
       - name: Upload amd64 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_amd64.tar.xz, release_amd64.7z
+          files: release_amd64.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -82,14 +78,10 @@ jobs:
         run: |
           tar -Jcvf release_amd64_avx2.tar.xz -C build_release_amd64_avx2 bin/
 
-      - name: Create .7z amd64-avx2 release artifact
-        run: |
-          cd build_release_amd64_avx2 && 7z a ../release_amd64_avx2.7z bin/
-
       - name: Upload avx2 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_amd64_avx2.tar.xz, release_amd64_avx2.7z
+          files: release_amd64_avx2.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -139,14 +131,10 @@ jobs:
         run: |
           tar -Jcvf release_armhf.tar.xz -C build_release_armhf bin/
 
-      - name: Create .7z armhf release artifact
-        run: |
-          cd build_release_armhf && 7z a ../release_armhf.7z bin/
-
       - name: Upload armhf release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_armhf.tar.xz, release_armhf.7z
+          files: release_armhf.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -197,14 +185,10 @@ jobs:
         run: |
           tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
 
-      - name: Create .7z arm64 release artifact
-        run: |
-          cd build_release_arm64 && 7z a ../release_arm64.7z bin/
-
       - name: Upload arm64 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_arm64.tar.xz, release_arm64.7z
+          files: release_arm64.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -255,14 +239,10 @@ jobs:
         run: |
           tar -Jcvf release_riscv64.tar.xz -C build_release_riscv64 bin/
 
-      - name: Create .7z riscv64 release artifact
-        run: |
-          cd build_release_riscv64 && 7z a ../release_riscv64.7z bin/
-
       - name: Upload riscv64 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_riscv64.tar.xz, release_riscv64.7z
+          files: release_riscv64.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -313,14 +293,10 @@ jobs:
         run: |
           tar -Jcvf release_ppc64el.tar.xz -C build_release_ppc64el bin/
 
-      - name: Create .7z ppc64el release artifact
-        run: |
-          cd build_release_ppc64el && 7z a ../release_ppc64el.7z bin/
-
       - name: Upload ppc64el release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_ppc64el.tar.xz, release_ppc64el.7z
+          files: release_ppc64el.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -371,13 +347,9 @@ jobs:
         run: |
           tar -Jcvf release_s390x.tar.xz -C build_release_s390x bin/
 
-      - name: Create .7z s390x release artifact
-        run: |
-          cd build_release_s390x && 7z a ../release_s390x.7z bin/
-
       - name: Upload s390x release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_s390x.tar.xz, release_s390x.7z
+          files: release_s390x.tar.xz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
