@@ -20,11 +20,11 @@ jobs:
         include:
           - cxx: g++-14
             install: |
-              sudo apt install g++-14
+              sudo apt install g++-14 gcc-14
               sudo apt install libgtest-dev libbenchmark-dev libomp-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
           - cxx: clang++-18
             install: |
-              sudo apt install clang-18
+              sudo apt install clang-18 clang-18-dev
               sudo apt install libgtest-dev libbenchmark-dev libomp-18-dev libc++-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
           # Add more configurations for newer compilers or other specific versions
 
@@ -39,6 +39,7 @@ jobs:
     - name: Configure
       env:
         CXX: ${{matrix.cxx}}
+        CC: ${{ matrix.cxx == 'g++-14' && 'gcc-14' || 'clang-18' }}
       run: |
         cmake -DCMAKE_BUILD_TYPE=${{matrix.build_type}} \
               -Bbuild \
@@ -62,4 +63,3 @@ jobs:
       run: |
         ./build/bin/main_test && \
         ./build/bin/common_test
-
