@@ -22,12 +22,14 @@ jobs:
         run: |
           sudo apt update
           sudo apt install g++-14 p7zip-full mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
+          sudo apt install g++-14-aarch64-linux-gnu p7zip-full:arm64 mold:arm64 ninja-build:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
 
+      # amd64
       - name: Configure release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
-                -Bbuild_release \
+                -Bbuild_release_amd64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
@@ -35,15 +37,15 @@ jobs:
 
       - name: Build release
         run: |
-          cmake --build build_release --parallel
+          cmake --build build_release_amd64 --parallel
 
       - name: Create .tar.xz release artifact
         run: |
-          tar -Jcvf release.tar.xz -C build_release bin/
+          tar -Jcvf release.tar.xz -C build_release_amd64 bin/
 
       - name: Create .7z release artifact
         run: |
-          cd build_release && 7z a ../release.7z bin/
+          cd build_release_amd64 && 7z a ../release.7z bin/
 
       # avx2
       - name: Configure avx2 release build
@@ -65,13 +67,33 @@ jobs:
         run: |
           tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin/
 
-      - name: Create .7z avx2 release artifact
+      # arm64
+      - name: Configure arm64 release build
         run: |
-          cd build_release_avx2 && 7z a ../release_avx2.7z bin/
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_CXX_COMPILER=/usr/bin/aarch64-linux-gnu-g++-14 \
+                -Bbuild_release_arm64 \
+                -GNinja \
+                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON \
+                -DBASIC_PROJECT_ENABLE_AVX2=ON
+
+      - name: Build arm64 release
+        run: |
+          cmake --build build_release_arm64 --parallel
+
+      - name: Create .tar.xz arm64 release artifact
+        run: |
+          tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
+
+      - name: Create .7z arm64 release artifact
+        run: |
+          cd build_release_arm64 && 7z a ../release_arm64.7z bin/
 
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release.tar.xz, release.7z, release_avx2.tar.xz, release_avx2.7z
+          files: release.tar.xz, release.7z, release_avx2.tar.xz, release_avx2.7z, release_arm64.tar.xz, release_arm64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
