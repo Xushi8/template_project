@@ -182,8 +182,8 @@ jobs:
       - name: Configure riscv64 release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_C_COMPILER=/usr/bin/gcc-14-riscv64-linux-gnu \
-                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14-riscv64-linux-gnu \
+                -DCMAKE_C_COMPILER=/usr/bin/riscv64-linux-gnu-gcc-14 \
+                -DCMAKE_CXX_COMPILER=/usr/bin/riscv64-linux-gnu-g++-14 \
                 -Bbuild_release_riscv64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
