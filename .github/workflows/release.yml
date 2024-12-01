@@ -265,3 +265,61 @@ jobs:
           files: release_riscv64.tar.xz, release_riscv64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ppc64el job
+  release_ppc64el:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies (for ppc64el)
+        run: |
+          sudo rm /etc/apt/sources.list.d/ubuntu.sources
+
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+
+          sudo dpkg --add-architecture ppc64el
+          sudo apt update
+          sudo apt install aptitude
+          sudo aptitude install -y cmake p7zip-full mold ninja-build 
+          sudo aptitude install -y libglib2.0-dev-bin:ppc64el libglib2.0-dev-bin-linux:ppc64el
+          sudo aptitude install -y gcc-14-powerpc64le-linux-gnu g++-14-powerpc64le-linux-gnu libpq-dev:ppc64el libtbb-dev:ppc64el libmimalloc-dev:ppc64el libboost1.83-dev:ppc64el libgmp-dev:ppc64el libmpfr-dev:ppc64el libre2-dev:ppc64el qt6-base-dev:ppc64el libsfml-dev:ppc64el libflatbuffers-dev:ppc64el libavcodec-dev:ppc64el libavdevice-dev:ppc64el libavformat-dev:ppc64el libavfilter-dev:ppc64el libavutil-dev:ppc64el libpostproc-dev:ppc64el libswscale-dev:ppc64el libsdl2-dev:ppc64el
+
+      - name: Configure ppc64el release build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_C_COMPILER=/usr/bin/powerpc64le-linux-gnu-gcc-14 \
+                -DCMAKE_CXX_COMPILER=/usr/bin/powerpc64le-linux-gnu-g++-14 \
+                -Bbuild_release_ppc64el \
+                -GNinja \
+                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON
+
+      - name: Build ppc64el release
+        run: |
+          cmake --build build_release_ppc64el --parallel
+
+      - name: Create .tar.xz ppc64el release artifact
+        run: |
+          tar -Jcvf release_ppc64el.tar.xz -C build_release_ppc64el bin/
+
+      - name: Create .7z ppc64el release artifact
+        run: |
+          cd build_release_ppc64el && 7z a ../release_ppc64el.7z bin/
+
+      - name: Upload ppc64el release assets to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release_ppc64el.tar.xz, release_ppc64el.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
