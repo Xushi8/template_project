@@ -37,8 +37,8 @@ jobs:
           sudo apt update
           sudo apt upgrade
           sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build postgresql libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
-          sudo apt install libglib2.0-dev:arm64
-          sudo apt install gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
+          # sudo apt install libglib2.0-dev:arm64
+          # sudo apt install gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
 
       # amd64
       - name: Configure release build
@@ -86,29 +86,29 @@ jobs:
           tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin/
 
       # arm64
-      - name: Configure arm64 release build
-        run: |
-          cmake -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 \
-                -DCMAKE_CXX_COMPILER=/usr/bin/aarch64-linux-gnu-g++-14 \
-                -Bbuild_release_arm64 \
-                -GNinja \
-                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON \
-                -DBASIC_PROJECT_ENABLE_AVX2=ON
+      # - name: Configure arm64 release build
+      #   run: |
+      #     cmake -DCMAKE_BUILD_TYPE=Release \
+      #           -DCMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 \
+      #           -DCMAKE_CXX_COMPILER=/usr/bin/aarch64-linux-gnu-g++-14 \
+      #           -Bbuild_release_arm64 \
+      #           -GNinja \
+      #           -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+      #           -DBASIC_PROJECT_ENABLE_MOLD=ON \
+      #           -DBASIC_PROJECT_ENABLE_GUI=ON \
+      #           -DBASIC_PROJECT_ENABLE_AVX2=ON
 
-      - name: Build arm64 release
-        run: |
-          cmake --build build_release_arm64 --parallel
+      # - name: Build arm64 release
+      #   run: |
+      #     cmake --build build_release_arm64 --parallel
 
-      - name: Create .tar.xz arm64 release artifact
-        run: |
-          tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
+      # - name: Create .tar.xz arm64 release artifact
+      #   run: |
+      #     tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
 
-      - name: Create .7z arm64 release artifact
-        run: |
-          cd build_release_arm64 && 7z a ../release_arm64.7z bin/
+      # - name: Create .7z arm64 release artifact
+      #   run: |
+      #     cd build_release_arm64 && 7z a ../release_arm64.7z bin/
 
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v1
