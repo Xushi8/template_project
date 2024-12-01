@@ -150,3 +150,61 @@ jobs:
           files: release_arm64.tar.xz, release_arm64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # riscv64 job
+  release_riscv64:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies (for riscv64)
+        run: |
+          sudo rm /etc/apt/sources.list.d/ubuntu.sources
+
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+
+          sudo dpkg --add-architecture riscv64
+          sudo apt update
+          sudo apt install aptitude
+          sudo aptitude install -y cmake gcc-14 g++-14 p7zip-full mold ninja-build postgresql 
+          sudo aptitude install -y libglib2.0-dev-bin:riscv64 libglib2.0-dev-bin-linux:riscv64
+          sudo aptitude install -y gcc-14-riscv64-linux-gnu g++-14-riscv64-linux-gnu libpq-dev:riscv64 libtbb-dev:riscv64 libmimalloc-dev:riscv64 libboost1.83-dev:riscv64 libgmp-dev:riscv64 libmpfr-dev:riscv64 libre2-dev:riscv64 qt6-base-dev:riscv64 libsfml-dev:riscv64 libflatbuffers-dev:riscv64 libavcodec-dev:riscv64 libavdevice-dev:riscv64 libavformat-dev:riscv64 libavfilter-dev:riscv64 libavutil-dev:riscv64 libpostproc-dev:riscv64 libswscale-dev:riscv64 libsdl2-dev:riscv64
+
+      - name: Configure riscv64 release build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_C_COMPILER=/usr/bin/gcc-14-riscv64-linux-gnu \
+                -DCMAKE_CXX_COMPILER=/usr/bin/g++-14-riscv64-linux-gnu \
+                -Bbuild_release_riscv64 \
+                -GNinja \
+                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON
+
+      - name: Build riscv64 release
+        run: |
+          cmake --build build_release_riscv64 --parallel
+
+      - name: Create .tar.xz riscv64 release artifact
+        run: |
+          tar -Jcvf release_riscv64.tar.xz -C build_release_riscv64 bin/
+
+      - name: Create .7z riscv64 release artifact
+        run: |
+          cd build_release_riscv64 && 7z a ../release_riscv64.7z bin/
+
+      - name: Upload riscv64 release assets to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release_riscv64.tar.xz, release_riscv64.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
