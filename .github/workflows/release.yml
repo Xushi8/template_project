@@ -46,7 +46,7 @@ jobs:
       - name: Upload amd64 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: build_release_amd64/release_amd64.tar.xz, build_release_amd64/release_amd64.7z
+          files: release_amd64.tar.xz, release_amd64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -89,7 +89,7 @@ jobs:
       - name: Upload avx2 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: build_release_amd64_avx2/release_amd64_avx2.tar.xz, build_release_amd64_avx2/release_amd64_avx2.7z
+          files: release_amd64_avx2.tar.xz, release_amd64_avx2.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -147,6 +147,6 @@ jobs:
       - name: Upload arm64 release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: build_release_arm64/release_arm64.tar.xz, build_release_arm64/release_arm64.7z
+          files: release_arm64.tar.xz, release_arm64.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
