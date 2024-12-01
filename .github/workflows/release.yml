@@ -85,6 +85,10 @@ jobs:
         run: |
           tar -Jcvf release_avx2.tar.xz -C build_release_avx2 bin/
 
+      - name: Create .7z arm64 release artifact
+        run: |
+          cd build_release_avx2 && 7z a ../release_avx2.7z bin/
+
       # arm64
       # - name: Configure arm64 release build
       #   run: |
