@@ -22,6 +22,9 @@ jobs:
             install: |
               cat /etc/apt/sources.list
               ls /etc/apt/sources.list.d/
+              cat /etc/apt/sources.list.d/azure-cli.sources
+              cat /etc/apt/sources.list.d/microsoft-prod.list
+              cat /etc/apt/sources.list.d/ubuntu.sources
               # sudo apt install g++-14
               # sudo apt install libgtest-dev libbenchmark-dev libomp-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
           - cxx: clang++-18
