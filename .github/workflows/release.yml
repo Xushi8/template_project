@@ -112,7 +112,7 @@ jobs:
           sudo dpkg --add-architecture arm64
           sudo apt update
           sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build postgresql 
-          sudo apt install libglib2.0-dev:arm64
+          sudo apt install libglib2.0-dev-bin:arm64 libglib2.0-dev-bin-linux:arm64
           sudo apt install gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64
 
       - name: Configure arm64 release build
