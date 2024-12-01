@@ -20,7 +20,10 @@ jobs:
         include:
           - cxx: g++-14
             install: |
+              echo -e 'This is sources.list\n'
               cat /etc/apt/sources.list
+              echo -e 'This is apt-mirrors.txt\n'
+              cat /etc/apt/apt-mirrors.txt
               ls /etc/apt/sources.list.d/
               echo -e 'This is azure-cli\n'
               cat /etc/apt/sources.list.d/azure-cli.sources
