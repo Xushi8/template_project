@@ -109,10 +109,10 @@ jobs:
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
 
           sudo dpkg --add-architecture armhf
           sudo apt update
@@ -166,10 +166,10 @@ jobs:
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
 
           sudo dpkg --add-architecture arm64
           sudo apt update
@@ -224,10 +224,10 @@ jobs:
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
 
           sudo dpkg --add-architecture riscv64
           sudo apt update
@@ -282,10 +282,10 @@ jobs:
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=ppc64el] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=ppc64el] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=ppc64el] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=ppc64el] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
 
           sudo dpkg --add-architecture ppc64el
           sudo apt update
@@ -340,10 +340,10 @@ jobs:
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
           echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
-          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=s390x] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=s390x] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=s390x] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=s390x] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
 
           sudo dpkg --add-architecture s390x
           sudo apt update
