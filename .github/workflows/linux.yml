@@ -31,9 +31,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set timezone
-      run: sudo timedatectl set-timezone 'Asia/Shanghai'
-
     - name: Install dependencies
       run: |
         sudo apt update
