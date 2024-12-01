@@ -323,3 +323,61 @@ jobs:
           files: release_ppc64el.tar.xz, release_ppc64el.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # s390x job
+  release_s390x:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies (for s390x)
+        run: |
+          sudo rm /etc/apt/sources.list.d/ubuntu.sources
+
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+          echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] http://ports.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.list > /dev/null
+
+          sudo dpkg --add-architecture s390x
+          sudo apt update
+          sudo apt install aptitude
+          sudo aptitude install -y cmake p7zip-full mold ninja-build 
+          sudo aptitude install -y libglib2.0-dev-bin:s390x libglib2.0-dev-bin-linux:s390x
+          sudo aptitude install -y gcc-14-s390x-linux-gnu g++-14-s390x-linux-gnu libpq-dev:s390x libtbb-dev:s390x libmimalloc-dev:s390x libboost1.83-dev:s390x libgmp-dev:s390x libmpfr-dev:s390x libre2-dev:s390x qt6-base-dev:s390x libsfml-dev:s390x libflatbuffers-dev:s390x libavcodec-dev:s390x libavdevice-dev:s390x libavformat-dev:s390x libavfilter-dev:s390x libavutil-dev:s390x libpostproc-dev:s390x libswscale-dev:s390x libsdl2-dev:s390x
+
+      - name: Configure s390x release build
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_C_COMPILER=/usr/bin/s390x-linux-gnu-gcc-14 \
+                -DCMAKE_CXX_COMPILER=/usr/bin/s390x-linux-gnu-g++-14 \
+                -Bbuild_release_s390x \
+                -GNinja \
+                -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
+                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                -DBASIC_PROJECT_ENABLE_GUI=ON
+
+      - name: Build s390x release
+        run: |
+          cmake --build build_release_s390x --parallel
+
+      - name: Create .tar.xz s390x release artifact
+        run: |
+          tar -Jcvf release_s390x.tar.xz -C build_release_s390x bin/
+
+      - name: Create .7z s390x release artifact
+        run: |
+          cd build_release_s390x && 7z a ../release_s390x.7z bin/
+
+      - name: Upload s390x release assets to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release_s390x.tar.xz, release_s390x.7z
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
