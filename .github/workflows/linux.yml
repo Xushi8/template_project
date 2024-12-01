@@ -20,7 +20,7 @@ jobs:
         include:
           - cxx: g++-14
             install: |
-              cat /etc/apt/source.list
+              cat /etc/apt/sources.list
               ls /etc/apt/sources.list.d/
               sudo apt install g++-14
               sudo apt install libgtest-dev libbenchmark-dev libomp-18-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
