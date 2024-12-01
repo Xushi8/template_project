@@ -119,14 +119,14 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:armhf libglib2.0-dev-bin-linux:armhf
-          sudo aptitude install -y gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libpq-dev:armhf libtbb-dev:armhf libmimalloc-dev:armhf libboost1.83-dev:armhf libgmp-dev:armhf libmpfr-dev:armhf libre2-dev:armhf qt6-base-dev:armhf libsfml-dev:armhf libflatbuffers-dev:armhf libavcodec-dev:armhf libavdevice-dev:armhf libavformat-dev:armhf libavfilter-dev:armhf libavutil-dev:armhf libpostproc-dev:armhf libswscale-dev:armhf libsdl2-dev:armhf
+          sudo aptitude install -y binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libpq-dev:armhf libtbb-dev:armhf libmimalloc-dev:armhf libboost1.83-dev:armhf libgmp-dev:armhf libmpfr-dev:armhf libre2-dev:armhf qt6-base-dev:armhf libsfml-dev:armhf libflatbuffers-dev:armhf libavcodec-dev:armhf libavdevice-dev:armhf libavformat-dev:armhf libavfilter-dev:armhf libavutil-dev:armhf libpostproc-dev:armhf libswscale-dev:armhf libsdl2-dev:armhf
 
       - name: Configure armhf release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/arm-linux-gnueabihf-gcc \
                 -DCMAKE_CXX_COMPILER=/usr/bin/arm-linux-gnueabihf-g++ \
-                -Bbuild_release_arm64 \
+                -Bbuild_release_armhf \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
                 -DBASIC_PROJECT_ENABLE_MOLD=ON \
@@ -134,20 +134,20 @@ jobs:
 
       - name: Build armhf release
         run: |
-          cmake --build build_release_arm64 --parallel
+          cmake --build build_release_armhf --parallel
 
       - name: Create .tar.xz armhf release artifact
         run: |
-          tar -Jcvf release_arm64.tar.xz -C build_release_arm64 bin/
+          tar -Jcvf release_armhf.tar.xz -C build_release_armhf bin/
 
       - name: Create .7z armhf release artifact
         run: |
-          cd build_release_arm64 && 7z a ../release_arm64.7z bin/
+          cd build_release_armhf && 7z a ../release_armhf.7z bin/
 
       - name: Upload armhf release assets to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: release_arm64.tar.xz, release_arm64.7z
+          files: release_armhf.tar.xz, release_armhf.7z
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
