@@ -129,7 +129,7 @@ jobs:
                 -Bbuild_release_armhf \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
+                # -DBASIC_PROJECT_ENABLE_MOLD=ON \
                 -DBASIC_PROJECT_ENABLE_GUI=ON
 
       - name: Build armhf release
