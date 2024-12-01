@@ -20,17 +20,18 @@ jobs:
 
       - name: Install dependencies (for release build)
         run: |
-          echo "" | sudo tee /etc/apt/sources.list.d/ubuntu.sources 
+          sudo truncate -s 0 /etc/apt/sources.list.d/ubuntu.sources
+          
           echo "deb [arch=amd64] https://azure.archive.ubuntu.com/ubuntu/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=amd64] https://azure.archive.ubuntu.com/ubuntu/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=amd64] https://azure.archive.ubuntu.com/ubuntu/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=amd64] https://azure.archive.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
-          
           echo "# other architecture" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] https://azure.archive.ubuntu.com/ubuntu-ports/ noble main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] https://azure.archive.ubuntu.com/ubuntu-ports/ noble-updates main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] https://azure.archive.ubuntu.com/ubuntu-ports/ noble-backports main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
           echo "deb [arch=armhf,arm64,ppc64el,s390x,riscv64] https://azure.archive.ubuntu.com/ubuntu-ports/ noble-security main restricted universe multiverse" | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources > /dev/null
+
           sudo dpkg --add-architecture arm64
           sudo apt update
           sudo apt install g++-14 p7zip-full mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev
