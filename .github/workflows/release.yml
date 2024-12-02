@@ -111,13 +111,13 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:armhf libglib2.0-dev-bin-linux:armhf
-          sudo aptitude install -y binutils-arm-linux-gnueabihf gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf libpq-dev:armhf libtbb-dev:armhf libmimalloc-dev:armhf libboost1.83-dev:armhf libgmp-dev:armhf libmpfr-dev:armhf libre2-dev:armhf qt6-base-dev:armhf libsfml-dev:armhf libflatbuffers-dev:armhf libavcodec-dev:armhf libavdevice-dev:armhf libavformat-dev:armhf libavfilter-dev:armhf libavutil-dev:armhf libpostproc-dev:armhf libswscale-dev:armhf libsdl2-dev:armhf
+          sudo aptitude install -y binutils-arm-linux-gnueabihf gcc-14-arm-linux-gnueabihf g++-14-arm-linux-gnueabihf libpq-dev:armhf libtbb-dev:armhf libmimalloc-dev:armhf libboost1.83-dev:armhf libgmp-dev:armhf libmpfr-dev:armhf libre2-dev:armhf qt6-base-dev:armhf libsfml-dev:armhf libflatbuffers-dev:armhf libavcodec-dev:armhf libavdevice-dev:armhf libavformat-dev:armhf libavfilter-dev:armhf libavutil-dev:armhf libpostproc-dev:armhf libswscale-dev:armhf libsdl2-dev:armhf
 
       - name: Configure armhf release build
         run: |
           cmake -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_C_COMPILER=/usr/bin/arm-linux-gnueabihf-gcc \
-                -DCMAKE_CXX_COMPILER=/usr/bin/arm-linux-gnueabihf-g++ \
+                -DCMAKE_C_COMPILER=/usr/bin/arm-linux-gnueabihf-gcc-14 \
+                -DCMAKE_CXX_COMPILER=/usr/bin/arm-linux-gnueabihf-g++-14 \
                 -Bbuild_release_armhf \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
