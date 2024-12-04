@@ -36,6 +36,9 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 # add_compile_options(-Wconversion -Wsign-conversion)
 # add_link_options(-Wconversion -Wsign-conversion)
 
+add_compile_options(-Werror)
+add_link_options(-Werror)
+
 # optimize
 
 add_compile_options(-fopenmp)
