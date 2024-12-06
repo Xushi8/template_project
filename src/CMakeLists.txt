@@ -39,6 +39,7 @@ foreach(name ${BASIC_PROJECT_TARGETS})
         MPFR::mpfr
         RE2::re2
         PostgreSQL::PostgreSQL
+        URING::uring
 
         ${AVCODEC_LIBRARIES}
         ${AVDEVICE_LIBRARIES}
