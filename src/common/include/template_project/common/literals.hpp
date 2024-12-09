@@ -1,6 +1,6 @@
 #pragma once
-#include <cassert>
 #include <template_project/common/common.hpp>
+#include <cassert>
 #include <cstdint>
 
 BASIC_PROJECT_BEGIN_NAMESPACE

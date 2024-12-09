@@ -13,7 +13,7 @@ BASIC_PROJECT_BEGIN_NAMESPACE
 struct log_options
 {
     spdlog::level::level_enum level = spdlog::level::info;
-    std::string log_name{"template_project"}; // NOLINT(readability-redundant-member-init)
+    std::string log_name{}; // NOLINT(readability-redundant-member-init)
     std::string file_path{}; // NOLINT(readability-redundant-member-init)
     bool with_time = false;
 };
