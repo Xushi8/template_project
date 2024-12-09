@@ -387,70 +387,12 @@ int main()
 
 */
 
-#include <boost/multiprecision/gmp.hpp>
-#include <random>
-#include <boost/container/string.hpp>
-#include <tbb/parallel_for.h>
-#include <chrono>
-#include <fmt/format.h>
-#include <benchmark/benchmark.h>
 
-namespace container = boost::container;
-namespace multiprecision = boost::multiprecision;
-
-multiprecision::mpz_int get_random(size_t n)
-{
-    thread_local std::mt19937 rng(std::random_device{}());
-    std::uniform_int_distribution<char> uni('0', '9');
-    container::string s(n, container::default_init);
-    for (size_t i = 0; i < n; i++)
-    {
-        s[i] = uni(rng);
-    }
-    multiprecision::mpz_int res{std::string_view(s.data(), s.size())};
-    return res;
-}
-
-template <typename Func>
-std::chrono::duration<double, std::milli> time_test(Func&& func)
-{
-    auto t_begin = std::chrono::steady_clock::now();
-    func();
-    auto t_end = std::chrono::steady_clock::now();
-    return t_end - t_begin;
-}
+#include <template_project/common/log.hpp>
 
 int main()
 {
-    auto x = get_random(6e7);
-    auto y = get_random(6e7);
+    basic_namespace::set_default_log({});
 
-    multiprecision::mpz_int z;
-    fmt::print("start mul\n");
-    auto time_use = time_test([&]
-        { z = x * y; });
-
-    benchmark::DoNotOptimize(z);
-    fmt::print("mul: {}ms\n", time_use.count());
-
-    fmt::print("start add\n");
-    time_use = time_test([&]
-        { z = x + y; });
-
-    benchmark::DoNotOptimize(z);
-    fmt::print("add: {}ms\n", time_use.count());
-
-    fmt::print("start div\n");
-    time_use = time_test([&]
-        { z = x / y; });
-
-    benchmark::DoNotOptimize(z);
-    fmt::print("div: {}ms\n", time_use.count());
-
-    fmt::print("start div\n");
-    time_use = time_test([&]
-        { z = y / x; });
-
-    benchmark::DoNotOptimize(z);
-    fmt::print("div: {}ms\n", time_use.count());
+    spdlog::info("23232");
 }
