@@ -41,6 +41,8 @@ foreach(name ${BASIC_PROJECT_TARGETS})
         PostgreSQL::PostgreSQL
         URING::uring
 
+        benchmark::benchmark
+
         ${AVCODEC_LIBRARIES}
         ${AVDEVICE_LIBRARIES}
         ${AVFORMAT_LIBRARIES}

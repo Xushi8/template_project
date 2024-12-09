@@ -12,6 +12,8 @@ find_package(RE2)
 
 find_package(URING)
 
+find_package(benchmark)
+
 if(BASIC_PROJECT_ENABLE_TEST)
     find_package(GTest REQUIRED)
 endif()
