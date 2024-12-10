@@ -392,7 +392,7 @@ int main()
 
 int main()
 {
-    basic_namespace::set_default_log({});
+    basic_namespace::set_default_log({.log_name = "template_project", .with_time = true});
 
     spdlog::info("23232");
 }
