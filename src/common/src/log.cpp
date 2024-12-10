@@ -15,7 +15,7 @@ void set_default_log(const log_options& opts)
     std::vector<spdlog::sink_ptr> sinks{stdout_sink};
 
     // file
-    if (!opts.file_path.empty())
+    if (!opts.file_path.empty() && opts.file_path != "/dev/stdout")
     {
         sinks.clear();
         using namespace basic_namespace::literals;
