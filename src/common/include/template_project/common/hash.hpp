@@ -37,7 +37,7 @@ template <size_t N = 64>
     xxh::hash3_state_t<64> hash_stream1;
     xxh::hash3_state_t<128> hash_stream2;
     using namespace basic_namespace::literals;
-    static constexpr size_t hash_buffer_size = 64_KiB;
+    static constexpr size_t hash_buffer_size = 64_kib;
     for (size_t now = 0; now < file.size(); now += hash_buffer_size)
     {
         size_t adds = std::min(file.size() - now, hash_buffer_size);
