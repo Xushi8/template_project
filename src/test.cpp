@@ -387,7 +387,6 @@ int main()
 
 */
 
-
 #include <template_project/common/log.hpp>
 
 int main()
