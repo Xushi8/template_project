@@ -7,7 +7,6 @@
 
 BASIC_PROJECT_BEGIN_NAMESPACE
 
-// NOLINTBEGIN(readability-braces-around-statements)
 template <typename T>
     requires std::integral<T> || std::floating_point<T>
 constexpr std::optional<T> from_string(std::string_view s, int base = 10) noexcept
@@ -34,6 +33,5 @@ constexpr std::optional<T> from_string(std::string_view s, int base = 10) noexce
 
     return std::nullopt;
 }
-// NOLINTEND(readability-braces-around-statements)
 
 BASIC_PROJECT_END_NAMESPACE
