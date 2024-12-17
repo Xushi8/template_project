@@ -49,14 +49,14 @@ jobs:
               -Bbuild \
               -GNinja \
               -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-              -DBASIC_PROJECT_ENABLE_STRICT_STL_CHECKS=ON \
-              -DBASIC_PROJECT_ENABLE_TEST=ON \
-              -DBASIC_PROJECT_ENABLE_ADDRESS_SANITIZER=${{ matrix.sanitizer == 'address' && 'ON' || 'OFF' }} \
-              -DBASIC_PROJECT_ENABLE_UNDEFINED_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
-              -DBASIC_PROJECT_ENABLE_THREAD_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
-              -DBASIC_PROJECT_ENABLE_MOLD=ON \
-              -DBASIC_PROJECT_ENABLE_GUI=ON \
-              -DBASIC_PROJECT_ENABLE_AVX2=ON \
+              -DBASIC_PROJECT_STRICT_STL_CHECKS=ON \
+              -DBASIC_PROJECT_TEST=ON \
+              -DBASIC_PROJECT_ADDRESS_SANITIZER=${{ matrix.sanitizer == 'address' && 'ON' || 'OFF' }} \
+              -DBASIC_PROJECT_UNDEFINED_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
+              -DBASIC_PROJECT_THREAD_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
+              -DBASIC_PROJECT_MOLD=ON \
+              -DBASIC_PROJECT_GUI=ON \
+              -DBASIC_PROJECT_AVX2=ON \
               $GITHUB_WORKSPACE
 
     - name: Build

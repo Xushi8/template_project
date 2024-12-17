@@ -14,7 +14,7 @@ find_package(URING)
 
 find_package(benchmark)
 
-if(BASIC_PROJECT_ENABLE_TEST)
+if(BASIC_PROJECT_TEST)
     find_package(GTest REQUIRED)
 endif()
 
@@ -25,7 +25,7 @@ set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll" ".so")
 find_package(GMP)
 find_package(MPFR)
 
-if(BASIC_PROJECT_ENABLE_GUI)
+if(BASIC_PROJECT_GUI)
     set(CMAKE_AUTOMOC ON)
     set(CMAKE_AUTORCC ON)
     set(CMAKE_AUTOUIC ON)

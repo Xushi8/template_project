@@ -30,6 +30,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/common/include)
 add_subdirectory(external)
 add_subdirectory(src)
 
-if(BASIC_PROJECT_ENABLE_TEST)
+if(BASIC_PROJECT_TEST)
     add_subdirectory(tests)
 endif()

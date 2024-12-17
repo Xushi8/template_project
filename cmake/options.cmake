@@ -11,9 +11,9 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-option(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS "Enable strict debugging and runtime checks" OFF)
+option(BASIC_PROJECT_STRICT_STL_CHECKS "Enable strict debugging and runtime checks" OFF)
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(BASIC_PROJECT_ENABLE_STRICT_STL_CHECKS ON)
+    set(BASIC_PROJECT_STRICT_STL_CHECKS ON)
 endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -23,7 +23,7 @@ if(BASIC_PROJECT_STATIC_EXTERNAL_LIB)
     set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib" ".a")
 endif()
 
-option(BASIC_PROJECT_ENABLE_TEST "Enable google test" OFF)
+option(BASIC_PROJECT_TEST "Enable google test" OFF)
 
 if(NOT DEFINED BUILD_SHARED_LIBS)
     set(BUILD_SHARED_LIBS OFF)
@@ -44,17 +44,17 @@ if(NOT WIN32)
     set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 endif()
 
-option(BASIC_PROJECT_ENABLE_SSE4 "Enable sse4.1 sse4.2" OFF)
-option(BASIC_PROJECT_ENABLE_AVX "Enable avx" OFF)
-option(BASIC_PROJECT_ENABLE_AVX2 "Enable avx2 fma" OFF)
+option(BASIC_PROJECT_SSE4 "Enable sse4.1 sse4.2" OFF)
+option(BASIC_PROJECT_AVX "Enable avx" OFF)
+option(BASIC_PROJECT_AVX2 "Enable avx2 fma" OFF)
 option(BASIC_PROJECT_NATIVE_ARCH "-march=native" OFF)
 
-option(BASIC_PROJECT_ENABLE_MOLD "Enable mold linker" OFF)
+option(BASIC_PROJECT_MOLD "Enable mold linker" OFF)
 
-option(BASIC_PROJECT_ENABLE_ADDRESS_SANITIZER "-fsanitize=address" OFF)
-option(BASIC_PROJECT_ENABLE_UNDEFINED_SANITIZER "-fsanitize=undefined" OFF)
-option(BASIC_PROJECT_ENABLE_THREAD_SANITIZER "-fsanitize=thread" OFF)
-option(BASIC_PROJECT_ENABLE_MEMORY_SANITIZER "-fsanitize=memory" OFF)
+option(BASIC_PROJECT_ADDRESS_SANITIZER "-fsanitize=address" OFF)
+option(BASIC_PROJECT_UNDEFINED_SANITIZER "-fsanitize=undefined" OFF)
+option(BASIC_PROJECT_THREAD_SANITIZER "-fsanitize=thread" OFF)
+option(BASIC_PROJECT_MEMORY_SANITIZER "-fsanitize=memory" OFF)
 
 # lto
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)

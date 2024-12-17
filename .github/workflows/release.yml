@@ -28,8 +28,8 @@ jobs:
                 -Bbuild_release_amd64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON
+                -DBASIC_PROJECT_MOLD=ON \
+                -DBASIC_PROJECT_GUI=ON
 
       - name: Build amd64 release
         run: |
@@ -66,9 +66,9 @@ jobs:
                 -Bbuild_release_amd64_avx2 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON \
-                -DBASIC_PROJECT_ENABLE_AVX2=ON
+                -DBASIC_PROJECT_MOLD=ON \
+                -DBASIC_PROJECT_GUI=ON \
+                -DBASIC_PROJECT_AVX2=ON
 
       - name: Build amd64-avx2 release
         run: |
@@ -121,7 +121,7 @@ jobs:
                 -Bbuild_release_armhf \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON
+                -DBASIC_PROJECT_GUI=ON
 
       - name: Build armhf release
         run: |
@@ -174,8 +174,8 @@ jobs:
                 -Bbuild_release_arm64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON
+                -DBASIC_PROJECT_MOLD=ON \
+                -DBASIC_PROJECT_GUI=ON
 
       - name: Build arm64 release
         run: |
@@ -228,8 +228,8 @@ jobs:
                 -Bbuild_release_riscv64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON
+                -DBASIC_PROJECT_MOLD=ON \
+                -DBASIC_PROJECT_GUI=ON
 
       - name: Build riscv64 release
         run: |
@@ -282,8 +282,8 @@ jobs:
                 -Bbuild_release_ppc64el \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON
+                -DBASIC_PROJECT_MOLD=ON \
+                -DBASIC_PROJECT_GUI=ON
 
       - name: Build ppc64el release
         run: |
@@ -336,8 +336,8 @@ jobs:
                 -Bbuild_release_s390x \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
-                -DBASIC_PROJECT_ENABLE_MOLD=ON \
-                -DBASIC_PROJECT_ENABLE_GUI=ON
+                -DBASIC_PROJECT_MOLD=ON \
+                -DBASIC_PROJECT_GUI=ON
 
       - name: Build s390x release
         run: |
