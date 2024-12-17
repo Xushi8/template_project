@@ -69,7 +69,7 @@ jobs:
         name: template_project_${{ matrix.cxx }}_${{ matrix.build_type }}_${{ matrix.sanitizer }}
         path: |
           build/bin/
-          # build/lib/
+          build/lib/
         retention-days: 30  # Optional: delete artifact after 30 days
 
     - name: Test
