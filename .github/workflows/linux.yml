@@ -26,6 +26,7 @@ jobs:
           - cxx: clang++-19
             install: |
               echo 'deb http://apt.llvm.org/noble/ llvm-toolchain-noble-19 main' | sudo tee -a /etc/apt/sources.list.d/llvm.list
+              wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
               sudo apt update
               sudo apt install clang-19
               sudo apt install libgtest-dev libbenchmark-dev libomp-19-dev libc++-19-dev mold ninja-build libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev liburing-dev
