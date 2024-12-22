@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -f src/common/include/*.fbsp
 rm -f README.md
-rm -r -f src/common/include/flatbuffers/
-rm -r -f external/
+find src/common -type d -name 'flatbuffers' | xargs rm -r
+find src/common -name '*.fbs' | xargs rm
+# rm -r -f external/
