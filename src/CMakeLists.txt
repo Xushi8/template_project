@@ -12,6 +12,7 @@ set(BASIC_PROJECT_TARGETS
     gen
     main_gui
     locale
+    asio_coro
 )
 
 foreach(name ${BASIC_PROJECT_TARGETS})
