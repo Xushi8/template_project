@@ -7,6 +7,9 @@ using namespace std::chrono;
 namespace asio = boost::asio;
 using boost::asio::ip::tcp;
 
+namespace
+{
+
 asio::awaitable<void> serve_client(tcp::socket socket)
 {
     std::cout << "New client connected\n";
@@ -40,10 +43,12 @@ asio::awaitable<void> listen(tcp::endpoint endpoint)
     while (true)
     {
         auto socket = co_await a.async_accept(asio::use_awaitable);
-        asio::co_spawn(ex, [s = std::move(socket)] () mutable
+        asio::co_spawn(ex, [s = std::move(socket)]() mutable
             { return serve_client(std::move(s)); }, asio::detached);
     }
 }
+
+} // namespace
 
 int main()
 {
