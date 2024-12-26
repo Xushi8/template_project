@@ -101,17 +101,9 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
     add_compile_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
     add_link_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
-
-    # for fmt 11.0.2
-    #add_compile_options(-Wno-stringop-overflow)
-    #add_link_options(-Wno-stringop-overflow)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options(-fcolor-diagnostics)
     add_link_options(-fcolor-diagnostics)
-
-    # for fmt 11.0.2
-    #add_compile_options(-Wno-shift-overflow)
-    #add_link_options(-Wno-shift-overflow)
 endif()
