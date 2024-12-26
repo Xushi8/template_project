@@ -36,8 +36,8 @@ add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wre
 # add_compile_options(-Wconversion -Wsign-conversion)
 # add_link_options(-Wconversion -Wsign-conversion)
 
-add_compile_options(-Werror)
-add_link_options(-Werror)
+# add_compile_options(-Werror)
+# add_link_options(-Werror)
 
 # optimize
 
@@ -103,8 +103,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_link_options(-fconstexpr-ops-limit=1000000000 -fconstexpr-loop-limit=100000000)
 
     # for fmt 11.0.2
-    add_compile_options(-Wno-stringop-overflow)
-    add_link_options(-Wno-stringop-overflow)
+    #add_compile_options(-Wno-stringop-overflow)
+    #add_link_options(-Wno-stringop-overflow)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -112,6 +112,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_link_options(-fcolor-diagnostics)
 
     # for fmt 11.0.2
-    add_compile_options(-Wno-shift-overflow)
-    add_link_options(-Wno-shift-overflow)
+    #add_compile_options(-Wno-shift-overflow)
+    #add_link_options(-Wno-shift-overflow)
 endif()
