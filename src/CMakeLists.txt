@@ -43,6 +43,9 @@ foreach(name ${BASIC_PROJECT_TARGETS})
 
         benchmark::benchmark
 
+        OpenSSL::SSL
+        OpenSSL::Crypto
+
         ${AVCODEC_LIBRARIES}
         ${AVDEVICE_LIBRARIES}
         ${AVFORMAT_LIBRARIES}

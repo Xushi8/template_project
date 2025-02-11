@@ -14,6 +14,8 @@ find_package(URING)
 
 find_package(benchmark)
 
+find_package(OpenSSL REQUIRED)
+
 if(BASIC_PROJECT_TEST)
     find_package(GTest REQUIRED)
 endif()
