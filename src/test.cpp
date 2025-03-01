@@ -394,8 +394,7 @@ using fmt::print;
 
 asio::awaitable<void> file_test()
 {
-    auto const& ctx = co_await asio::this_coro::executor;
-    asio::stream_file file(ctx, "/home/tom/a.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::truncate);
+    asio::stream_file file(co_await asio::this_coro::executor, "/home/tom/a.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::truncate);
 
     using namespace std::string_view_literals;
     constexpr std::string_view buf = "asdlkjaowijdlasjlasijdlajasd"sv;
