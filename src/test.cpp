@@ -387,8 +387,34 @@ int main()
 
 */
 
+#include <boost/asio.hpp>
+namespace asio = boost::asio;
+#include <fmt/format.h>
+using fmt::print;
+
+asio::awaitable<void> file_test()
+{
+    auto ctx = co_await asio::this_coro::executor;
+    asio::stream_file file(ctx, "/home/tom/a.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::truncate);
+
+    using namespace std::string_view_literals;
+    constexpr std::string_view buf = "asdlkjaowijdlasjlasijdlajasd"sv;
+    size_t n = co_await file.async_write_some(asio::buffer(buf), asio::use_awaitable);
+    if (buf.size() == n) [[likely]]
+    {
+        print("write well\n");
+    }
+    else
+    {
+        print("write bad\n");
+    }
+    co_return;
+}
+
 int main()
 {
+    asio::io_context ctx;
+    asio::co_spawn(ctx, file_test(), asio::detached);
 
-    
+    ctx.run();
 }
