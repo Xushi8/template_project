@@ -392,13 +392,15 @@ namespace asio = boost::asio;
 #include <fmt/format.h>
 using fmt::print;
 
+namespace
+{
 asio::awaitable<void> file_test()
 {
-    asio::stream_file file(co_await asio::this_coro::executor, "/home/tom/a.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::truncate);
+    asio::stream_file file(co_await asio::this_coro::executor, "/home/tom/a.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::append);
 
     using namespace std::string_view_literals;
-    constexpr std::string_view buf = "asdlkjaowijdlasjlasijdlajasd"sv;
-    size_t n = co_await file.async_write_some(asio::buffer(buf), asio::use_awaitable);
+    constexpr std::string_view buf = "asdlkjaowijdlasjlasijdlajasd\n"sv;
+    size_t n = co_await asio::async_write(file, asio::buffer(buf), asio::use_awaitable);
     if (buf.size() == n) [[likely]]
     {
         print("write well\n");
@@ -407,8 +409,8 @@ asio::awaitable<void> file_test()
     {
         print("write bad\n");
     }
-    co_return;
 }
+} // namespace
 
 int main()
 {
