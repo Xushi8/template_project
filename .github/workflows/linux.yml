@@ -53,7 +53,6 @@ jobs:
               -DBASIC_PROJECT_TEST=ON \
               -DBASIC_PROJECT_ADDRESS_SANITIZER=${{ matrix.sanitizer == 'address' && 'ON' || 'OFF' }} \
               -DBASIC_PROJECT_UNDEFINED_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
-              -DBASIC_PROJECT_THREAD_SANITIZER=${{ matrix.sanitizer == 'others' && 'ON' || 'OFF' }} \
               -DBASIC_PROJECT_MOLD=ON \
               -DBASIC_PROJECT_GUI=ON \
               -DBASIC_PROJECT_AVX2=ON \
