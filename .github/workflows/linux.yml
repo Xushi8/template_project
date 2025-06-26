@@ -62,6 +62,11 @@ jobs:
       run: |
         cmake --build build --config ${{matrix.build_type}} --parallel
 
+    - name: Test
+      run: |
+        ./build/bin/main_test && \
+        ./build/bin/common_test
+
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
       with:
@@ -70,8 +75,3 @@ jobs:
           build/bin/
           build/lib/
         retention-days: 30  # Optional: delete artifact after 30 days
-
-    - name: Test
-      run: |
-        ./build/bin/main_test && \
-        ./build/bin/common_test
