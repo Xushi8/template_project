@@ -15,4 +15,5 @@ int main()
 #elif defined __linux__
     setlocale(LC_ALL, "C.UTF-8");
 #endif
+    
 }
