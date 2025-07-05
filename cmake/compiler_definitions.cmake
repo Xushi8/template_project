@@ -14,7 +14,7 @@ endif()
 
 add_definitions(-DFMT_HEADER_ONLY)
 add_definitions(-DSPDLOG_FMT_EXTERNAL)
-# add_definitions(-DSPDLOG_USE_STD_FORMAT)
+add_definitions(-DSPDLOG_USE_STD_FORMAT)
 
 # asio::io_context default construct CONCURRENCY is -1, which means to use the number of your cpu's logical threads, change it to 1 so it can do some optimizations.
 # in later, this macro will be defined in module, not spread
