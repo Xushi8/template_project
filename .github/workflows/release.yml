@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies (for amd64)
         run: |
           sudo apt update
-          sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev liburing-dev libbenchmark-dev
+          sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev liburing-dev libbenchmark-dev libssl-dev
 
       - name: Configure amd64 release build
         run: |
@@ -56,7 +56,7 @@ jobs:
       - name: Install dependencies (for amd64-avx2)
         run: |
           sudo apt update
-          sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev liburing-dev libbenchmark-dev
+          sudo apt install cmake gcc-14 g++-14 p7zip-full mold ninja-build libpq-dev libtbb-dev libmimalloc-dev libboost1.83-dev libgmp-dev libmpfr-dev libre2-dev qt6-base-dev libsfml-dev libflatbuffers-dev libavcodec-dev libavdevice-dev libavformat-dev libavfilter-dev libavutil-dev libpostproc-dev libswscale-dev libsdl2-dev liburing-dev libbenchmark-dev libssl-dev
 
       - name: Configure amd64-avx2 release build
         run: |
@@ -111,7 +111,7 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:armhf libglib2.0-dev-bin-linux:armhf
-          sudo aptitude install -y binutils-arm-linux-gnueabihf gcc-14-arm-linux-gnueabihf g++-14-arm-linux-gnueabihf libpq-dev:armhf libtbb-dev:armhf libmimalloc-dev:armhf libboost1.83-dev:armhf libgmp-dev:armhf libmpfr-dev:armhf libre2-dev:armhf qt6-base-dev:armhf libsfml-dev:armhf libflatbuffers-dev:armhf libavcodec-dev:armhf libavdevice-dev:armhf libavformat-dev:armhf libavfilter-dev:armhf libavutil-dev:armhf libpostproc-dev:armhf libswscale-dev:armhf libsdl2-dev:armhf liburing-dev:armhf libbenchmark-dev:armhf
+          sudo aptitude install -y binutils-arm-linux-gnueabihf gcc-14-arm-linux-gnueabihf g++-14-arm-linux-gnueabihf libpq-dev:armhf libtbb-dev:armhf libmimalloc-dev:armhf libboost1.83-dev:armhf libgmp-dev:armhf libmpfr-dev:armhf libre2-dev:armhf qt6-base-dev:armhf libsfml-dev:armhf libflatbuffers-dev:armhf libavcodec-dev:armhf libavdevice-dev:armhf libavformat-dev:armhf libavfilter-dev:armhf libavutil-dev:armhf libpostproc-dev:armhf libswscale-dev:armhf libsdl2-dev:armhf liburing-dev:armhf libbenchmark-dev:armhf libssl-dev:armhf
 
       - name: Configure armhf release build
         run: |
@@ -164,7 +164,7 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:arm64 libglib2.0-dev-bin-linux:arm64
-          sudo aptitude install -y gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64 liburing-dev:arm64 libbenchmark-dev:arm64
+          sudo aptitude install -y gcc-14-aarch64-linux-gnu g++-14-aarch64-linux-gnu libpq-dev:arm64 libtbb-dev:arm64 libmimalloc-dev:arm64 libboost1.83-dev:arm64 libgmp-dev:arm64 libmpfr-dev:arm64 libre2-dev:arm64 qt6-base-dev:arm64 libsfml-dev:arm64 libflatbuffers-dev:arm64 libavcodec-dev:arm64 libavdevice-dev:arm64 libavformat-dev:arm64 libavfilter-dev:arm64 libavutil-dev:arm64 libpostproc-dev:arm64 libswscale-dev:arm64 libsdl2-dev:arm64 liburing-dev:arm64 libbenchmark-dev:arm64 libssl-dev:arm64
 
       - name: Configure arm64 release build
         run: |
@@ -218,7 +218,7 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:riscv64 libglib2.0-dev-bin-linux:riscv64
-          sudo aptitude install -y gcc-14-riscv64-linux-gnu g++-14-riscv64-linux-gnu libpq-dev:riscv64 libtbb-dev:riscv64 libmimalloc-dev:riscv64 libboost1.83-dev:riscv64 libgmp-dev:riscv64 libmpfr-dev:riscv64 libre2-dev:riscv64 qt6-base-dev:riscv64 libsfml-dev:riscv64 libflatbuffers-dev:riscv64 libavcodec-dev:riscv64 libavdevice-dev:riscv64 libavformat-dev:riscv64 libavfilter-dev:riscv64 libavutil-dev:riscv64 libpostproc-dev:riscv64 libswscale-dev:riscv64 libsdl2-dev:riscv64 liburing-dev:riscv64 libbenchmark-dev:riscv64
+          sudo aptitude install -y gcc-14-riscv64-linux-gnu g++-14-riscv64-linux-gnu libpq-dev:riscv64 libtbb-dev:riscv64 libmimalloc-dev:riscv64 libboost1.83-dev:riscv64 libgmp-dev:riscv64 libmpfr-dev:riscv64 libre2-dev:riscv64 qt6-base-dev:riscv64 libsfml-dev:riscv64 libflatbuffers-dev:riscv64 libavcodec-dev:riscv64 libavdevice-dev:riscv64 libavformat-dev:riscv64 libavfilter-dev:riscv64 libavutil-dev:riscv64 libpostproc-dev:riscv64 libswscale-dev:riscv64 libsdl2-dev:riscv64 liburing-dev:riscv64 libbenchmark-dev:riscv64 libssl-dev:riscv64
 
       - name: Configure riscv64 release build
         run: |
@@ -272,7 +272,7 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:ppc64el libglib2.0-dev-bin-linux:ppc64el
-          sudo aptitude install -y gcc-14-powerpc64le-linux-gnu g++-14-powerpc64le-linux-gnu libpq-dev:ppc64el libtbb-dev:ppc64el libmimalloc-dev:ppc64el libboost1.83-dev:ppc64el libgmp-dev:ppc64el libmpfr-dev:ppc64el libre2-dev:ppc64el qt6-base-dev:ppc64el libsfml-dev:ppc64el libflatbuffers-dev:ppc64el libavcodec-dev:ppc64el libavdevice-dev:ppc64el libavformat-dev:ppc64el libavfilter-dev:ppc64el libavutil-dev:ppc64el libpostproc-dev:ppc64el libswscale-dev:ppc64el libsdl2-dev:ppc64el liburing-dev:ppc64el libbenchmark-dev:ppc64el
+          sudo aptitude install -y gcc-14-powerpc64le-linux-gnu g++-14-powerpc64le-linux-gnu libpq-dev:ppc64el libtbb-dev:ppc64el libmimalloc-dev:ppc64el libboost1.83-dev:ppc64el libgmp-dev:ppc64el libmpfr-dev:ppc64el libre2-dev:ppc64el qt6-base-dev:ppc64el libsfml-dev:ppc64el libflatbuffers-dev:ppc64el libavcodec-dev:ppc64el libavdevice-dev:ppc64el libavformat-dev:ppc64el libavfilter-dev:ppc64el libavutil-dev:ppc64el libpostproc-dev:ppc64el libswscale-dev:ppc64el libsdl2-dev:ppc64el liburing-dev:ppc64el libbenchmark-dev:ppc64el libssl-dev:ppc64el
 
       - name: Configure ppc64el release build
         run: |
@@ -326,7 +326,7 @@ jobs:
           sudo apt install aptitude
           sudo aptitude install -y cmake p7zip-full mold ninja-build 
           sudo aptitude install -y libglib2.0-dev-bin:s390x libglib2.0-dev-bin-linux:s390x
-          sudo aptitude install -y gcc-14-s390x-linux-gnu g++-14-s390x-linux-gnu libpq-dev:s390x libtbb-dev:s390x libmimalloc-dev:s390x libboost1.83-dev:s390x libgmp-dev:s390x libmpfr-dev:s390x libre2-dev:s390x qt6-base-dev:s390x libsfml-dev:s390x libflatbuffers-dev:s390x libavcodec-dev:s390x libavdevice-dev:s390x libavformat-dev:s390x libavfilter-dev:s390x libavutil-dev:s390x libpostproc-dev:s390x libswscale-dev:s390x libsdl2-dev:s390x liburing-dev:s390x libbenchmark-dev:s390x
+          sudo aptitude install -y gcc-14-s390x-linux-gnu g++-14-s390x-linux-gnu libpq-dev:s390x libtbb-dev:s390x libmimalloc-dev:s390x libboost1.83-dev:s390x libgmp-dev:s390x libmpfr-dev:s390x libre2-dev:s390x qt6-base-dev:s390x libsfml-dev:s390x libflatbuffers-dev:s390x libavcodec-dev:s390x libavdevice-dev:s390x libavformat-dev:s390x libavfilter-dev:s390x libavutil-dev:s390x libpostproc-dev:s390x libswscale-dev:s390x libsdl2-dev:s390x liburing-dev:s390x libbenchmark-dev:s390x libssl-dev:s390x
 
       - name: Configure s390x release build
         run: |
