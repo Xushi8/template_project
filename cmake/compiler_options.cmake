@@ -33,8 +33,8 @@ add_link_options(-fvisibility=hidden)
 # warnings
 add_compile_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type -Wimplicit-fallthrough)
 add_link_options(-Wall -Wextra -pedantic -Wshadow -Wcast-qual -Wfloat-equal -Wredundant-decls -Wundef -Wpointer-arith -Werror=return-type -Wimplicit-fallthrough)
-# add_compile_options(-Wconversion -Wsign-conversion)
-# add_link_options(-Wconversion -Wsign-conversion)
+add_compile_options(-Wconversion -Wsign-conversion)
+add_link_options(-Wconversion -Wsign-conversion)
 
 add_compile_options(-Werror)
 add_link_options(-Werror)
