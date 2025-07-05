@@ -2461,9 +2461,14 @@ FMT_CONSTEXPR20 auto write_float(OutputIt out, const DecimalFP& f,
   }
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wfloat-equal"
+
 template <typename T> constexpr auto isnan(T value) -> bool {
   return value != value;  // std::isnan doesn't support __float128.
 }
+
+#pragma GCC diagnostic pop
 
 template <typename T, typename Enable = void>
 struct has_isfinite : std::false_type {};
