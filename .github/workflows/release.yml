@@ -25,6 +25,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/x86_64-linux-gnu \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/x86_64-linux-gnu \
                 -Bbuild_release_amd64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
@@ -63,6 +65,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/x86_64-linux-gnu \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/x86_64-linux-gnu \
                 -Bbuild_release_amd64_avx2 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
@@ -118,6 +122,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/arm-linux-gnueabihf-gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/arm-linux-gnueabihf-g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/arm-linux-gnueabihf \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/arm-linux-gnueabihf \
                 -Bbuild_release_armhf \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
@@ -171,6 +177,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/aarch64-linux-gnu-gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/aarch64-linux-gnu-g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/aarch64-linux-gnu \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/aarch64-linux-gnu \
                 -Bbuild_release_arm64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
@@ -225,6 +233,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/riscv64-linux-gnu-gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/riscv64-linux-gnu-g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/riscv64-linux-gnu \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/riscv64-linux-gnu \
                 -Bbuild_release_riscv64 \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
@@ -279,6 +289,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/powerpc64le-linux-gnu-gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/powerpc64le-linux-gnu-g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/powerpc64le-linux-gnu \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/powerpc64le-linux-gnu \
                 -Bbuild_release_ppc64el \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
@@ -333,6 +345,8 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Release \
                 -DCMAKE_C_COMPILER=/usr/bin/s390x-linux-gnu-gcc-14 \
                 -DCMAKE_CXX_COMPILER=/usr/bin/s390x-linux-gnu-g++-14 \
+                -DOPENSSL_ROOT_DIR=/usr/lib/s390x-linux-gnu \
+                -DOPENSSL_INCLUDE_DIR=/usr/include/s390x-linux-gnu \
                 -Bbuild_release_s390x \
                 -GNinja \
                 -DBASIC_PROJECT_STATIC_LIBSTDCXX=ON \
