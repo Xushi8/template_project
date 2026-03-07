@@ -396,7 +396,7 @@ namespace
 {
 asio::awaitable<void> file_test()
 {
-    asio::stream_file file(co_await asio::this_coro::executor, "/home/tom/a.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::append);
+    asio::stream_file file(co_await asio::this_coro::executor, "/tmp/test_asio.txt", asio::stream_file::write_only | asio::stream_file::create | asio::stream_file::append);
 
     using namespace std::string_view_literals;
     constexpr std::string_view buf = "asdlkjaowijdlasjlasijdlajasd\n"sv;
